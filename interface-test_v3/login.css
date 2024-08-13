@@ -30,9 +30,8 @@ html {
 .box h1 {
     font-family: 'Source Sans Pro', sans-serif;
     color: #020202;
-    font-size: 18px;
+    font-size: 25px;
     margin-top: 94px;
-    ;
 }
 
 .box h4 span {
@@ -65,7 +64,6 @@ html {
     -ms-transition: all .2s ease-out;
     -o-transition: all .2s ease-out;
     transition: all .2s ease-out;
-
 }
 
 ::-webkit-input-placeholder {
@@ -75,7 +73,6 @@ html {
 .box input[type="text"]:focus,
 .box input[type="password"]:focus {
     border: 1px solid #79A6FE;
-
 }
 
 a {
@@ -89,10 +86,8 @@ a:hover {
 
 label input[type="checkbox"] {
     display: none;
-    /* hide the default checkbox */
 }
 
-/* style the artificial checkbox */
 label span {
     height: 13px;
     width: 13px;
@@ -111,6 +106,9 @@ label span {
     text-align: right;
     color: #666;
     text-decoration: none;
+    position: relative;
+    float: right;
+    right: 28px;
 }
 
 .btn1,
@@ -137,12 +135,6 @@ label span {
     font-size: 13px;
 }
 
-.forgetpass {
-    position: relative;
-    float: right;
-    right: 28px;
-}
-
 .dnthave {
     position: absolute;
     top: 92%;
@@ -150,7 +142,6 @@ label span {
 }
 
 [type=checkbox]:checked+span:before {
-    /* <-- style its checked state */
     font-family: FontAwesome;
     font-size: 16px;
     content: "\f00c";
