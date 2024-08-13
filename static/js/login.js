@@ -1,43 +1,32 @@
-var pwd = document.getElementById('pwd');
-
-eye.addEventListener('click', togglePass);
-
 function togglePass() {
-
+    // Toggle the 'active' class on the eye icon
     eye.classList.toggle('active');
 
-    (pwd.type == 'password') ? pwd.type = 'text' : pwd.type = 'password';
+    // Toggle the type of the password field between 'password' and 'text'
+    pwd.type = (pwd.type === 'password') ? 'text' : 'password';
 }
 
 // Form Validation
-
 function checkStuff() {
-    var email = document.form1.email;
-    var password = document.form1.password;
+    var email = document.form1.아이디; // Ensure HTML input field name is '아이디'
+    var password = document.form1.비밀번호; // Ensure HTML input field name is '비밀번호'
     var msg = document.getElementById('msg');
 
-    if (email.value == "") {
+    if (email.value === "") {
         msg.style.display = 'block';
-        msg.innerHTML = "Please enter your email";
+        msg.innerHTML = "아이디를 입력해 주세요";
         email.focus();
         return false;
     } else {
         msg.innerHTML = "";
     }
 
-    if (password.value == "") {
-        msg.innerHTML = "Please enter your password";
+    if (password.value === "") {
+        msg.innerHTML = "비밀번호를 입력해 주세요";
         password.focus();
         return false;
     } else {
         msg.innerHTML = "";
     }
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(email.value)) {
-        msg.innerHTML = "Please enter a valid email";
-        email.focus();
-        return false;
-    } else {
-        msg.innerHTML = "";
-    }
+
 }

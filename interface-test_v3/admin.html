@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자페이지</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <ul>
+                <li class="user-info">
+                    <span id="userName" class="user-name">홍길동님</span>
+                    <button id="notificationButton" class="notification-button">
+                        알림<span id="notificationCount" class="notification-count">3</span>
+                    </button>
+                </li>
+                <li><a href="index.html">마이페이지</a></li>
+                <li><a href="index.html">CCTV</a></li>
+                <li><a href="admin.html">관리자페이지</a></li>
+                <li><a href="#">근골격계 위험 감지</a></li>
+                <li><a href="#">근로자관리</a></li>
+                <li><a href="#">작업장관리</a></li>
+                <li><a href="Employee.html">직원관리</a></li>
+            </ul>
+            <button id="logoutButton">로그아웃</button>
+        </nav>
+        <main class="main-content">
+            <header class="main-header">
+                <h1 class="system-title">관리자 페이지</h1>
+            </header>
+            <section class="content">
+                <div class="action-bar">
+                    <button id="searchEmployeeButton" class="btn small-btn" onclick="searchEmployee()">직원 검색</button>
+                </div>
+                <table id="employeeTable" class="white-background">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>이름</th>
+                            <th>지역</th>
+                            <th>부서</th>
+                            <th>직급</th>
+                            <th>전화번호</th>
+                            <th>이메일</th>
+                            <th class="kt">카카오톡 전송</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 직원 리스트 출력 -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <div id="employeeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">직원 검색</h2>
+            <form id="employeeForm">
+                <label for="name">이름:</label>
+                <input type="text" id="name" name="name" required><br>
+                <button type="submit" class="btn small-btn">검색</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
