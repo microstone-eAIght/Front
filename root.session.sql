@@ -1,0 +1,13 @@
+{
+  "mysqlOptions": {
+    "authProtocol": "default",
+    "enableSsl": "Disabled"
+  },
+  "previewLimit": 50,
+  "server": "localhost",
+  "port": 3306,
+  "driver": "MySQL",
+  "name": "root",
+  "username": "root",
+  "database": "mydatabase"
+}
