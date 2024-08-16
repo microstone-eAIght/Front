@@ -1,43 +1,48 @@
-var pwd = document.getElementById('pwd');
-
-eye.addEventListener('click', togglePass);
-
-function togglePass() {
-
-    eye.classList.toggle('active');
-
-    (pwd.type == 'password') ? pwd.type = 'text' : pwd.type = 'password';
-}
-
-// Form Validation
-
-function checkStuff() {
-    var email = document.form1.email;
-    var password = document.form1.password;
-    var msg = document.getElementById('msg');
-
-    if (email.value == "") {
-        msg.style.display = 'block';
-        msg.innerHTML = "Please enter your email";
-        email.focus();
-        return false;
+// Function to toggle the visibility of the error message
+function toggleError(inputElement, message) {
+    const errorSpan = inputElement.nextElementSibling; // Get the next sibling (the error message span)
+    if (inputElement.value.trim() === "") { // Check if input is empty
+        errorSpan.textContent = message; // Set error message
+        errorSpan.style.display = 'block'; // Show error message
     } else {
-        msg.innerHTML = "";
+        errorSpan.textContent = ""; // Clear error message
+        errorSpan.style.display = 'none'; // Hide error message
     }
-
-    if (password.value == "") {
-        msg.innerHTML = "Please enter your password";
-        password.focus();
-        return false;
+  }
+  
+  // Function to handle form validation
+  function checkStuff() {
+    const id = document.querySelector('input[name="아이디"]');
+    const password = document.querySelector('input[name="비밀번호"]');
+    
+    let isValid = true;
+    
+    // Validate id
+    if (id.value.trim() === "") {
+        toggleError(id, "아이디를 입력하세요.");
+        isValid = false;
     } else {
-        msg.innerHTML = "";
+        toggleError(id, "");
     }
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(email.value)) {
-        msg.innerHTML = "Please enter a valid email";
-        email.focus();
-        return false;
+    
+    // Validate password
+    if (password.value.trim() === "") {
+        toggleError(password, "비밀번호를 입력하세요.");
+        isValid = false;
     } else {
-        msg.innerHTML = "";
+        toggleError(password, "");
     }
-}
+  
+    // Return false if any field is invalid
+    return isValid;
+  }
+  
+  // Add event listeners to hide error messages when inputs are focused
+  document.querySelector('input[name="아이디"]').addEventListener('focus', function() {
+    this.nextElementSibling.style.display = 'none';
+  });
+  
+  document.querySelector('input[name="비밀번호"]').addEventListener('focus', function() {
+    this.nextElementSibling.style.display = 'none';
+  });
+  
