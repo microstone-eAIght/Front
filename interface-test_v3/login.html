@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}" />
 </head>
-
 <body id="particles-js">
     <div class="animated bounceInDown">
         <div class="container">
-            <span class="error animated tada" id="msg"></span>
             <form name="form1" class="box" onsubmit="return checkStuff()">
                 <h1>로그인</h1>
                 <input type="text" name="아이디" placeholder="아이디">
+                <span class="error" id="idError"></span> <!-- Error message for 아이디 -->
                 <input type="password" name="비밀번호" placeholder="비밀번호">
-                <input type="button" value="로그인" class="btn1" onclick="window.location.href='index.html'">
-                <input type="button" value="회원가입" class="btn2" onclick="window.location.href='signup.html'">
-
+                <span class="error" id="passwordError"></span> <!-- Error message for 비밀번호 -->
+                <input type="button" value="로그인" class="btn1" onclick="checkStuff()">
+                <input type="button" value="회원가입" class="btn2" onclick="window.location.href='/signup'">
             </form>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='login.js') }}"></script>
 </body>
-
 </html>
