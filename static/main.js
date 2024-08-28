@@ -1,96 +1,101 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const cctvVideo1 = document.getElementById('cctvVideo1');
-    const cctvVideo2 = document.getElementById('cctvVideo2');
-    const cctvVideo3 = document.getElementById('cctvVideo3');
-    const cctvVideo4 = document.getElementById('cctvVideo4');
-    const logoutButton = document.getElementById('logoutButton');
+  const cctvVideo1 = document.getElementById('cctvVideo1');
+  const cctvVideo2 = document.getElementById('cctvVideo2');
+  const cctvVideo3 = document.getElementById('cctvVideo3');
+  const cctvVideo4 = document.getElementById('cctvVideo4');
+  const logoutButton = document.getElementById('logoutButton');
 
-    // 사용자 정보를 저장하는 예제 객체 (실제로는 서버에서 받아와야 함)
-    const user = {
-        name: '홍길동님',
-        notifications: 3
-    };
+  // 사용자 정보를 저장하는 예제 객체 (실제로는 서버에서 받아와야 함)
+  const user = {
+    name: '홍길동님',
+    notifications: 3,
+  };
 
-    // 사용자 이름과 알림 수를 업데이트하는 함수
-    function updateUserInfo() {
-        const userNameElement = document.getElementById('userName');
-        const notificationCountElement = document.getElementById('notificationCount');
+  // 사용자 이름과 알림 수를 업데이트하는 함수
+  function updateUserInfo() {
+    const userNameElement = document.getElementById('userName');
+    const notificationCountElement =
+      document.getElementById('notificationCount');
 
-        userNameElement.textContent = user.name;
-        notificationCountElement.textContent = user.notifications;
-    }
+    userNameElement.textContent = user.name;
+    notificationCountElement.textContent = user.notifications;
+  }
 
-    // 페이지가 로드되면 사용자 정보를 업데이트
-    updateUserInfo();
+  // 페이지가 로드되면 사용자 정보를 업데이트
+  updateUserInfo();
 
-    // CCTV 영상 소스 설정 (실제 소스를 여기에 설정하세요)
-    cctvVideo1.src = 'path_to_cctv_stream1';
-    cctvVideo2.src = 'path_to_cctv_stream2';
-    cctvVideo3.src = 'path_to_cctv_stream3';
-    cctvVideo4.src = 'path_to_cctv_stream4';
+  // CCTV 영상 소스 설정 (실제 소스를 여기에 설정하세요)
+  cctvVideo1.src = 'path_to_cctv_stream1';
+  cctvVideo2.src = 'path_to_cctv_stream2';
+  cctvVideo3.src = 'path_to_cctv_stream3';
+  cctvVideo4.src = 'path_to_cctv_stream4';
 
+  // 로그아웃 버튼 클릭 이벤트
+  logoutButton.addEventListener('click', () => {
+    alert('로그아웃 되었습니다.');
+    // 실제 로그아웃 로직을 여기에 추가하세요
+  });
 
-    // 로그아웃 버튼 클릭 이벤트
-    logoutButton.addEventListener('click', () => {
-        alert('로그아웃 되었습니다.');
-        // 실제 로그아웃 로직을 여기에 추가하세요
+  // 초기화
+  displayIssues();
+
+  // 더블클릭 및 마우스 오버 기능 추가
+  const cctvs = document.querySelectorAll('.cctv');
+
+  cctvs.forEach((cctv) => {
+    // 더블클릭 이벤트 핸들러
+    cctv.addEventListener('dblclick', () => {
+      const isFullScreen = cctv.classList.contains('full-screen');
+      cctvs.forEach((c) => c.classList.remove('full-screen'));
+      if (!isFullScreen) {
+        cctv.classList.add('full-screen');
+      }
     });
 
-    // 초기화
-    displayIssues();
-
-    // 더블클릭 및 마우스 오버 기능 추가
-    const cctvs = document.querySelectorAll('.cctv');
-
-    cctvs.forEach(cctv => {
-        // 더블클릭 이벤트 핸들러
-        cctv.addEventListener('dblclick', () => {
-            const isFullScreen = cctv.classList.contains('full-screen');
-            cctvs.forEach(c => c.classList.remove('full-screen'));
-            if (!isFullScreen) {
-                cctv.classList.add('full-screen');
-            }
-        });
-
-        // 마우스를 올렸을 때 스타일 변경
-        cctv.addEventListener('mouseover', () => {
-            cctv.style.border = '2px solid yellow';
-            cctv.style.cursor = 'pointer';
-        });
-
-        // 마우스가 떠났을 때 스타일 원래대로
-        cctv.addEventListener('mouseout', () => {
-            cctv.style.border = '';
-            cctv.style.cursor = '';
-        });
+    // 마우스를 올렸을 때 스타일 변경
+    cctv.addEventListener('mouseover', () => {
+      cctv.style.border = '2px solid yellow';
+      cctv.style.cursor = 'pointer';
     });
+
+    // 마우스가 떠났을 때 스타일 원래대로
+    cctv.addEventListener('mouseout', () => {
+      cctv.style.border = '';
+      cctv.style.cursor = '';
+    });
+  });
 });
 
 function openWorkshopWindow(workshopNumber, workshopName, cctvStream) {
-    // 현재 창의 크기를 가져옴
-    let width = window.innerWidth;
-    let height = window.innerHeight;
+  // 현재 창의 크기를 가져옴
+  let width = window.innerWidth;
+  let height = window.innerHeight;
 
-    // 새로운 창의 크기를 현재 창보다 100px 작게 설정
-    let newWidth = width - 100;
-    let newHeight = height - 100;
+  // 새로운 창의 크기를 현재 창보다 100px 작게 설정
+  let newWidth = width - 100;
+  let newHeight = height - 100;
 
-    // 창 옵션 설정
-    let windowFeatures = `width=${newWidth},height=${newHeight},top=50,left=50`;
+  // 창 옵션 설정
+  let windowFeatures = `width=${newWidth},height=${newHeight},top=50,left=50`;
 
-    // 새 창 열기
-    let newWindow = window.open('', `작업장${workshopNumber}`, windowFeatures);
+  // 새 창 열기
+  let newWindow = window.open('', `작업장${workshopNumber}`, windowFeatures);
 
-    // 새 창에 내용 삽입
-    newWindow.document.open();
-    newWindow.document.write(`
+  // 새 창에 내용 삽입
+  newWindow.document.open();
+  newWindow.document.write(`
         <!DOCTYPE html>
         <html lang="ko">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>작업장${workshopName}</title>
+<<<<<<< HEAD
+            <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+=======
             <link rel="stylesheet" href="/static/style.css">
+>>>>>>> develop
         </head>
         <body class="new-window-body">
             <header class="new-window-header">
@@ -178,8 +183,12 @@ function openWorkshopWindow(workshopNumber, workshopName, cctvStream) {
                 </aside>
             </main>
         </body>
+<<<<<<< HEAD
+        <script src="{{ url_for('static', filename='cctvZoom.js') }}"></script>
+=======
         <script src="/static/cctvZoom.js"></script>
+>>>>>>> develop
         </html>
     `);
-    newWindow.document.close();
+  newWindow.document.close();
 }
