@@ -51,7 +51,7 @@
   <body id="particles-js">
     <div class="animated bounceInDown">
       <div class="container">
-        <form name="form1" class="box">
+        <form name="form1" class="box" method="POST" action="http://localhost:5000/signup">
           <h1><span>회원가입</span></h1>
           <input
             type="text"
@@ -79,49 +79,28 @@
             placeholder="이름을 입력해 주세요"
             autocomplete="on"
           />
+          <input
+            type="text"
+            name="tel"
+            placeholder="전화번호를 입력해 주세요"
+            autocomplete="on"
+          />
+          <input
+            type="text"
+            name="email"
+            placeholder="이메일을 입력해 주세요"
+            autocomplete="on"
+          />
+          <input
+            type="text"
+            name="address"
+            placeholder="주소를 입력해 주세요(시, 구)"
+            autocomplete="on"
+          />
           <span id="msg" class="error-text" style="display: none"></span>
-          <div class="phone">
-            <h2>전화번호</h2>
-            <br />
-          </div>
-          <div class="phone-container">
-            <input
-              id="phone1"
-              type="text"
-              size="3"
-              maxlength="3"
-              oninput="changePhone1()"
-            />
-            -
-            <input
-              id="phone2"
-              type="text"
-              size="4"
-              maxlength="4"
-              oninput="changePhone2()"
-            />
-            -
-            <input
-              id="phone3"
-              type="text"
-              size="4"
-              maxlength="4"
-              oninput="changePhone3()"
-            />
-          </div>
-          <div class="email-container">
-            <h3>이메일</h3>
-            <input id="email1" type="text" maxlength="25" />@
-            <select id="email" class="email-select">
-              <option selected disabled>이메일</option>
-              <option>naver.com</option>
-              <option>gmail.com</option>
-              <option>daum.com</option>
-            </select>
-          </div>
-
           <div class="position">
-            <select id="position">
+            
+            <select id="position" name="position">
               <option selected disabled>직책</option>
               <option>1</option>
               <option>2</option>
@@ -134,7 +113,7 @@
             type="button"
             value="취소"
             class="btn2"
-            onclick="location.href='http://127.0.0.1:5500/login/login.html'"
+            onclick="location.href='http://127.0.0.1:5000/'"
           />
         </form>
       </div>
