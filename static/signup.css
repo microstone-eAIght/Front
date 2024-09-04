@@ -5,6 +5,7 @@ body, html {
     margin: 0;
 }
 
+/* 파티클 백그라운드 */
 #particles-js {
     position: absolute;
     width: 100%;
@@ -26,6 +27,7 @@ body, html {
     height: 800px;
 }
 
+/* 제목 스타일 */
 .box h1 {
     color: #ffffff; 
     font-size: 25px;
@@ -37,6 +39,7 @@ body, html {
     font-weight: lighter;
 }
 
+/* 서브 제목 스타일 */
 .box h2 {
     font-size: 13px;
     color: #000000;
@@ -138,6 +141,7 @@ a:hover {
     text-decoration: underline;
 }
 
+/* 에러 메시지 스타일 */
 .error-text {
     color: red;
     font-size: 14px;

@@ -1,3 +1,5 @@
+// Employee.js
+
 document.addEventListener('DOMContentLoaded', () => {
     loadEmployees();
     document.getElementById('addEmployeeButton').addEventListener('click', showAddEmployeeForm);
@@ -11,30 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('employeeForm').addEventListener('submit', handleFormSubmit);
 });
 
-let employeeCounter = 0;
-
 function loadEmployees() {
-    fetch('/api/employees')
-        .then(response => response.json())
-        .then(data => {
-            const employees = data.employees;
+    fetch('http://localhost:5000/Employee')
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
             const tableBody = document.querySelector('#employeeTable tbody');
-            tableBody.innerHTML = '';
-            employees.forEach(employee => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${employee.id}</td>
-                    <td>${employee.name}</td>
-                    <td>${employee.region}</td>
-                    <td>${employee.department}</td>
-                    <td>${employee.position}</td>
-                    <td>${employee.phone}</td>
-                    <td>${employee.email}</td>
-                    <td><button onclick="showEditEmployeeForm(${employee.id})" class="btn small-btn">수정</button></td>
-                    <td><button onclick="deleteEmployee(${employee.id})" class="btn small-btn">삭제</button></td>
-                `;
-                tableBody.appendChild(row);
-            });
+            tableBody.innerHTML = doc.querySelector('#employeeTable tbody').innerHTML;
+        })
+        .catch(error => {
+            console.error('Error loading employees:', error);
         });
 }
 
@@ -45,6 +34,8 @@ function showAddEmployeeForm() {
 }
 
 function showEditEmployeeForm(id) {
+    // API 없는 경우, 주석처리
+    /*
     fetch(`/api/employees/${id}`)
         .then(response => response.json())
         .then(data => {
@@ -59,6 +50,7 @@ function showEditEmployeeForm(id) {
             document.getElementById('email').value = employee.email;
             document.getElementById('employeeForm').dataset.id = employee.id;
         });
+    */
 }
 
 function handleFormSubmit(event) {
@@ -77,6 +69,8 @@ function handleFormSubmit(event) {
         email: form.email.value
     };
 
+    // API 없는 경우, 주석처리
+    /*
     fetch(url, {
         method: method,
         headers: {
@@ -90,14 +84,12 @@ function handleFormSubmit(event) {
         document.getElementById('employeeModal').style.display = 'none';
         loadEmployees();
     });
-}
-
-function generateEmployeeId() {
-    employeeCounter += 1;
-    return String(employeeCounter).padStart(3, '0');
+    */
 }
 
 function deleteEmployee(id) {
+    // API 없는 경우, 주석처리
+    /*
     if (confirm('정말로 삭제하시겠습니까?')) {
         fetch(`/api/employees/${id}`, {
             method: 'DELETE'
@@ -107,6 +99,7 @@ function deleteEmployee(id) {
             loadEmployees();
         });
     }
+    */
 }
 
 function clearForm() {
