@@ -111,7 +111,6 @@ function openWorkshopWindow(workshopNumber, workshopName, cctvStream) {
                     <div class="cctv" id="cctv3"></div>
                     <div class="cctv" id="cctv4"></div>
                 </div>
-
                 <div class="new-window-footer">
                     <p>© 작업장 데이터 수집 시스템</p>
                 </div>
@@ -186,17 +185,14 @@ function openWorkshopWindow(workshopNumber, workshopName, cctvStream) {
               });
             }
           }
-
           // 창이 열리면 자동으로 웹캠 시작
           window.onload = function() {
             startWebcam();
             initializeCCTVZoom();
           };
-
           // CCTV 줌 기능 초기화
           function initializeCCTVZoom() {
             const cctvs = document.querySelectorAll('.cctv');
-
             cctvs.forEach(cctv => {
               // 더블클릭 이벤트 핸들러
               cctv.addEventListener('dblclick', () => {
@@ -206,13 +202,11 @@ function openWorkshopWindow(workshopNumber, workshopName, cctvStream) {
                   cctv.classList.add('full-screen');
                 }
               });
-
               // 마우스를 올렸을 때 스타일 변경
               cctv.addEventListener('mouseover', () => {
                 cctv.style.border = '2px solid red';
                 cctv.style.cursor = 'pointer';
               });
-
               // 마우스가 떠났을 때 스타일 원래대로
               cctv.addEventListener('mouseout', () => {
                 cctv.style.border = '';
