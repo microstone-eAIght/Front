@@ -1,12 +1,9 @@
 import os
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect
 import mysql.connector
-
-from lock import login_required
 
 app = Flask(__name__)
 
-app.secret_key = '0106'  # 세션 암호화를 위한 시크릿 키 설정
 # MySQL 데이터베이스 연결 정보
 app.config['MYSQL_HOST'] = '127.0.0.1'
 app.config['MYSQL_USER'] = 'root'
@@ -37,16 +34,12 @@ def login_view():
         user = cursor.fetchone()
 
         if user:
-            #임의적으로 들어가는 것을 방지
-            session['logged_in'] = True  # 로그인 상태 저장
-            session['userid'] = userid  # 사용자 아이디 저장
             # 로그인 성공 시 처리 코드 추가
             return redirect('/index')
         else:
             return "로그인 실패"
     
 @app.route('/index', methods=['GET','POST'])
-@login_required
 def index():
     if request.method == 'GET':
         return render_template("index.html")
@@ -81,7 +74,6 @@ def signup():
             return redirect('/')  # 회원가입 성공 후 로그인 페이지로 리다이렉트
     
 @app.route('/Employee', methods=['GET','POST'])
-@login_required
 def Employee():
     if request.method == 'GET':
         cursor = mysql.cursor()
