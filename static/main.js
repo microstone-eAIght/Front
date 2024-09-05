@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 사용자 이름과 알림 수를 업데이트하는 함수
   function updateUserInfo() {
     const userNameElement = document.getElementById('userName');
-    const notificationCountElement = document.getElementById('notificationCount');
+    const notificationCountElement =
+      document.getElementById('notificationCount');
 
     userNameElement.textContent = user.name;
     notificationCountElement.textContent = user.notifications;
@@ -89,8 +90,7 @@ function openWorkshopWindow(workshopNumber, workshopName, cctvStream) {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>작업장${workshopName}</title>
-            <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
+            <link rel="stylesheet" href="/static/style.css">
         </head>
         <body class="new-window-body">
             <header class="new-window-header">
@@ -178,7 +178,7 @@ function openWorkshopWindow(workshopNumber, workshopName, cctvStream) {
                 </aside>
             </main>
         </body>
-        <script src="{{ url_for('static', filename='cctvZoom.js') }}"></script>
+        <script src="/static/cctvZoom.js"></script>
         </html>
     `);
   newWindow.document.close();
