@@ -90,12 +90,8 @@ function openWorkshopWindow(workshopNumber, workshopName, cctvStream) {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>작업장${workshopName}</title>
-<<<<<<< HEAD
             <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-=======
-            <link rel="stylesheet" href="/static/style.css">
->>>>>>> develop
         </head>
         <body class="new-window-body">
             <header class="new-window-header">
@@ -183,11 +179,7 @@ function openWorkshopWindow(workshopNumber, workshopName, cctvStream) {
                 </aside>
             </main>
         </body>
-<<<<<<< HEAD
         <script src="{{ url_for('static', filename='cctvZoom.js') }}"></script>
-=======
-        <script src="/static/cctvZoom.js"></script>
->>>>>>> develop
         </html>
     `);
   newWindow.document.close();
