@@ -1,160 +1,371 @@
-function openWorkshopWindow(workshopNumber, workshopName) {
-  // 현재 창의 크기를 가져옴
-  let width = window.innerWidth;
-  let height = window.innerHeight;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
 
-  // 새로운 창의 크기를 현재 창보다 100px 작게 설정
-  let newWidth = width - 100;
-  let newHeight = height - 100;
+.container {
+    display: flex;
+    height: 100vh;
+    background-color: #212121;
+}
 
-  // 창 옵션 설정
-  let windowFeatures = `width=${newWidth},height=${newHeight},top=50,left=50`;
 
-  // 새 창 열기
-  let newWindow = window.open('', `작업장${workshopNumber}`, windowFeatures);
+.workshop-container{
+    background-color: #212121;
+    padding-top: 40px;
+    padding-bottom:1px;
+    margin-bottom:1px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    margin-left: 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
 
-  // 새 창에 내용 삽입
-  newWindow.document.open();
-  newWindow.document.write(`
-    <!DOCTYPE html>
-    <html lang="ko">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>작업장${workshopName}</title>
-      <link rel="stylesheet" href="/static/style.css">
-    </head>
-    <body class="new-window-body">
-      <header class="new-window-header">
-        <h1>작업현장 영상 수집 데이터</h1>
-      </header>
-      <main class="new-window-main-content">
-        <aside class="new-window-sidebar">
-          <h2>작업장: 작업장${workshopName}</h2>
-          <button>WorkingHours</button>
-          <button>RULA</button>
-          <button>REBA</button>
-          <button>OWAS</button>
-          <button>REPORT</button>
-        </aside>
-        <section class="cctv-section">
-          <div class="cctv-container">
-            <video id="cctvVideo1" class="cctv" autoplay></video>
-            <div class="cctv" id="cctv2"></div>
-            <div class="cctv" id="cctv3"></div>
-            <div class="cctv" id="cctv4"></div>
-          </div>
-          <div class="new-window-footer">
-            <p>© 작업장 데이터 수집 시스템</p>
-          </div>
-        </section>
-        <aside class="evaluation-sidebar">
-                    <div class="evaluation-category">
-                        <h3>Neck</h3>
-                        <p>(2) Neck Bend : 45° (Front)</p>
-                        <p>(1) Neck Twist : 30° (Left)</p>
-                        <p>(3) Neck Side-bend : 25° (Right)</p>
-                    </div>
-                    <div class="evaluation-category">
-                        <h3>Trunk</h3>
-                        <p>(2) Trunk Bend : 60° (Front)</p>
-                        <p>(1) Trunk Twist : 40° (Left)</p>
-                        <p>(3) Trunk Side-bend : 30° (Right)</p>
-                    </div>
-                    <div class="evaluation-category">
-                        <h3>Legs</h3>
-                        <p>(2) Leg Posture : Standing</p>
-                        <p>(1) Leg Support : Weight on one leg</p>
-                        <p>(3) Leg Movement : Walking</p>
-                    </div>
-                    <div class="evaluation-category">
-                        <h3>Upper Arm</h3>
-                        <p>(2) Upper Arm Lift : 90°</p>
-                        <p>(1) Upper Arm Reach : 70°</p>
-                        <p>(3) Upper Arm Twist : 50°</p>
-                    </div>
-                    <div class="evaluation-category">
-                        <h3>Forearm</h3>
-                        <p>(2) Forearm Rotation : 45° (Pronation)</p>
-                        <p>(1) Forearm Lift : 60°</p>
-                        <p>(3) Forearm Reach : 70°</p>
-                    </div>
-                    <div class="evaluation-category">
-                        <h3>Wrist</h3>
-                        <p>(2) Wrist Flexion/Extension : 30°</p>
-                        <p>(1) Wrist Deviation : 20°</p>
-                        <p>(3) Wrist Rotation : 40°</p>
-                    </div>
-                    <div class="evaluation-category">
-                        <h3>Hand</h3>
-                        <p>(2) Hand Grip : Strength 5</p>
-                        <p>(1) Hand Dexterity : Fine movements</p>
-                        <p>(3) Hand Posture : Open</p>
-                    </div>
-                    <div class="evaluation-category">
-                        <h3>Shoulder</hge>
-                        <p>(2) Shoulder Lift : 90°</p>
-                        <p>(1) Shoulder Abduction/Adduction : 70°</p>
-                        <p>(3) Shoulder Rotation : 60°</p>
-                    </div>
-                    <div class="evaluation-category">
-                        <h3>Back</h3>
-                        <p>(2) Back Bend : 50°</p>
-                        <p>(1) Back Twist : 40°</p>
-                        <p>(3) Back Load : 15kg</p>
-                    </div>
-                </aside>
-      </main>
-      <script>
-        // 웹캠 스트림을 자동으로 시작하는 함수
-        function startWebcam() {
-          const videoElement = document.getElementById('cctvVideo1');
-          if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
-              videoElement.srcObject = stream;
-              videoElement.play();
-            }).catch(function(error) {
-              console.error("웹캠 시작 중 오류 발생:", error);
-            });
-          }
-        }
+.workshop {
+    background-color: #007BFF;
+    padding: 20px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    flex: 0 0 200px;
+    margin: 0 3px;
+    color:white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: background-color 0.3s ease, transform 0.3s ease; 
+}
+.workshop:hover {
+    background-color: #0056b3;
+    transform: translateY(-5px);
+}
 
-        // 창이 열리면 자동으로 웹캠 시작
-        window.onload = function() {
-          startWebcam();
-          initializeCCTVZoom();
-        };
+.sidebar {
+    width: 200px;
+    background-color: #007BFF;
+    padding-top: 20px;
+    border-right: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
-        // CCTV 줌 기능 초기화
-        function initializeCCTVZoom() {
-          const cctvs = document.querySelectorAll('.cctv');
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
 
-          cctvs.forEach(cctv => {
-            // 더블클릭 이벤트 핸들러
-            cctv.addEventListener('dblclick', () => {
-              const isFullScreen = cctv.classList.contains('full-screen');
-              cctvs.forEach(c => c.classList.remove('full-screen'));
-              if (!isFullScreen) {
-                cctv.classList.add('full-screen');
-              }
-            });
+.sidebar ul li {
+    margin: 10px 0;
+    border-bottom: 1px solid #0056b3;
+}
 
-            // 마우스를 올렸을 때 스타일 변경
-            cctv.addEventListener('mouseover', () => {
-              cctv.style.border = '2px solid red';
-              cctv.style.cursor = 'pointer';
-            });
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
 
-            // 마우스가 떠났을 때 스타일 원래대로
-            cctv.addEventListener('mouseout', () => {
-              cctv.style.border = '';
-              cctv.style.cursor = '';
-            });
-          });
-        }
-      </script>
-    </body>
-    </html>
-  `);
-  newWindow.document.close();
+.sidebar ul li a:hover {
+    background-color: #0056b3;
+}
+
+#logoutButton {
+    margin: 20px;
+    padding: 10px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#logoutButton:hover {
+    background-color: #0056b3;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.main-header {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.system-title {
+    margin: 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cctv-stream {
+    width: 100%;
+    background-color: #212121;
+    padding: 1px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    margin-top:1px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.cctv-stream video {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.user-info {
+    display: flex;
+    justify-content: center; /* 수평으로 중앙 정렬 */
+    align-items: center; /* 수직으로 중앙 정렬 */
+    color: white;
+}
+
+.notification-button {
+    background-color: #0056b3; /* 알림 버튼 색상 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    position: relative; /* 알림 카운트 위치를 조정하기 위해 필요 */
+}
+
+.notification-count {
+    background-color: red; /* 알림 카운트 배경 색상 */
+    color: white;
+    border-radius: 50%;
+    padding: 5px 10px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* 전체 레이아웃 스타일 */
+.new-window-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.new-window-header,
+.new-window-footer {
+    width: 100%;
+    padding: 10px;
+    background-color: #212121;
+    color:white;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #ccc;
+}
+
+.new-window-footer {
+    color:white;
+    border-top: 1px solid #ccc;
+}
+
+.new-window-header h1,
+.new-window-footer p {
+    margin: 0;
+    font-size: 1rem;
+}
+/* 맨 아래 가로 바 스타일 */
+.new-window-footer {
+    width: 100%;
+    padding: 10px;
+    background-color: #212121;
+    color:white;
+    text-align: center;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+    flex-shrink: 0; /* 부모 요소의 크기에 맞춰지지 않도록 고정 */
+}
+
+.new-window-main-content {
+    display: flex;
+    flex-grow: 1; /* 남은 공간을 자동으로 채움 */
+    width: 100%;
+    height:70%;
+    background-color: #fff;
+}
+
+.new-window-sidebar,
+.evaluation-sidebar,
+.empty-sidebar {
+    width: 15%;
+    padding: 10px;
+    background-color: #212121;
+    color:white;
+    overflow-y: auto;
+    font-size: 0.5rem;
+    border-left: 1px solid #ccc;
+}
+
+.evaluation-sidebar {
+    width: 20%; /* 평가 요소 바의 가로 길이를 늘림 */
+}
+
+.cctv-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    background-color: #212121;
+    color:white;
+    
+}
+
+.new-window-cctv-stream {
+    width: 100%;
+    height: calc(100% - 40px);
+    background-color: #212121;
+    padding: 1px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+}
+
+.new-window-cctv-stream video {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
+.new-window-sidebar h2{
+    font-size:1rem;
+    
+}
+.evaluation-sidebar h3 {
+    margin-top: 0;
+    font-size:1rem;
+    
+}
+
+.new-window-sidebar button{
+    background-color: #3488e2;
+    color:white;
+    font-size:0.7rem;
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.evaluation-sidebar p {
+    background-color: black;
+    font-size:0.7rem;
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.evaluation-category {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+
+/* 반응형 스타일 */
+@media (max-width: 1200px) {
+    .new-window-header h1, .new-window-footer p {
+        font-size: 0.9rem;
+    }
+
+    .new-window-sidebar, .evaluation-sidebar, .empty-sidebar {
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .new-window-header h1, .new-window-footer p {
+        font-size: 0.8rem;
+    }
+
+    .new-window-sidebar, .evaluation-sidebar, .empty-sidebar {
+        font-size: 0.5rem;
+        width:20%;
+    }
+}
+
+@media (max-width: 480px) {
+    .new-window-header h1, .new-window-footer p {
+        font-size: 0.7rem;
+    }
+
+    .new-window-sidebar, .evaluation-sidebar, .empty-sidebar {
+        font-size: 0.4rem;
+    }
+}
+
+
+
+
+
+
+
+.cctv-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    width: 90%;
+    height: 90vh;
+    box-sizing: border-box; /* 여백과 테두리 포함하여 크기 계산 */
+}
+
+.cctv {
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* 배경색을 검정색으로 설정 */
+    border-radius: 4px; /* 모서리 둥글게 */
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 살짝의 그림자 효과 */
+}
+
+.cctv:hover {
+    border: 2px solid red; /* 마우스를 올렸을 때 테두리 강조 */
+}
+
+.full-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
 }

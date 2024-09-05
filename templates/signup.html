@@ -46,26 +46,43 @@
       .error-text {
         color: red;
       }
+
+      .btn-id-check {
+        padding: 10px 20px;
+        background-color: #4B89DC;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .btn-id-check:hover {
+        background-color: #0056b3;
+      }
     </style>
   </head>
   <body id="particles-js">
     <div class="animated bounceInDown">
       <div class="container">
-        <form name="form1" class="box">
+        <form name="form1" class="box" method="POST" action="http://localhost:5000/signup">
           <h1><span>회원가입</span></h1>
-          <input
-            type="text"
-            name="id"
-            placeholder="아이디 입력(6~20자)"
-            autocomplete="on"
-          />
+          <div class="id-container">
+            <input
+              type="text"
+              name="id"
+              placeholder="아이디 입력(6~20자)"
+              autocomplete="on"
+            />
+            <button type="button" class="btn3" onclick="checkUsername()">중복 확인</button>
+            <div id="usernameCheckResult" class="error-text"></div>
+          </div>
           <input
             type="password"
             name="pw"
             placeholder="비밀번호 입력(문자, 숫자, 특수문자 포함(8~20자))"
             id="pwd1"
             autocomplete="off"
-          />
+          />        
           <input
             type="password"
             name="pw_ch"
@@ -79,49 +96,27 @@
             placeholder="이름을 입력해 주세요"
             autocomplete="on"
           />
+          <input
+            type="text"
+            name="tel"
+            placeholder="전화번호를 입력해 주세요"
+            autocomplete="on"
+          />
+          <input
+            type="text"
+            name="email"
+            placeholder="이메일을 입력해 주세요"
+            autocomplete="on"
+          />
+          <input
+            type="text"
+            name="address"
+            placeholder="주소를 입력해 주세요(시, 구)"
+            autocomplete="on"
+          />
           <span id="msg" class="error-text" style="display: none"></span>
-          <div class="phone">
-            <h2>전화번호</h2>
-            <br />
-          </div>
-          <div class="phone-container">
-            <input
-              id="phone1"
-              type="text"
-              size="3"
-              maxlength="3"
-              oninput="changePhone1()"
-            />
-            -
-            <input
-              id="phone2"
-              type="text"
-              size="4"
-              maxlength="4"
-              oninput="changePhone2()"
-            />
-            -
-            <input
-              id="phone3"
-              type="text"
-              size="4"
-              maxlength="4"
-              oninput="changePhone3()"
-            />
-          </div>
-          <div class="email-container">
-            <h3>이메일</h3>
-            <input id="email1" type="text" maxlength="25" />@
-            <select id="email" class="email-select">
-              <option selected disabled>이메일</option>
-              <option>naver.com</option>
-              <option>gmail.com</option>
-              <option>daum.com</option>
-            </select>
-          </div>
-
           <div class="position">
-            <select id="position">
+            <select id="position" name="position">
               <option selected disabled>직책</option>
               <option>1</option>
               <option>2</option>
@@ -131,10 +126,10 @@
           </div>
           <input type="submit" value="회원가입" class="btn1" />
           <input
-            type="button"
+            type="submit"
             value="취소"
             class="btn2"
-            onclick="location.href='http://127.0.0.1:5500/login/login.html'"
+            onclick="location.href='http://127.0.0.1:5000/'"
           />
         </form>
       </div>

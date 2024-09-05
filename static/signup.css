@@ -1,4 +1,3 @@
-https
 body, html {
     font-family: 'Source Sans Pro', sans-serif;
     background-color: #f1ecec;
@@ -6,15 +5,16 @@ body, html {
     margin: 0;
 }
 
+/* 파티클 백그라운드 */
 #particles-js {
     position: absolute;
     width: 100%;
     height: 100%;
 }
 
-.container{
+.container {
     margin: 0;
-    top: 50px;
+    top: 35px;
     left: 50%;
     position: absolute;
     text-align: center;
@@ -24,14 +24,14 @@ body, html {
     border-top: 10px solid #CBDDF5;
     border-bottom: 10px solid #CBDDF5;
     width: 500px;
-    height: 700px;
+    height: 800px;
 }
 
+/* 제목 스타일 */
 .box h1 {
-    font-family: 'Source Sans Pro', sans-serif;
     color: #ffffff; 
     font-size: 25px;
-    margin-top: 70px;;
+    margin-top: 70px;
 }
 
 .box h1 span {
@@ -39,18 +39,18 @@ body, html {
     font-weight: lighter;
 }
 
+/* 서브 제목 스타일 */
 .box h2 {
-    font-family: 'Source Sans Pro', sans-serif;
     font-size: 13px;
     color: #000000;
     letter-spacing: 1.5px;
     margin: 20px auto;
 }
 
-.box input[type = "text"],.box input[type = "password"],
-.box input[type = "tel"] {
+input[type="text"], input[type="password"], input[type="tel"] {
     display: block;
-    margin: 20px auto;
+    margin: 5px auto;
+    margin-bottom: 20px;
     background: #ffffff;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -58,21 +58,64 @@ body, html {
     width: 320px;
     outline: none;
     color: #000000;
-    -webkit-transition: all .2s ease-out;
-    -moz-transition: all .2s ease-out;
-    -ms-transition: all .2s ease-out;
-    -o-transition: all .2s ease-out;
     transition: all .2s ease-out;
 }
-::-webkit-input-placeholder {
-    color: #565f79;
-}
 
-.box input[type = "text"]:focus,.box input[type = "password"]:focus {
+input[type="text"]:focus, input[type="password"]:focus {
     border: 1px solid #79A6FE;
 }
 
-.position select {
+.id-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 10px auto;
+    width: fit-content;
+}
+
+
+.id-container input[type="text"] {
+    width: 220px;
+    text-align: left;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.id-container .btn3 {
+    margin: 0;
+}
+
+
+.btn1, .btn2 {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4B89DC;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn3 {
+    padding: 10px 20px;
+    background-color: #4B89DC;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    white-space: nowrap;
+    min-width: 100px;
+}
+
+
+.btn1:hover, .btn2:hover, .btn3:hover {
+    background-color: #0056b3;
+}
+
+.position select, .email-container select {
     display: block;
     margin: 20px auto;
     background: #ffffff;
@@ -82,23 +125,14 @@ body, html {
     width: 320px;
     color: #000000;
     outline: none;
-    -webkit-transition: all .2s ease-out;
-    -moz-transition: all .2s ease-out;
-    -ms-transition: all .2s ease-out;
-    -o-transition: all .2s ease-out;
     transition: all .2s ease-out;
 }
 
-.position select:focus {
+.position select:focus, .email-container select:focus {
     border: 1px solid #79A6FE;
 }
 
-.position option {
-    background: #ffffff;
-    color: #000000;
-}
-
-a{
+a {
     color: #5c7fda;
     text-decoration: none;
 }
@@ -107,78 +141,13 @@ a:hover {
     text-decoration: underline;
 }
 
-.btn1:hover {
-    background-color: #0056b3;
-}
-
-.btn1 {
-    margin-top: 20px;
-    align-self: center;
-    padding: 10px 20px;
-    background-color: #4B89DC;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.btn2:hover {
-    background-color: #0056b3;
-}
-
-.btn2 {
-    margin-top: 20px;
-    align-self: center;
-    padding: 10px 20px;
-    background-color: #4B89DC;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.rmb {
-    position: absolute;
-    margin-left: -24%;
-    margin-top: 0px;
-    color: #dfdeee;
-    font-size: 13px;
-}
-
-.forgetpass {
-    position: relative;
-    float: right;
-    right: 28px;
-}
-
-.dnthave{
-    position: absolute;
-    top: 92%;
-    left: 24%;
-}
-
-.typcn {
-    position: absolute;
-    left: 339px;
-    top: 282px;
-    color: #3b476b;
-    font-size: 22px;
-    cursor: pointer;
-}      
-
-.typcn.active {
-    color: #7f60eb;
-}
-
+/* 에러 메시지 스타일 */
 .error-text {
-    color: #ff3333;
+    color: red;
     font-size: 14px;
     margin-top: 3px;
     display: block;
 }
-
 
 .footer {
     position: relative;
@@ -192,21 +161,54 @@ a:hover {
 }
 
 .footer .fa {
-    color: #7f5feb;;
+    color: #7f5feb;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
 
-.phone-container {
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.phone-container, .email-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 .phone-container input {
-    width: auto;
     padding-left: 10px;
-    margin: 0 2px;
     border: 1px solid #ccc;
     border-radius: 5px;
     text-align: center;
@@ -214,48 +216,9 @@ a:hover {
 }
 
 .phone-container input[type="text"] {
-    width: 60px; 
+    width: 60px;
     padding: 14px 10px;
     margin: 0 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center; 
-    box-sizing: border-box;
-}
-
-
-#phone1 {
-    width: 15%;
-}
-
-#phone2 {
-    width: 20%;
-}
-
-#phone3 {
-    width: 20%;
-}
-
-.phone {
-    position: relative;
-    width: 100%;
-}
-
-.phone h2 {
-    font-size: 14px;
-    color: #000;
-    margin: 0;
-    padding: 0;
-    position: absolute; 
-    left: 22%;
-    transform: translateX(-50%); 
-}
-
-.email-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
 }
 
 .email-container input[type="text"] {
@@ -268,28 +231,12 @@ a:hover {
     box-sizing: border-box;
 }
 
-.email-container select {
-    background: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 14px 10px;
-    width: 110px; 
-    color: #000000;
-    outline: none;
-    -webkit-transition: all .2s ease-out;
-    -moz-transition: all .2s ease-out;
-    -ms-transition: all .2s ease-out;
-    -o-transition: all .2s ease-out;
-    transition: all .2s ease-out;
-}
-
-.email-container select:focus {
-    border: 1px solid #79A6FE;
-}
-
-.email-container h3 {
+.phone h2 {
     font-size: 14px;
     color: #000;
     margin: 0;
-    padding: 0 10px;
+    padding: 0;
+    position: absolute; 
+    left: 22%;
+    transform: translateX(-50%); 
 }
