@@ -83,146 +83,107 @@ function openWorkshopWindow(workshopNumber, workshopName, cctvStream) {
   // 새 창에 내용 삽입
   newWindow.document.open();
   newWindow.document.write(`
-    <!DOCTYPE html>
-    <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>작업장${workshopName}</title>
-        <link rel="stylesheet" href="/static/style.css">
-    </head>
-    <body class="new-window-body">
-        <header class="new-window-header">
-            <h1>작업현장 영상 수집 데이터</h1>
-        </header>
-        <main class="new-window-main-content">
-            <aside class="new-window-sidebar">
-                <h2>작업장: 작업장${workshopName}</h2>
-                <button>WorkingHours</button>
-                <button>RULA</button>
-                <button>REBA</button>
-                <button>OWAS</button>
-                <button>REPORT</button>
-            </aside>
-            <section class="cctv-section">
-                <div class="cctv-container">
-                    <video id="cctvVideo1" class="cctv" autoplay></video>
-                    <div class="cctv" id="cctv2"></div>
-                    <div class="cctv" id="cctv3"></div>
-                    <div class="cctv" id="cctv4"></div>
-                </div>
+        <!DOCTYPE html>
+        <html lang="ko">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>작업장${workshopName}</title>
+<<<<<<< HEAD
+            <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-                <div class="new-window-footer">
-                    <p>© 작업장 데이터 수집 시스템</p>
-                </div>
-            </section>
-            <aside class="evaluation-sidebar">
-                <div class="evaluation-category">
-                    <h3>Neck</h3>
-                    <p>(2) Neck Bend : 45° (Front)</p>
-                    <p>(1) Neck Twist : 30° (Left)</p>
-                    <p>(3) Neck Side-bend : 25° (Right)</p>
-                </div>
-                <div class="evaluation-category">
-                    <h3>Trunk</h3>
-                    <p>(2) Trunk Bend : 60° (Front)</p>
-                    <p>(1) Trunk Twist : 40° (Left)</p>
-                    <p>(3) Trunk Side-bend : 30° (Right)</p>
-                </div>
-                <div class="evaluation-category">
-                    <h3>Legs</h3>
-                    <p>(2) Leg Posture : Standing</p>
-                    <p>(1) Leg Support : Weight on one leg</p>
-                    <p>(3) Leg Movement : Walking</p>
-                </div>
-                <div class="evaluation-category">
-                    <h3>Upper Arm</h3>
-                    <p>(2) Upper Arm Lift : 90°</p>
-                    <p>(1) Upper Arm Reach : 70°</p>
-                    <p>(3) Upper Arm Twist : 50°</p>
-                </div>
-                <div class="evaluation-category">
-                    <h3>Forearm</h3>
-                    <p>(2) Forearm Rotation : 45° (Pronation)</p>
-                    <p>(1) Forearm Lift : 60°</p>
-                    <p>(3) Forearm Reach : 70°</p>
-                </div>
-                <div class="evaluation-category">
-                    <h3>Wrist</h3>
-                    <p>(2) Wrist Flexion/Extension : 30°</p>
-                    <p>(1) Wrist Deviation : 20°</p>
-                    <p>(3) Wrist Rotation : 40°</p>
-                </div>
-                <div class="evaluation-category">
-                    <h3>Hand</h3>
-                    <p>(2) Hand Grip : Strength 5</p>
-                    <p>(1) Hand Dexterity : Fine movements</p>
-                    <p>(3) Hand Posture : Open</p>
-                </div>
-                <div class="evaluation-category">
-                    <h3>Shoulder</h3>
-                    <p>(2) Shoulder Lift : 90°</p>
-                    <p>(1) Shoulder Abduction/Adduction : 70°</p>
-                    <p>(3) Shoulder Rotation : 60°</p>
-                </div>
-                <div class="evaluation-category">
-                    <h3>Back</h3>
-                    <p>(2) Back Bend : 50°</p>
-                    <p>(1) Back Twist : 40°</p>
-                    <p>(3) Back Load : 15kg</p>
-                </div>
-            </aside>
-        </main>
-        <script>
-          // 웹캠 스트림을 자동으로 시작하는 함수
-          function startWebcam() {
-            const videoElement = document.getElementById('cctvVideo1');
-            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-              navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
-                videoElement.srcObject = stream;
-                videoElement.play();
-              }).catch(function(error) {
-                console.error("웹캠 시작 중 오류 발생:", error);
-              });
-            }
-          }
+=======
+            <link rel="stylesheet" href="/static/style.css">
+>>>>>>> develop
+        </head>
+        <body class="new-window-body">
+            <header class="new-window-header">
+                <h1>작업현장 영상 수집 데이터</h1>
+            </header>
+            <main class="new-window-main-content">
+                <aside class="new-window-sidebar">
+                    <h2>작업장: 작업장${workshopName}</h2>
+                    <button>WorkingHours</button>
+                    <button>RULA</button>
+                    <button>REBA</button>
+                    <button>OWAS</button>
+                    <button>REPORT</button>
+                </aside>
+                <section class="cctv-section">
+                    <div class="cctv-container">
+                        <div class="cctv" id="cctv1"></div>
+                        <div class="cctv" id="cctv2"></div>
+                        <div class="cctv" id="cctv3"></div>
+                        <div class="cctv" id="cctv4"></div>
+                    </div>
 
-          // 창이 열리면 자동으로 웹캠 시작
-          window.onload = function() {
-            startWebcam();
-            initializeCCTVZoom();
-          };
-
-          // CCTV 줌 기능 초기화
-          function initializeCCTVZoom() {
-            const cctvs = document.querySelectorAll('.cctv');
-
-            cctvs.forEach(cctv => {
-              // 더블클릭 이벤트 핸들러
-              cctv.addEventListener('dblclick', () => {
-                const isFullScreen = cctv.classList.contains('full-screen');
-                cctvs.forEach(c => c.classList.remove('full-screen'));
-                if (!isFullScreen) {
-                  cctv.classList.add('full-screen');
-                }
-              });
-
-              // 마우스를 올렸을 때 스타일 변경
-              cctv.addEventListener('mouseover', () => {
-                cctv.style.border = '2px solid red';
-                cctv.style.cursor = 'pointer';
-              });
-
-              // 마우스가 떠났을 때 스타일 원래대로
-              cctv.addEventListener('mouseout', () => {
-                cctv.style.border = '';
-                cctv.style.cursor = '';
-              });
-            });
-          }
-        </script>
-    </body>
-    </html>
-  `);
+                    <div class="new-window-footer">
+                        <p>© 작업장 데이터 수집 시스템</p>
+                    </div>
+                </section>
+                <aside class="evaluation-sidebar">
+                    <div class="evaluation-category">
+                        <h3>Neck</h3>
+                        <p>(2) Neck Bend : 45° (Front)</p>
+                        <p>(1) Neck Twist : 30° (Left)</p>
+                        <p>(3) Neck Side-bend : 25° (Right)</p>
+                    </div>
+                    <div class="evaluation-category">
+                        <h3>Trunk</h3>
+                        <p>(2) Trunk Bend : 60° (Front)</p>
+                        <p>(1) Trunk Twist : 40° (Left)</p>
+                        <p>(3) Trunk Side-bend : 30° (Right)</p>
+                    </div>
+                    <div class="evaluation-category">
+                        <h3>Legs</h3>
+                        <p>(2) Leg Posture : Standing</p>
+                        <p>(1) Leg Support : Weight on one leg</p>
+                        <p>(3) Leg Movement : Walking</p>
+                    </div>
+                    <div class="evaluation-category">
+                        <h3>Upper Arm</h3>
+                        <p>(2) Upper Arm Lift : 90°</p>
+                        <p>(1) Upper Arm Reach : 70°</p>
+                        <p>(3) Upper Arm Twist : 50°</p>
+                    </div>
+                    <div class="evaluation-category">
+                        <h3>Forearm</h3>
+                        <p>(2) Forearm Rotation : 45° (Pronation)</p>
+                        <p>(1) Forearm Lift : 60°</p>
+                        <p>(3) Forearm Reach : 70°</p>
+                    </div>
+                    <div class="evaluation-category">
+                        <h3>Wrist</h3>
+                        <p>(2) Wrist Flexion/Extension : 30°</p>
+                        <p>(1) Wrist Deviation : 20°</p>
+                        <p>(3) Wrist Rotation : 40°</p>
+                    </div>
+                    <div class="evaluation-category">
+                        <h3>Hand</h3>
+                        <p>(2) Hand Grip : Strength 5</p>
+                        <p>(1) Hand Dexterity : Fine movements</p>
+                        <p>(3) Hand Posture : Open</p>
+                    </div>
+                    <div class="evaluation-category">
+                        <h3>Shoulder</hge>
+                        <p>(2) Shoulder Lift : 90°</p>
+                        <p>(1) Shoulder Abduction/Adduction : 70°</p>
+                        <p>(3) Shoulder Rotation : 60°</p>
+                    </div>
+                    <div class="evaluation-category">
+                        <h3>Back</h3>
+                        <p>(2) Back Bend : 50°</p>
+                        <p>(1) Back Twist : 40°</p>
+                        <p>(3) Back Load : 15kg</p>
+                    </div>
+                </aside>
+                <aside class="empty-sidebar">
+                    <!-- 빈 바 -->
+                </aside>
+            </main>
+        </body>
+        <script src="{{ url_for('static', filename='cctvZoom.js') }}"></script>
+        </html>
+    `);
   newWindow.document.close();
 }
