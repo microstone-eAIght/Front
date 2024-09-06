@@ -11,12 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     notifications: 3,
   };
 
-    // 사용자 이름과 알림 수를 업데이트하는 함수
-    function updateUserInfo() {
-      const userNameElement = document.getElementById('userName');
-      const notificationCountElement = document.getElementById('notificationCount');
-      userNameElement.textContent = user.name;
-      notificationCountElement.textContent = user.notifications;
+  // 사용자 이름과 알림 수를 업데이트하는 함수
+  function updateUserInfo() {
+    const userNameElement = document.getElementById('userName');
+    const notificationCountElement = document.getElementById('notificationCount');
 
     userNameElement.textContent = user.name;
     notificationCountElement.textContent = user.notifications;
