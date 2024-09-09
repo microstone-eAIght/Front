@@ -1,25 +1,29 @@
-function changePhone1() {
-    const phone1 = document.getElementById("phone1").value;
-    if (phone1.length === 3) {
-        document.getElementById("phone2").focus();
-    }
-}
+function checkUsername() {
+    const id = document.querySelector('input[name="id"]').value;
+    const resultDiv = document.getElementById('usernameCheckResult');
 
-function changePhone2() {
-    const phone2 = document.getElementById("phone2").value;
-    if (phone2.length === 4) {
-        document.getElementById("phone3").focus();
+    if (id.length < 6 || id.length > 20) {
+        resultDiv.textContent = '아이디는 6자 이상 20자 이하로 입력해 주세요.';
+        resultDiv.style.display = 'block';
+        return;
     }
-}
 
-function changePhone3() {
-    const phone3 = document.getElementById("phone3").value;
-    if (phone3.length === 4) {
-        const sendMessageButton = document.getElementById("sendMessage");
-        sendMessageButton.focus();
-        sendMessageButton.style.backgroundColor = "#4B89DC";
-        sendMessageButton.disabled = false;
-    }
+fetch(`/check-username?id=${encodeURIComponent(id)}`)
+    .then(response => response.json())
+    .then(data => {
+        if (data.exists) {
+            resultDiv.textContent = '이미 사용 중인 아이디입니다.';
+            resultDiv.style.color = 'red';
+        } else {
+            resultDiv.textContent = '사용 가능한 아이디입니다.';
+            resultDiv.style.color = 'green';
+        }
+        resultDiv.style.display = 'block';
+    })
+    .catch(error => {
+        resultDiv.textContent = '아이디 중복 확인 중 오류가 발생했습니다.';
+        resultDiv.style.display = 'block';
+    });
 }
 
 function checkStuff() {
