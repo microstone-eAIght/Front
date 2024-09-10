@@ -1,7 +1,0 @@
-가상환경에 설치해야 하는 것들
-
-pip install torch torchvision torchaudio
-pip install ultralytics
-pip install opencv-python
-pip install numpy
-pip install matplotlib
