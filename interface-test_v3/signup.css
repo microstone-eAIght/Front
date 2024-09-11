@@ -1,0 +1,295 @@
+https
+body, html {
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #f1ecec;
+    padding: 0;
+    margin: 0;
+}
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.container{
+    margin: 0;
+    top: 50px;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    transform: translateX(-50%);
+    background-color: #fff;
+    border-radius: 9px;
+    border-top: 10px solid #CBDDF5;
+    border-bottom: 10px solid #CBDDF5;
+    width: 500px;
+    height: 700px;
+}
+
+.box h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #ffffff; 
+    font-size: 25px;
+    margin-top: 70px;;
+}
+
+.box h1 span {
+    color: #000000;
+    font-weight: lighter;
+}
+
+.box h2 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 13px;
+    color: #000000;
+    letter-spacing: 1.5px;
+    margin: 20px auto;
+}
+
+.box input[type = "text"],.box input[type = "password"],
+.box input[type = "tel"] {
+    display: block;
+    margin: 20px auto;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 14px 10px;
+    width: 320px;
+    outline: none;
+    color: #000000;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+::-webkit-input-placeholder {
+    color: #565f79;
+}
+
+.box input[type = "text"]:focus,.box input[type = "password"]:focus {
+    border: 1px solid #79A6FE;
+}
+
+.position select {
+    display: block;
+    margin: 20px auto;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 14px 10px;
+    width: 320px;
+    color: #000000;
+    outline: none;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+
+.position select:focus {
+    border: 1px solid #79A6FE;
+}
+
+.position option {
+    background: #ffffff;
+    color: #000000;
+}
+
+a{
+    color: #5c7fda;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.btn1:hover {
+    background-color: #0056b3;
+}
+
+.btn1 {
+    margin-top: 20px;
+    align-self: center;
+    padding: 10px 20px;
+    background-color: #4B89DC;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn2:hover {
+    background-color: #0056b3;
+}
+
+.btn2 {
+    margin-top: 20px;
+    align-self: center;
+    padding: 10px 20px;
+    background-color: #4B89DC;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.rmb {
+    position: absolute;
+    margin-left: -24%;
+    margin-top: 0px;
+    color: #dfdeee;
+    font-size: 13px;
+}
+
+.forgetpass {
+    position: relative;
+    float: right;
+    right: 28px;
+}
+
+.dnthave{
+    position: absolute;
+    top: 92%;
+    left: 24%;
+}
+
+.typcn {
+    position: absolute;
+    left: 339px;
+    top: 282px;
+    color: #3b476b;
+    font-size: 22px;
+    cursor: pointer;
+}      
+
+.typcn.active {
+    color: #7f60eb;
+}
+
+.error-text {
+    color: #ff3333;
+    font-size: 14px;
+    margin-top: 3px;
+    display: block;
+}
+
+
+.footer {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    top: 605px;
+    width: 100%;
+    color: #78797d;
+    font-size: 14px;
+    text-align: center;
+}
+
+.footer .fa {
+    color: #7f5feb;;
+}
+
+
+.phone-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.phone-container input {
+    width: auto;
+    padding-left: 10px;
+    margin: 0 2px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.phone-container input[type="text"] {
+    width: 60px; 
+    padding: 14px 10px;
+    margin: 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center; 
+    box-sizing: border-box;
+}
+
+
+#phone1 {
+    width: 15%;
+}
+
+#phone2 {
+    width: 20%;
+}
+
+#phone3 {
+    width: 20%;
+}
+
+.phone {
+    position: relative;
+    width: 100%;
+}
+
+.phone h2 {
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+    padding: 0;
+    position: absolute; 
+    left: 22%;
+    transform: translateX(-50%); 
+}
+
+.email-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.email-container input[type="text"] {
+    width: 150px; 
+    padding: 14px 10px;
+    margin: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center; 
+    box-sizing: border-box;
+}
+
+.email-container select {
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 14px 10px;
+    width: 110px; 
+    color: #000000;
+    outline: none;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+
+.email-container select:focus {
+    border: 1px solid #79A6FE;
+}
+
+.email-container h3 {
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+    padding: 0 10px;
+}
