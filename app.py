@@ -57,11 +57,6 @@ def storage():
     if request.method == 'GET':
         return render_template("storage.html")
 
-@app.route('/storage', methods=['GET','POST'])
-@login_required
-def storage():
-    if request.method == 'GET':
-        return render_template("storage.html")
 
 @app.route('/signup', methods=['GET','POST'])
 def signup():
