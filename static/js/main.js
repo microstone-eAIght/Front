@@ -5,11 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const cctvVideo4 = document.getElementById('cctvVideo4');
   const logoutButton = document.getElementById('logoutButton');
 
-  // 사용자 정보를 저장하는 예제 객체 (실제로는 서버에서 받아와야 함)
-  const user = {
-    name: '홍길동님',
-    notifications: 3,
-  };
+
 
   // 사용자 이름과 알림 수를 업데이트하는 함수
   function updateUserInfo() {
