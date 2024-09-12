@@ -6,7 +6,7 @@ employee_bp = Blueprint('employee', __name__)
 
 @employee_bp.route('/employee', methods=['GET', 'POST'])
 @login_required
-def employee():
+def employee_controller():
     if request.method == 'GET':
         employees = Employee.query.all()
         return render_template('employee.html', employees=employees)

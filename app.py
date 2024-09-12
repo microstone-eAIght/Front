@@ -4,6 +4,7 @@ from controllers.login_controller import login_bp
 from controllers.signup_controller import signup_bp
 from controllers.employee_controller import employee_bp
 from controllers.index_controller import index_bp
+from controllers.storage_controller import storage_bp
 
 app = Flask(__name__)
 
@@ -19,6 +20,7 @@ app.register_blueprint(login_bp)
 app.register_blueprint(signup_bp)
 app.register_blueprint(employee_bp)
 app.register_blueprint(index_bp)
+app.register_blueprint(storage_bp)
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)

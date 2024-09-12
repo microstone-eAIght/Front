@@ -4,7 +4,7 @@ from models import db, Member
 signup_bp = Blueprint('signup', __name__)
 
 @signup_bp.route('/signup', methods=['GET', 'POST'])
-def signup():
+def signup_controller():
     if request.method == 'GET':
         return render_template("signup.html")
     elif request.method == 'POST':

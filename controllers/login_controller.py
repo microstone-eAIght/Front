@@ -4,7 +4,7 @@ from models import Member, db
 login_bp = Blueprint('login', __name__)
 
 @login_bp.route('/', methods=['GET', 'POST'])
-def login_view():
+def login_controller():
     if request.method == 'GET':
         return render_template("login.html")
     elif request.method == 'POST':
