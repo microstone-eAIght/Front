@@ -7,8 +7,8 @@ from ultralytics import YOLO
 from efficientnet_pytorch import EfficientNet  # EfficientNet 불러오기
 from reba import RebaScore
 from owas import OwasScore
-import os
 from datetime import datetime, timedelta
+import requests
 
 # YOLOv8 모델 불러오기
 model = YOLO("yolov8m-pose.pt")
@@ -24,11 +24,14 @@ seconds = 1  # 동영상에서 읽을 시간 설정 (초 단위)
 
 # 동영상 파일이 있는 디렉터리
 directory = 'C:/video/'
+# 동영상 파일 안에 있는 동영상의 제목은 무조건 recorded_video_%Y-%m-%dT%H-%M-%S.mp4 이 형식의 이름이어야 한다.
+# recorded_video_년-월-일T시간-분-초.mp4
+# 예를 들어 recorded_video_2024-09-09T09-48-38 이런 형식
 
 # 결과 저장 폴더와 기타 디렉터리 설정
-output_dir = 'C:/Users/rhkde/OneDrive/Desktop/back/results'
-high_risk_dir = 'C:/Users/rhkde/OneDrive/Desktop/back/high_risk_images'
-csv_file_path = 'C:/Users/rhkde/OneDrive/Desktop/back/high_risk_info.csv'
+output_dir = 'C:/video/results'
+high_risk_dir = 'C:/video/high_risk_images'
+csv_file_path = 'C:/video/high_risk_info.csv'
 
 # 디렉토리가 없을 경우 생성
 if not os.path.exists(output_dir):
@@ -44,12 +47,13 @@ with open(csv_file_path, mode='w', newline='') as file:
 # 동영상 파일 목록을 시간 순서대로 정렬하여 반환하는 함수
 def get_sorted_video_files(directory):
     # 디렉터리 안의 파일 목록 가져오기
-    files = [f for f in os.listdir(directory) if f.endswith('.mp4')]
+    files = [f for f in os.listdir(directory) if f.endswith('.mp4') or f.endswith('.webm')]
 
     # 파일명에 포함된 시간을 파싱하여 정렬
     sorted_files = sorted(
         files,
-        key=lambda x: datetime.strptime(x, 'recorded_video_%Y-%m-%dT%H-%M-%S.mp4')
+        key=lambda x: datetime.strptime(x, 'recorded_video_%Y-%m-%dT%H-%M-%S.mp4') if x.endswith('.mp4')
+        else datetime.strptime(x, 'recorded_video_%Y-%m-%dT%H-%M-%S.webm')
     )
 
     # 정렬된 파일 경로 반환
@@ -162,7 +166,13 @@ def process_videos(directory):
 
         # 동영상 파일명에서 시간을 추출하여 시작 시간으로 설정
         video_filename = os.path.basename(video_path)
-        video_start_time_str = video_filename.split('_')[2].replace('.mp4', '')  # '.mp4' 제거
+
+        # 파일 확장자를 고려하여 .mp4나 .webm을 제거
+        if video_filename.endswith('.mp4'):
+            video_start_time_str = video_filename.split('_')[2].replace('.mp4', '')
+        elif video_filename.endswith('.webm'):
+            video_start_time_str = video_filename.split('_')[2].replace('.webm', '')
+
         video_start_time = datetime.strptime(video_start_time_str, '%Y-%m-%dT%H-%M-%S')
 
         capture = cv2.VideoCapture(video_path)
@@ -203,6 +213,26 @@ def process_videos(directory):
 
             print("OWAS 점수:", owas_score)
             print("몸통, 팔, 다리, 하중:", partial_score)
+
+
+
+            ### 벡엔드야 여기를 봐~~
+            # 점수를 전송하기 위한 POST 요청
+            payload = {
+                'reba_score_a': int(score_a),                    # reba a 점수
+                'partial_a': [int(x) for x in partial_a],        # reba a 부분 점수 [목, 몸통, 다리]
+                'reba_score_b': int(score_b),                    # reba b 점수
+                'partial_b': [int(x) for x in partial_b],        # reba b 부분 점수 [어깨에서 팔꿈치까지, 팔꿈치에서 손목까지, 손목]
+                'reba_score_c': int(score_c),                    # reba 최종 점수
+                'caption': caption,                              # risk 단계
+                'owas_score': int(owas_score),                   # owas 점수
+                'partial_score': [int(x) for x in partial_score] # owas에서 나온 [몸통, 팔, 다리, 하중]
+            }
+
+            # response = requests.post("http://서버주소/api/scores", json=payload) # 시험 할 때는 여기 주석 풀고 주소 넣어서 해.
+            ### 여기까지 포스트 넣어 봤어.
+
+            
 
             results = draw_keypoints(result, frame)
             
