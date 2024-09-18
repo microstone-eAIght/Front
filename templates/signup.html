@@ -132,6 +132,27 @@
       </div>
     </div>
 
+    <!-- 폼 오류 메시지 출력 -->
+    {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+      {% for field, errors in form.errors.items() %}
+      <strong>{{ form[field].label }}</strong>
+      <ul>
+        {% for error in errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Flash 오류 메시지 출력 -->
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-danger" role="alert">
+      {{ message }}
+    </div>
+    {% endfor %}
+
     <div id="myModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
