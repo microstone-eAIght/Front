@@ -175,8 +175,8 @@ label span {
     border-radius: 5px;
     margin: 10px auto 10px;
     position: absolute;
-    top: 31%;
+    top: 22%;
     left: 7.2%;
     color: white;
-    display: none;
+    /* display: none; */
 }
