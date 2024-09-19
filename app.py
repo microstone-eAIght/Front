@@ -1,6 +1,6 @@
 from flask import Flask
 from models import db
-from views import bp
+from controllers import bp
 
 app = Flask(__name__)
 
