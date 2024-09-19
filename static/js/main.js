@@ -1,71 +1,22 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const cctvVideo1 = document.getElementById('cctvVideo1');
-  const cctvVideo2 = document.getElementById('cctvVideo2');
-  const cctvVideo3 = document.getElementById('cctvVideo3');
-  const cctvVideo4 = document.getElementById('cctvVideo4');
-  const logoutButton = document.getElementById('logoutButton');
-
-  // 사용자 정보를 저장하는 예제 객체 (실제로는 서버에서 받아와야 함)
-  const user = {
-    name: '홍길동님',
-    notifications: 3,
-  };
-
-  // 사용자 이름과 알림 수를 업데이트하는 함수
-  function updateUserInfo() {
-    const userNameElement = document.getElementById('userName');
-    const notificationCountElement = document.getElementById('notificationCount');
-
-    userNameElement.textContent = user.name;
-    notificationCountElement.textContent = user.notifications;
+// 첫 화면에서 웹캠 스트림을 시작하는 함수
+function startWebcam() {
+  const videoElement = document.getElementById('cctvVideo1');
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true }).then(function (mediaStream) {
+          videoElement.srcObject = mediaStream;
+          videoElement.play();
+      }).catch(function(error) {
+          console.error("웹캠 시작 중 오류 발생:", error);
+      });
   }
+}
 
-  // 페이지가 로드되면 사용자 정보를 업데이트
-  updateUserInfo();
+// 창이 로드될 때 웹캠을 시작합니다
+window.onload = function() {
+  startWebcam();
+};
 
-  // CCTV 영상 소스 설정 (실제 소스를 여기에 설정하세요)
-  cctvVideo1.src = 'path_to_cctv_stream1';
-  cctvVideo2.src = 'path_to_cctv_stream2';
-  cctvVideo3.src = 'path_to_cctv_stream3';
-  cctvVideo4.src = 'path_to_cctv_stream4';
-
-  // 로그아웃 버튼 클릭 이벤트
-  logoutButton.addEventListener('click', () => {
-    alert('로그아웃 되었습니다.');
-    // 실제 로그아웃 로직을 여기에 추가하세요
-  });
-
-  // 초기화
-  displayIssues();
-
-  // 더블클릭 및 마우스 오버 기능 추가
-  const cctvs = document.querySelectorAll('.cctv');
-
-  cctvs.forEach((cctv) => {
-    // 더블클릭 이벤트 핸들러
-    cctv.addEventListener('dblclick', () => {
-      const isFullScreen = cctv.classList.contains('full-screen');
-      cctvs.forEach((c) => c.classList.remove('full-screen'));
-      if (!isFullScreen) {
-        cctv.classList.add('full-screen');
-      }
-    });
-
-    // 마우스를 올렸을 때 스타일 변경
-    cctv.addEventListener('mouseover', () => {
-      cctv.style.border = '2px solid yellow';
-      cctv.style.cursor = 'pointer';
-    });
-
-    // 마우스가 떠났을 때 스타일 원래대로
-    cctv.addEventListener('mouseout', () => {
-      cctv.style.border = '';
-      cctv.style.cursor = '';
-    });
-  });
-});
-
-function openWorkshopWindow(workshopNumber, workshopName, cctvStream) {
+function openWorkshopWindow(workshopNumber, workshopName, cctvStreams) {
   // 현재 창의 크기를 가져옴
   let width = window.innerWidth;
   let height = window.innerHeight;
@@ -83,40 +34,40 @@ function openWorkshopWindow(workshopNumber, workshopName, cctvStream) {
   // 새 창에 내용 삽입
   newWindow.document.open();
   newWindow.document.write(`
-    <!DOCTYPE html>
-    <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>작업장${workshopName}</title>
-        <link rel="stylesheet" href="/static/style.css">
-    </head>
-    <body class="new-window-body">
-        <header class="new-window-header">
-            <h1>작업현장 영상 수집 데이터</h1>
-        </header>
-        <main class="new-window-main-content">
-            <aside class="new-window-sidebar">
-                <h2>작업장: 작업장${workshopName}</h2>
-                <button>WorkingHours</button>
-                <button>RULA</button>
-                <button>REBA</button>
-                <button>OWAS</button>
-                <button>REPORT</button>
-            </aside>
-            <section class="cctv-section">
-                <div class="cctv-container">
-                    <video id="cctvVideo1" class="cctv" autoplay></video>
-                    <div class="cctv" id="cctv2"></div>
-                    <div class="cctv" id="cctv3"></div>
-                    <div class="cctv" id="cctv4"></div>
-                </div>
+  <!DOCTYPE html>
+  <html lang="ko">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>작업장${workshopName}</title>
+      <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body class="new-window-body">
+      <header class="new-window-header">
+          <h1>작업현장 영상 수집 데이터</h1>
+      </header>
+      <main class="new-window-main-content">
+          <aside class="new-window-sidebar">
+              <h2>작업장: 작업장${workshopName}</h2>
+              <button>WorkingHours</button>
+              <button>RULA</button>
+              <button>REBA</button>
+              <button>OWAS</button>
+              <button>REPORT</button>
+          </aside>
+          <section class="cctv-section">
+              <div class="cctv-container">
+                  <video id="cctvVideo1" class="cctv" autoplay></video>
+                  <video id="cctvVideo2" class="cctv" autoplay></video>
+                  <video id="cctvVideo3" class="cctv" autoplay></video>
+                  <video id="cctvVideo4" class="cctv" autoplay></video>
+              </div>
 
-                <div class="new-window-footer">
-                    <p>© 작업장 데이터 수집 시스템</p>
-                </div>
-            </section>
-            <aside class="evaluation-sidebar">
+              <div class="new-window-footer">
+                  <p>© 작업장 데이터 수집 시스템</p>
+              </div>
+          </section>
+          <aside class="evaluation-sidebar">
                 <div class="evaluation-category">
                     <h3>Neck</h3>
                     <p>(2) Neck Bend : 45° (Front)</p>
@@ -172,57 +123,107 @@ function openWorkshopWindow(workshopNumber, workshopName, cctvStream) {
                     <p>(3) Back Load : 15kg</p>
                 </div>
             </aside>
-        </main>
-        <script>
-          // 웹캠 스트림을 자동으로 시작하는 함수
-          function startWebcam() {
-            const videoElement = document.getElementById('cctvVideo1');
-            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-              navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
-                videoElement.srcObject = stream;
-                videoElement.play();
-              }).catch(function(error) {
-                console.error("웹캠 시작 중 오류 발생:", error);
-              });
-            }
-          }
+      </main>
+      <script about="recording">
+        let mediaRecorder;
+        let recordedChunks = [];
+        let recordingInterval;
+        let stream;
 
-          // 창이 열리면 자동으로 웹캠 시작
-          window.onload = function() {
-            startWebcam();
-            initializeCCTVZoom();
-          };
-
-          // CCTV 줌 기능 초기화
-          function initializeCCTVZoom() {
-            const cctvs = document.querySelectorAll('.cctv');
-
-            cctvs.forEach(cctv => {
-              // 더블클릭 이벤트 핸들러
-              cctv.addEventListener('dblclick', () => {
-                const isFullScreen = cctv.classList.contains('full-screen');
-                cctvs.forEach(c => c.classList.remove('full-screen'));
-                if (!isFullScreen) {
-                  cctv.classList.add('full-screen');
-                }
-              });
-
-              // 마우스를 올렸을 때 스타일 변경
-              cctv.addEventListener('mouseover', () => {
-                cctv.style.border = '2px solid red';
-                cctv.style.cursor = 'pointer';
-              });
-
-              // 마우스가 떠났을 때 스타일 원래대로
-              cctv.addEventListener('mouseout', () => {
-                cctv.style.border = '';
-                cctv.style.cursor = '';
-              });
+        // 웹캠 스트림을 자동으로 시작하는 함수
+        function startWebcam() {
+          const videoElement = document.getElementById('cctvVideo1');
+          if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true }).then(function (mediaStream) {
+              videoElement.srcObject = mediaStream;
+              videoElement.play();
+              stream = mediaStream; // 스트림 저장
+              startRecording(); // 녹화 자동 시작
+            }).catch(function(error) {
+              console.error("웹캠 시작 중 오류 발생:", error);
             });
           }
-        </script>
-    </body>
-    </html>
+        }
+
+        // 녹화 시작
+        function startRecording() {
+          mediaRecorder = new MediaRecorder(stream);
+
+          mediaRecorder.ondataavailable = event => {
+            if (event.data.size > 0) {
+              recordedChunks.push(event.data);
+            }
+          };
+
+          mediaRecorder.onstop = () => {
+            // 저장된 데이터로 파일 생성 및 다운로드
+            const blob = new Blob(recordedChunks, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            link.download = \`recorded_video_\${timestamp}.webm\`;
+            link.click();
+
+            // 녹화 데이터 초기화
+            recordedChunks = [];
+
+            // 녹화 다시 시작
+            mediaRecorder.start();
+          };
+
+          mediaRecorder.start();
+
+          // 주기적으로 녹화 중지
+          recordingInterval = setInterval(() => {
+            mediaRecorder.stop();
+          }, 5000); // 5초마다 녹화 중지
+        }
+
+        // 녹화 중지
+        function stopRecording() {
+          clearInterval(recordingInterval);
+          if (mediaRecorder && mediaRecorder.state !== "inactive") {
+            mediaRecorder.stop();
+          }
+        }
+
+        // 창이 열리면 자동으로 웹캠 시작 및 녹화
+        window.onload = function() {
+          startWebcam();
+          initializeCCTVZoom();
+        };
+
+        // CCTV 줌 기능 초기화
+        function initializeCCTVZoom() {
+          const cctvs = document.querySelectorAll('.cctv');
+
+          cctvs.forEach(cctv => {
+            // 더블클릭 이벤트 핸들러
+            cctv.addEventListener('dblclick', () => {
+              const isFullScreen = cctv.classList.contains('full-screen');
+              cctvs.forEach(c => c.classList.remove('full-screen'));
+              if (!isFullScreen) {
+                cctv.classList.add('full-screen');
+              }
+            });
+
+            // 마우스를 올렸을 때 스타일 변경
+            cctv.addEventListener('mouseover', () => {
+              cctv.style.border = '2px solid red';
+              cctv.style.cursor = 'pointer';
+            });
+
+            // 마우스가 떠났을 때 스타일 원래대로
+            cctv.addEventListener('mouseout', () => {
+              cctv.style.border = '';
+              cctv.style.cursor = '';
+            });
+          });
+        }
+      </script>
+  </body>
+  </html>
   `);
   newWindow.document.close();
 }
