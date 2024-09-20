@@ -7,23 +7,6 @@ function checkUsername() {
         resultDiv.style.display = 'block';
         return;
     }
-
-fetch(`/check-username?id=${encodeURIComponent(id)}`)
-    .then(response => response.json())
-    .then(data => {
-        if (data.exists) {
-            resultDiv.textContent = '이미 사용 중인 아이디입니다.';
-            resultDiv.style.color = 'red';
-        } else {
-            resultDiv.textContent = '사용 가능한 아이디입니다.';
-            resultDiv.style.color = 'green';
-        }
-        resultDiv.style.display = 'block';
-    })
-    .catch(error => {
-        resultDiv.textContent = '아이디 중복 확인 중 오류가 발생했습니다.';
-        resultDiv.style.display = 'block';
-    });
 }
 
 function checkStuff() {

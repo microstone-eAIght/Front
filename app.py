@@ -8,8 +8,8 @@ app = Flask(__name__)
 
 app.secret_key = '0106'  # 세션 암호화를 위한 시크릿 키 설정
 # MySQL 데이터베이스 연결 정보
-app.config['MYSQL_HOST'] = '127.0.0.1'
-app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_HOST'] = '10.1.3.246'
+app.config['MYSQL_USER'] = 'user7'
 app.config['MYSQL_PASSWORD'] = '1234'
 app.config['MYSQL_DB'] = 'mydb'
 
