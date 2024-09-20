@@ -6,7 +6,7 @@
     <title>직원 관리 시스템</title>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='employee.css') }}"
+      href="{{ url_for('static', filename='css/employee.css') }}"
     />
   </head>
   <body>
@@ -22,10 +22,10 @@
             </button>
           </li>
           <li><a href="/index">CCTV</a></li>
-          <li><a href="/manager">관리자페이지</a></li>
-          <li><a href="#">근로자관리</a></li>
-          <li><a href="/management">작업장관리</a></li>
+          <li><a href="#">관리자페이지</a></li>
+          <li><a href="#">근골격계 위험 감지</a></li>
           <li><a href="/employee">직원관리</a></li>
+          <li><a href="/storage">저장소</a></li>
         </ul>
         <button id="logoutButton">로그아웃</button>
       </nav>
@@ -55,12 +55,18 @@
             <tbody>
               {% for employee in employees %}
               <tr>
-                <td>{{ employee[0] }}</td>  <!-- 이름 -->
-                <td>{{ employee[1] }}</td>  <!-- 지역 -->
-                <td>{{ employee[2] }}</td>  <!-- 부서 -->
-                <td>{{ employee[3] }}</td>  <!-- 직급 -->
-                <td>{{ employee[4] }}</td>  <!-- 전화번호 -->
-                <td>{{ employee[5] }}</td>  <!-- 이메일 -->
+                <td>{{ employee[0] }}</td>
+                <!-- 이름 -->
+                <td>{{ employee[1] }}</td>
+                <!-- 지역 -->
+                <td>{{ employee[2] }}</td>
+                <!-- 부서 -->
+                <td>{{ employee[3] }}</td>
+                <!-- 직급 -->
+                <td>{{ employee[4] }}</td>
+                <!-- 전화번호 -->
+                <td>{{ employee[5] }}</td>
+                <!-- 이메일 -->
                 <td><button class="btn small-btn">수정</button></td>
                 <td><button class="btn small-btn">삭제</button></td>
               </tr>
@@ -103,6 +109,6 @@
       </div>
     </div>
 
-    <script src="{{ url_for('static', filename='employee.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/employee.js') }}"></script>
   </body>
 </html>

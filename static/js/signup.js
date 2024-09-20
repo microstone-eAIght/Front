@@ -9,6 +9,25 @@ function checkUsername() {
     }
 }
 
+{
+fetch(`/check-username?id=${encodeURIComponent(id)}`)
+    .then(response => response.json())
+    .then(data => {
+        if (data.exists) {
+            resultDiv.textContent = '이미 사용 중인 아이디입니다.';
+            resultDiv.style.color = 'red';
+        } else {
+            resultDiv.textContent = '사용 가능한 아이디입니다.';
+            resultDiv.style.color = 'green';
+        }
+        resultDiv.style.display = 'block';
+    })
+    .catch(error => {
+        resultDiv.textContent = '아이디 중복 확인 중 오류가 발생했습니다.';
+        resultDiv.style.display = 'block';
+    });
+}
+
 function checkStuff() {
     const id = document.querySelector('input[name="id"]').value;
     const password = document.querySelector('input[name="pw"]').value;
@@ -23,7 +42,7 @@ function checkStuff() {
     const errorMsg = document.getElementById('msg'); 
     const specialCharPattern = /[!@#$%^&*(),.?":{}|<>]/;
 
-    if (id.length < 6 || id.length > 20) {
+    if (id.length < 6 && id.length > 20) {
         errorMsg.textContent = '아이디는 6자 이상 20자 이하로 입력해 주세요.';
         errorMsg.style.display = 'block';
         return false;

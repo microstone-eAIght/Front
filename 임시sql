@@ -1,0 +1,20 @@
+CREATE TABLE member (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    member_id VARCHAR(255) NOT NULL,
+    member_name VARCHAR(255),
+    member_password VARCHAR(255),
+    member_phone VARCHAR(255),
+    member_email VARCHAR(255),
+    member_address VARCHAR(255),
+    member_position VARCHAR(255)
+);
+
+CREATE TABLE employee (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_name VARCHAR(255),
+    employee_address VARCHAR(255),
+    employee_department VARCHAR(255),
+    employee_position VARCHAR(255),
+    employee_phone VARCHAR(255),
+    employee_email VARCHAR(255)
+);
