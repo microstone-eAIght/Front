@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 사용자 이름과 알림 수를 업데이트하는 함수
   function updateUserInfo() {
     const userNameElement = document.getElementById('userName');
-    const notificationCountElement = document.getElementById('notificationCount');
+    const notificationCountElement =
+      document.getElementById('notificationCount');
 
     userNameElement.textContent = user.name;
     notificationCountElement.textContent = user.notifications;
@@ -31,8 +32,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 로그아웃 버튼 클릭 이벤트
   logoutButton.addEventListener('click', () => {
+    // 사용자에게 로그아웃 알림
     alert('로그아웃 되었습니다.');
-    // 실제 로그아웃 로직을 여기에 추가하세요
+
+    // 로그아웃 요청
+    fetch('/logout', {
+      method: 'POST',
+    })
+      .then((response) => {
+        if (response.ok) {
+          // 로그아웃 성공 시 /login으로 리다이렉트
+          window.location.href = '/';
+        } else {
+          alert('로그아웃 중 오류가 발생했습니다.'); // 오류 메시지 표시
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error); // 콘솔에 오류 로그
+      });
   });
 
   // 초기화
@@ -89,7 +106,7 @@ function openWorkshopWindow(workshopNumber, workshopName, cctvStream) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>작업장${workshopName}</title>
-        <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="/static/css/style.css"/>
     </head>
     <body class="new-window-body">
         <header class="new-window-header">
