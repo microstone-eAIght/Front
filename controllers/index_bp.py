@@ -3,10 +3,7 @@ from models import Employee, db, Member
 from forms import LoginForm, UserCreateForm, EmployeeCreateForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import flash, get_flashed_messages
-
 from lock import login_required
-
-
 
 index_bp= Blueprint('index',__name__,)
 
