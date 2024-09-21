@@ -8,7 +8,7 @@ from lock import login_required
 
 
 
-login_bp= Blueprint('main',__name__,url_prefix='/')
+login_bp= Blueprint('login',__name__)
 
 @login_bp.route('/logout', methods=['POST'])
 def logout():
