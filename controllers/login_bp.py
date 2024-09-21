@@ -10,7 +10,10 @@ from lock import login_required
 
 login_bp= Blueprint('main',__name__,url_prefix='/')
 
-
+@login_bp.route('/logout', methods=['POST'])
+def logout():
+    session.pop('user_id', None)  # 세션에서 사용자 ID 제거
+    return '', 204  # No Content 응답 반환
 
 @login_bp.route('/', methods=['GET', 'POST'])
 def login_view():

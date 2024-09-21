@@ -13,10 +13,6 @@ app = Flask(__name__)
 app.config.from_object(Config)  # Config 클래스에서 설정 불러오기
 
 
-@app.route('/logout', methods=['POST'])
-def logout():
-    session.pop('user_id', None)  # 세션에서 사용자 ID 제거
-    return '', 204  # No Content 응답 반환
 
 # MySQL 데이터베이스에 직접 연결
 #connection = mysql.connector.connect(
