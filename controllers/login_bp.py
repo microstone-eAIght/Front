@@ -12,7 +12,7 @@ login_bp= Blueprint('main',__name__,url_prefix='/')
 
 
 
-@login_bp.route('/', methods=['GET', 'POST'])
+@login_bp.route('/login', methods=['GET', 'POST'])
 def login_view():
     form = LoginForm()
 
