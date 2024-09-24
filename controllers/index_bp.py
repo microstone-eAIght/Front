@@ -12,6 +12,15 @@ index_bp= Blueprint('index',__name__,)
 @index_bp.route('/index')
 @login_required
 def index_view():
+    if request.method == 'GET':
+        # 사용자 이름 가져오기
+        member = Member.query.filter_by(member_id=session['userid']).first()
+        if member:
+            member_name = member.member_name
+        else:
+            member_name = '이름 없음'
+
+        return render_template('index.html', member_name=member_name)
     # 로그인이 되어 있는지 확인
     print("Session contents: ", session)
 
