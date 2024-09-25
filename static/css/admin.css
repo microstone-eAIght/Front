@@ -203,3 +203,26 @@ select {
     font-size: 12px;
     font-weight: bold;
 }
+
+/* 테이블 헤더의 각 칸에 비율 지정 */
+#employeeTable th:nth-child(1) { /* ID */
+    width: 10%; /* 전체 너비의 10% */
+}
+#employeeTable th:nth-child(2) { /* 이름 */
+    width: 15%; /* 전체 너비의 15% */
+}
+#employeeTable th:nth-child(3) { /* 지역 */
+    width: 15%; /* 전체 너비의 15% */
+}
+#employeeTable th:nth-child(4) { /* 부서 */
+    width: 15%; /* 전체 너비의 15% */
+}
+#employeeTable th:nth-child(5) { /* 직급 */
+    width: 15%; /* 전체 너비의 15% */
+}
+#employeeTable th:nth-child(6) { /* 전화번호 */
+    width: 15%; /* 전체 너비의 15% */
+}
+#employeeTable th:nth-child(7) { /* 이메일 */
+    width: 15%; /* 전체 너비의 15% */
+}
