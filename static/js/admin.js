@@ -7,7 +7,6 @@ function searchEmployee() {
 const employees = [
     {id: 1, name: '홍길동', region: '서울', department: '부서1', position: '1', phone: '010-1234-5678', email: 'hong@example.com'},
     {id: 2, name: '김철수', region: '부산', department: '부서2', position: '2', phone: '010-2345-6789', email: 'kim@example.com'},
-
 ];
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
             <td>${employee.position}</td>
             <td>${employee.phone}</td>
             <td>${employee.email}</td>
-            <td><button class="kakao-button" onclick="sendKakaoMessage('${employee.phone}')">전송</button></td> <!-- 카카오톡 전송 버튼 추가 -->
         `;
         tbody.appendChild(row);
     });
@@ -63,9 +61,4 @@ function clearForm() {
     document.getElementById('phone').value = '';
     document.getElementById('email').value = '';
     document.getElementById('employeeForm').dataset.id = '';
-}
-
-function sendKakaoMessage() {
-    alert(`카카오톡 메시지 전송`);
-    // 실제로는 카카오톡 API를 사용하여 메시지를 전송
 }
