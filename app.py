@@ -5,6 +5,7 @@ from controllers.index_bp import index_bp
 from controllers.login_bp import login_bp
 from controllers.signup_bp import signup_bp
 from controllers.storage_bp import storage_bp
+from controllers.home_bp import home_bp
 from controllers.recent_img_bp import recent_img_bp
 from controllers.reba_button_bp import reba_button_bp
 from controllers.analysis_bp import analysis_bp
@@ -20,9 +21,9 @@ app.config.from_object(Config)  # Config 클래스에서 설정 불러오기
 
 # MySQL 데이터베이스에 직접 연결
 #connection = mysql.connector.connect(
- #   host='10.1.3.246',
+#   host='10.1.3.246',
   #  user='user6',
-   # password='1234',
+    # password='1234',
     #database='mydb',
     #auth_plugin='mysql_native_password'  # 인증 방식 설정
 #)
@@ -40,6 +41,7 @@ app.register_blueprint(index_bp)
 app.register_blueprint(login_bp)
 app.register_blueprint(signup_bp)
 app.register_blueprint(storage_bp)
+app.register_blueprint(home_bp)
 app.register_blueprint(reba_button_bp)
 app.register_blueprint(recent_img_bp)
 app.register_blueprint(analysis_bp)
@@ -48,4 +50,3 @@ app.register_blueprint(analysis_bp)
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
-
