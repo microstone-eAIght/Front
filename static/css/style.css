@@ -1,4 +1,3 @@
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -118,21 +117,20 @@ body {
 
 .cctv-stream {
     width: 100%;
-    background-color: #212121;
-    padding: 1px;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    margin-top:1px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black; /* 검은색 배경으로 갭을 덮음 */
+    overflow: hidden;
 }
 
 .cctv-stream video {
     width: 100%;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    height: auto; /* 높이는 자동으로 조정 */
+    max-height: 100%; /* 최대 높이는 컨테이너의 높이로 제한 */
+    background-color: black;
+    object-fit: contain; /* 비디오가 잘리지 않도록 유지 */
 }
 
 .user-info {
@@ -332,12 +330,6 @@ body {
         font-size: 0.4rem;
     }
 }
-
-
-
-
-
-
 
 .cctv-container {
     display: grid;
