@@ -9,7 +9,7 @@ from controllers.home_bp import home_bp
 from controllers.recent_img_bp import recent_img_bp
 from controllers.reba_button_bp import reba_button_bp
 from controllers.analysis_bp import analysis_bp
-
+from controllers.admin_bp import admin_bp
 from config import Config  # config.py 임포트
 from flask_sqlalchemy import SQLAlchemy  # Flask-SQLAlchemy 임포트
 import mysql.connector
@@ -45,6 +45,7 @@ app.register_blueprint(home_bp)
 app.register_blueprint(reba_button_bp)
 app.register_blueprint(recent_img_bp)
 app.register_blueprint(analysis_bp)
+app.register_blueprint(admin_bp)
 
 
 
