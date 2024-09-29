@@ -1,11 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, session, flash
-from models import Employee, db, Member
-from forms import LoginForm, UserCreateForm, EmployeeCreateForm
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask import flash, get_flashed_messages
-
-from lock import login_required
-
+from models import check_member_login
+from flask import flash
 
 
 login_bp= Blueprint('login',__name__)
@@ -17,28 +12,15 @@ def logout():
 
 @login_bp.route('/login', methods=['GET', 'POST'])
 def login_view():
-    form = LoginForm()
+    userid = request.form.get(userid)
+    password = request.form.get(password)
 
-    if request.method == 'POST':
-        user = Member.query.filter_by(member_id=form.userid).first()
+    if check_member_login(userid, password):
+        session['user_id']=userid
+        flash('로그인 성공!','success')
+        return redirect('/index')
+    else:
+        flash('아이디 또는 비밀번호가 잘못 되었습니다.','error')
+        redirect('/login')
 
-        # 사용자 정보가 있는지 확인
-        print(f"Form userid: {form.userid}")
-        if not user:
-            print("User not found.")
-        else:
-            print(f"User found: {user.member_id}")
-            print(f"Input password: {form.password}")
-            print(f"Stored hash: {user.member_password}")
-
-        # 비밀번호 검증
-        if user and check_password_hash(user.member_password, form.password):
-            session['logged_in'] = True
-            session['userid'] = user.member_id
-            print("Login successful, session contents: ", session)
-            session.pop('_flashes', None)
-            return redirect('/index')
-
-        flash('아이디 혹은 비밀번호를 확인해 주세요.', 'danger')
-
-    return render_template('login.html', form=form)
+    return render_template('login.html')

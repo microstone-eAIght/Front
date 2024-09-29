@@ -40,14 +40,14 @@
       <form name="form1" class="box" method="POST" action="http://localhost:5000/signup">
         <h1><span>회원가입</span></h1>
         <div class="id-container">
-          <input type="text" id="id" name="id" placeholder="아이디 입력(6~20자)" autocomplete="on" />
+          <input type="text" id="id" name="userid" placeholder="아이디 입력(6~20자)" autocomplete="on" />
           <button type="button" class="btn3" onclick="checkUsername()">중복 확인</button>
         </div>
         <div id="usernameCheckResult" class="error-text"></div>
-        <input type="password" name="pw" placeholder="비밀번호를 입력해 주세요" id="pwd1" autocomplete="off" />
+        <input type="password" name="password" placeholder="비밀번호를 입력해 주세요" id="pwd1" autocomplete="off" />
         <div id="pwCheckResult" class="error-text" style="display:none;"></div>
-        <input type="password" name="pw_ch" placeholder="비밀번호 재입력" id="pwd2" autocomplete="off" />
-        <input type="text" name="name" placeholder="이름을 입력해 주세요" autocomplete="on" />
+        <input type="password" name="password_ch" placeholder="비밀번호 재입력" id="pwd2" autocomplete="off" />
+        <input type="text" name="username" placeholder="이름을 입력해 주세요" autocomplete="on" />
         <input type="text" name="tel" placeholder="전화번호를 입력해 주세요" autocomplete="on" />
         <input type="text" name="email" placeholder="이메일을 입력해 주세요" autocomplete="on" id="email" />
         <div id="emailCheckResult" class="error-text" style="display:none;"></div>
