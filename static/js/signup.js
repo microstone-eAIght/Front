@@ -1,14 +1,43 @@
 function checkUsername() {
-  const id = document.querySelector('input[name="id"]').value;
+  const userid = document.querySelector('input[name="userid"]').value; // name="userid"로 수정
   const resultDiv = document.getElementById('usernameCheckResult');
 
-  if (id.length < 6 || id.length > 20) {
+  // 아이디 길이 확인
+  if (userid.length < 6 || userid.length > 20) {
     resultDiv.textContent = '아이디는 6자 이상 20자 이하로 입력해 주세요.';
     resultDiv.style.display = 'block';
+    resultDiv.style.color = 'red';
+    return;  // 조건을 만족하지 않으면 Ajax 요청을 하지 않음
   } else {
     resultDiv.textContent = '';
     resultDiv.style.display = 'none';
   }
+
+  // Ajax를 사용해 서버로 아이디 중복 확인 요청
+  fetch('/check_username', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userid: userid }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.exists) {
+      resultDiv.textContent = '아이디가 이미 존재합니다.';
+      resultDiv.style.display = 'block';
+      resultDiv.style.color = 'red';
+    } else {
+      resultDiv.textContent = '사용 가능한 아이디입니다.';
+      resultDiv.style.display = 'block';
+      resultDiv.style.color = 'green';
+    }
+  })
+  .catch(error => {
+    resultDiv.textContent = '오류가 발생했습니다. 다시 시도해 주세요.';
+    resultDiv.style.display = 'block';
+    resultDiv.style.color = 'red';
+  });
 }
 
 function checkEmail() {

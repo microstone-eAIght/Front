@@ -1,5 +1,5 @@
 from flask import Flask, session
-from models import get_all_users 
+from models import get_all_users
 # from controllers.employee_bp import employee_bp
 from controllers.index_bp import index_bp
 from controllers.login_bp import login_bp
@@ -16,6 +16,8 @@ from config import Config  # config.py 임포트
 
 app = Flask(__name__)
 app.config.from_object(Config)  # Config 클래스에서 설정 불러오기
+
+
 
 # 블루프린트 등록
 # app.register_blueprint(employee_bp)
