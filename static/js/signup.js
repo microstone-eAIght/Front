@@ -57,8 +57,8 @@ function checkEmail() {
 document.querySelector('input[name="email"]').addEventListener('focusout', checkEmail);
 
 function checkPassword() {
-  const pwd1 = document.querySelector('input[name="pw"]').value;
-  const pwd2 = document.querySelector('input[name="pw_ch"]').value;
+  const pwd1 = document.querySelector('input[name="password"]').value;
+  const pwd2 = document.querySelector('input[name="password_ch"]').value;
   const pwResultDiv = document.getElementById('pwCheckResult');
 
   if (pwd1.length < 8 || pwd1.length > 20) {
@@ -81,7 +81,7 @@ function checkPassword() {
   }
 }
 
-document.querySelectorAll('input[name="pw"], input[name="pw_ch"]').forEach(input => {
+document.querySelectorAll('input[name="password"], input[name="password_ch"]').forEach(input => {
   input.addEventListener('input', checkPassword);
 });
 

@@ -37,6 +37,16 @@
 <body id="particles-js">
   <div class="animated bounceInDown">
     <div class="container">
+       <!-- 플래시 메시지를 표시할 영역 -->
+       {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+         <ul class="flash-messages">
+           {% for category, message in messages %}
+             <li class="{{ category }}">{{ message }}</li>
+           {% endfor %}
+         </ul>
+         {% endif %}
+       {% endwith %}
       <form name="form1" class="box" method="POST" action="http://localhost:5000/signup">
         <h1><span>회원가입</span></h1>
         <div class="id-container">
@@ -55,11 +65,11 @@
         <span id="msg" class="error-text" style="display: none"></span>
         <div class="position">
           <select id="position" name="position">
-            <option selected disabled>직책</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
+            <option value="" disabled selected>직책</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
           </select>
         </div>
         <input type="submit" value="회원가입" class="btn1" />
