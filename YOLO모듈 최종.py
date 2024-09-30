@@ -4,21 +4,24 @@ import torch
 import cv2
 import numpy as np
 import csv
-from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
+from datetime import datetime, timedelta
+import requests
+
 from ultralytics import YOLO
 from efficientnet_pytorch import EfficientNet
 from reba import RebaScore
 from owas import OwasScore
-from datetime import datetime, timedelta
-import requests
+from insert_photo import save_ai_results  # app.py에서 정의된 save_ai_results 함수를 가져옵니다.
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
+
 
 class VideoProcessor(FileSystemEventHandler):
     def __init__(self):
-        self.video_directory = 'C:/video/'
-        self.output_dir = 'C:/video/results'
-        self.high_risk_dir = 'C:/video/high_risk_images'
-        self.csv_file_path = 'C:/video/high_risk_info.csv'
+        self.video_directory = 'C:/Users/wngur/OneDrive/바탕 화면/AI/video/'
+        self.output_dir = 'C:/Users/wngur/OneDrive/바탕 화면/AI/video/results'
+        self.high_risk_dir = 'C:/Users/wngur/OneDrive/바탕 화면/AI/video/high_risk_images'
+        self.csv_file_path = 'C:/Users/wngur/OneDrive/바탕 화면/AI/video/high_risk_info.csv'
         self.total_frames_to_extract = 25
 
         # YOLOv8 모델과 EfficientNet 모델 로드
@@ -149,10 +152,18 @@ class VideoProcessor(FileSystemEventHandler):
                     'owas_score': int(owas_score),                   # owas 점수
                     'partial_score': [int(x) for x in partial_score] # owas에서 나온 [몸통, 팔, 다리, 하중]
                 }
+                ai_results = {
+                    'location': 'Factory',
+                    'frame_number': output_frame_count,  # frame_number는 output_frame_count로 설정
+                    'owas_risk_rank': caption,  # risk 단계로 OWAS 점수
+                    'reba_risk_rank': caption  # risk 단계로 REBA 최종 점수
+                    }
 
-                # response = requests.post("http://서버주소/api/scores", json=payload) # 시험 할 때는 여기 주석 풀고 주소 넣어서 해.
-                ### 여기까지 포스트 넣어 봤어.
+                # Flask API에 결과 전송
+                response = requests.post("http://127.0.0.1:5000/api/scores", json=ai_results)
 
+                # 데이터베이스에 결과 저장
+                save_ai_results(ai_results)
                 results = self.draw_keypoints(result, frame)
 
                 # 프레임이 동영상 시작 시간 이후 몇 초인지 계산
