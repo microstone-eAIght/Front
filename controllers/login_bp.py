@@ -6,7 +6,7 @@ login_bp= Blueprint('login',__name__)
 
 @login_bp.route('/logout', methods=['POST'])
 def logout():
-    session.pop('user_id', None)  # 세션에서 사용자 ID 제거
+    session.clear()
     flash('로그아웃 되었습니다.', 'info')
     return redirect(url_for('login.login_view'))
 
