@@ -1,5 +1,4 @@
-from flask import Flask, session
-from models import get_all_users
+from flask import Flask
 # from controllers.employee_bp import employee_bp
 from controllers.index_bp import index_bp
 from controllers.login_bp import login_bp
