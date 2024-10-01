@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, session, flash
-from models import Employee, db, Member
+from models.connect_model import Employee, db, Member
 from forms import LoginForm, UserCreateForm, EmployeeCreateForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import flash, get_flashed_messages
