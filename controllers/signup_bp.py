@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, session, flash, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-from models.signup_model import check_username_exists, insert_member
+from models import check_username_exists, insert_member
 import re
 
 
@@ -47,11 +47,14 @@ def signup():
                 flash('유효한 이메일 주소를 입력하세요.', 'error')
                 return redirect('/signup')
 
-            # 5. 사용자 데이터베이스에 저장
+            # 5. 비밀번호 해시화
+            hashed_password = generate_password_hash(password)
+
+            # 6. 사용자 데이터베이스에 저장
             user_data = {
                 'userid': userid,
                 'username': username,
-                'password': password,
+                'password': hashed_password,
                 'tel': tel,
                 'email': email,
                 'address': address,
