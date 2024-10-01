@@ -1,7 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, session, flash
-from werkzeug.security import generate_password_hash
-from models import get_member_name
-from flask import flash, get_flashed_messages
+from models.index_model import get_member_name
 from lock import login_required
 
 index_bp= Blueprint('main',__name__,)
