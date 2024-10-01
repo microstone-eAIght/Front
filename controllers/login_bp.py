@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, session, flash, url_for
-from models import check_member_login
+from models.login_model import check_member_login
 
 
 login_bp= Blueprint('login',__name__)
