@@ -1,0 +1,771 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    width: 201.45vh;
+    height: 100vh;
+    background: url("/static/img/background-7.jpg") no-repeat center center fixed;
+    background-size: cover;
+    backdrop-filter: blur(30px);
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    width: 250px;
+    height: 950px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+
+    /* 추가된 입체감 */
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.5);
+    /* 좌측 그림자 효과 */
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    /* 좌측 경계선 */
+}
+
+.sidebar h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+/* 추가: 사용자 프로필 구분 및 입체감 */
+.user-profile {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    /* 반투명 배경 */
+    border-radius: 10px;
+    /* 모서리 둥글게 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    /* 사용자 프로필 섹션 그림자 */
+    text-align: center;
+    /* 텍스트 가운데 정렬 */
+}
+
+.user-profile h2 {
+    margin: 0;
+    font-size: 20px;
+    color: white;
+}
+
+.user-profile p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* 메뉴 리스트는 기존 설정을 유지 */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, border-radius 0.3s;
+    border-radius: 10px;
+}
+
+.sidebar ul li:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.sidebar ul li a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 18px;
+    display: inline-block;
+    padding: 10px;
+    transition: color 0.3s, padding-left 0.3s;
+}
+
+.sidebar ul li img {
+    margin-right: 10px;
+    width: 25px;
+    height: auto;
+    transition: opacity 0.3s;
+}
+
+.sidebar ul li:hover img {
+    opacity: 0.7;
+}
+
+.sidebar ul li a:hover {
+    color: #ddd;
+    padding-left: 20px;
+}
+
+h1 img {
+    margin-right: 10px;
+    width: 40px;
+    height: auto;
+}
+
+/* main-content를 sidebar 오른쪽에 배치 */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    /* 세로로 쌓이는 구조 */
+
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    backdrop-filter: blur(30px);
+    box-sizing: border-box;
+}
+
+.analysis-title {
+    padding: 20px;
+    height: 130px;
+    width: 360px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.analysis-list {
+    display: flex;
+    width: 1200px;
+    padding-top: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    flex-wrap: wrap;
+}
+
+.analysis-item {
+    display: flex;
+    justify-content: center;
+    /* 수평 중앙 정렬 */
+    align-items: center;
+
+    /* 수직 중앙 정렬 */
+    width: 130px;
+    height: 130px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    /* 절대 위치로 설정하여 겹침 구현 */
+    transition: transform 0.3s ease;
+    /* 부드러운 이동 효과 */
+
+}
+
+.analysis-image {
+    margin: 5px;
+    padding: 5px;
+    width: 120px;
+    height: 120px;
+    /* 비율 유지 */
+    border-radius: 8px;
+    /* 필요에 따라 이미지 모서리 둥글게 */
+    object-fit: cover;
+    /* 이미지 비율을 유지하며 요소에 맞춤 */
+}
+
+/* 각 항목을 살짝씩 겹치게 설정 (left 값 조정) */
+.analysis-list .analysis-item:nth-child(1) {
+    left: 20px;
+}
+
+.analysis-list .analysis-item:nth-child(2) {
+    left: 120px;
+}
+
+.analysis-list .analysis-item:nth-child(3) {
+    left: 220px;
+}
+
+.analysis-list .analysis-item:nth-child(4) {
+    left: 320px;
+}
+
+.analysis-list .analysis-item:nth-child(5) {
+    left: 420px;
+}
+
+.analysis-list .analysis-item:nth-child(6) {
+    left: 520px;
+}
+
+.analysis-list .analysis-item:nth-child(7) {
+    left: 620px;
+}
+
+.analysis-list .analysis-item:nth-child(8) {
+    left: 720px;
+}
+
+.analysis-list .analysis-item:nth-child(9) {
+    left: 820px;
+}
+
+.analysis-list .analysis-item:nth-child(10) {
+    left: 920px;
+}
+
+/* 호버된 항목 */
+.analysis-list .analysis-item:hover {
+    transform: translateY(-10px) scale(1.1);
+    /* 위로 살짝 올라가고, 살짝 확대 */
+    z-index: 10;
+    /* 호버된 항목이 앞으로 나옴 */
+    cursor: url('cursor.png'), pointer;
+
+}
+
+/* 호버된 항목의 이후 형제 항목들만 오른쪽으로 이동 */
+.analysis-list .analysis-item:hover~.analysis-item {
+    transform: translateX(40px);
+    /* 오른쪽으로 이동 */
+}
+
+.analysis-list1,
+.analysis-list2,
+.analysis-list3,
+.analysis-list4,
+.analysis-list5,
+.analysis-list6,
+.analysis-list7,
+.analysis-list8,
+.analysis-list9,
+.analysis-list10 {
+    width: 130px;
+    height: 130px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.list-image .main-content h1 {
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+}
+
+.main-content h1 img {
+    margin-right: 10px;
+    width: 40px;
+    height: auto;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+
+.title-list {
+    display: flex;
+    gap: 20px;
+
+
+}
+
+.analysis-main {
+    display: flex;
+    gap: 20px;
+    padding: 0px;
+    margin: 0px;
+
+
+}
+
+.analysis-video {
+    padding-top: 0px;
+    margin-top: 0px;
+    /* 상단 여백을 줄이기 */
+    height: 710px;
+    width: 680px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    overflow: visible;
+}
+
+.analysis-REBA {
+    position: relative;
+    padding-top: 0px;
+    margin-top: 0px;
+    /* 상단 여백을 줄이기 */
+    height: 710px;
+    width: 450px;
+
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    overflow: visible;
+}
+
+.reba-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 수직 중앙 정렬 */
+    /* 수평 중앙 정렬 */
+
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    /* 제목에 그림자 효과 */
+}
+
+.owas-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 수직 중앙 정렬 */
+    /* 수평 중앙 정렬 */
+
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    /* 제목에 그림자 효과 */
+}
+
+.reba-icon {
+    width: 40px;
+    height: auto;
+    margin-right: 15px;
+}
+
+.reba-score-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 800px;
+    /* 최대 너비 */
+    margin: 0 auto;
+    /* 중앙 정렬 */
+}
+
+
+
+/* 컨테이너 내 텍스트 */
+.reba-score-container p {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+
+.reba-score-text {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 15px;
+}
+
+
+.analysis-OWAS {
+    position: relative;
+    padding-top: 0px;
+    margin-top: 0px;
+    /* 상단 여백을 줄이기 */
+    height: 710px;
+    width: 450px;
+
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    overflow: visible;
+}
+
+.analysis-tab {
+    padding: 0px;
+    margin: 0px;
+    height: 30px;
+    width: 680px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+.video-divider {
+    margin-top: 0;
+    /* 구분선 위쪽 여백 제거 */
+    height: 2px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+    margin: 1px 0 10px 0;
+    border-radius: 5px;
+}
+
+.reba-divider {
+    justify-content: center;
+    margin-top: 0;
+    /* 구분선 위쪽 여백 제거 */
+    height: 2px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+    margin: 1px 0 5px 0;
+    border-radius: 5px;
+}
+
+.owas-divider {
+    justify-content: center;
+    margin-top: 0;
+    /* 구분선 위쪽 여백 제거 */
+    height: 2px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+    margin: 1px 0 5px 0;
+    border-radius: 5px;
+}
+
+
+.tab-container {
+    display: flex;
+
+    width: 680px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px;
+    overflow: hidden;
+    /* 탭이 넘지 않도록 */
+    white-space: nowrap;
+}
+
+.tab {
+    flex: 1 1 auto;
+    /* 탭이 자동으로 크기 조정되도록 설정 */
+    min-width: 50px;
+    /* 최소 너비 */
+    max-width: 150px;
+    /* 최대 너비 */
+    height: 100%;
+    padding: 5px 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    /* 수직 중앙 정렬 */
+    justify-content: space-between;
+    /* 텍스트와 닫기 버튼 간격 조절 */
+}
+
+.tab.active-tab {
+    background-color: rgba(255, 255, 255, 0.4);
+    z-index: 5;
+}
+
+.tab .close-btn {
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.tab:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+    z-index: 1;
+}
+
+
+
+
+.analysis-video img {
+    border-radius: 10px;
+    margin-left: 10px;
+    max-width: 100%;
+    height: 650px;
+    width: 660px;
+
+    /* 추가된 입체감 스타일 */
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    /* 부드러운 경계선 */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3),
+        /* 큰 그림자 */
+        0 6px 6px rgba(0, 0, 0, 0.2);
+    /* 작은 그림자 */
+
+    background: rgba(255, 255, 255, 0.05);
+    /* 약간의 배경색 */
+    backdrop-filter: blur(10px);
+    /* 배경 흐림 */
+}
+
+#reba-plot {
+    width: 380px;
+    height: 300px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    /*background-color: rgba(255, 255, 255, 0.05);*/
+    /* 배경 반투명 */
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2),
+        0 4px 8px rgba(0, 0, 0, 0.3);
+    /* 입체감 추가 */
+
+    /* 플렉스박스 사용하여 중앙 정렬 */
+    display: flex;
+    justify-content: center;
+    /* 가로 방향 중앙 정렬 */
+    align-items: center;
+    /* 세로 방향 중앙 정렬 */
+    margin-bottom: 20px;
+}
+
+.owas-level-info {
+    width: 380px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.1);
+    /*background-color: rgba(255, 255, 255, 0.05);*/
+    /* 배경 반투명 */
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2),
+        0 4px 8px rgba(0, 0, 0, 0.3);
+    /* 입체감 추가 */
+
+    /* 플렉스박스 사용하여 중앙 정렬 */
+    display: flex;
+    justify-content: center;
+    /* 가로 방향 중앙 정렬 */
+    align-items: center;
+    /* 세로 방향 중앙 정렬 */
+}
+
+#owas-plot {
+    width: 380px;
+    height: 300px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    /*background-color: rgba(255, 255, 255, 0.05);*/
+    /* 배경 반투명 */
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2),
+        0 4px 8px rgba(0, 0, 0, 0.3);
+    /* 입체감 추가 */
+
+    /* 플렉스박스 사용하여 중앙 정렬 */
+    display: flex;
+    justify-content: center;
+    /* 가로 방향 중앙 정렬 */
+    align-items: center;
+    /* 세로 방향 중앙 정렬 */
+    margin-bottom: 20px;
+}
+
+.risk-box-style {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 반투명 배경 */
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.reba-score-container {
+    width: 350px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    /* 수평 중앙 정렬 */
+    align-items: center;
+    /* 수직 중앙 정렬 (선택 사항) */
+}
+
+.reba-button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* 버튼 입체감 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    word-spacing: 0.5em;
+}
+
+.reba-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.reba-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* 입체감 효과 */
+}
+
+.level-info {
+    width: 380px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.1);
+    /*background-color: rgba(255, 255, 255, 0.05);*/
+    /* 배경 반투명 */
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2),
+        0 4px 8px rgba(0, 0, 0, 0.3);
+    /* 입체감 추가 */
+
+    /* 플렉스박스 사용하여 중앙 정렬 */
+    display: flex;
+    justify-content: center;
+    /* 가로 방향 중앙 정렬 */
+    align-items: center;
+    font-weight: bold;
+}
+
+#folder-button {
+    width: 100px;
+    height: 40px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    margin-top: 5px;
+    /* 오른쪽 위에 배치하기 위한 속성 */
+    position: absolute;
+    top: 10px;
+    /* 화면의 상단에서 10px */
+    right: 25px;
+    /* 화면의 오른쪽에서 10px */
+}
+
+#folder-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.folder-icon {
+    width: 20px;
+    /* 폴더 아이콘 크기 설정 */
+    height: 20px;
+    vertical-align: middle;
+    /* 아이콘이 버튼 내에서 중앙 정렬되도록 설정 */
+}
+
+
+
+.analysis-item:hover .delete-button,
+.analysis-item:hover .add-button {
+    display: block;
+}
+
+.delete-button,
+.add-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: none;
+    cursor: pointer;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.delete-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    /* 호버 시 텍스트 색상 (흰색) */
+}
+
+.add-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    /* 호버 시 배경색 (녹색) */
+    color: #fff;
+    /* 호버 시 텍스트 색상 (흰색) */
+}
+
+.add-button {
+    right: 30px;
+    /* 'x' 버튼 옆에 위치 */
+}
+
+.image-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 120px;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #aaa;
+    font-size: 16px;
+    border: 1px dashed #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.selected-image-text {
+    display: none;
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+}
