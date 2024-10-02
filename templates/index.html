@@ -1,54 +1,54 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>위험 감지 시스템</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <nav class="sidebar">
-        <ul>
-          <li class="user-info">
-            <span id="userName" class="user-name">{{ member_name }}님</span>
-            <button id="notificationButton" class="notification-button">
-              알림<span id="notificationCount" class="notification-count">3</span>
-            </button>
-          </li>
-          <li><a href="/index">CCTV</a></li>
-          <li><a href="/admin">관리자페이지</a></li>
-          <li><a href="/analysis">근골격계 위험 감지</a></li>
-          <li><a href="/employee">직원관리</a></li>
-          <li><a href="/storage">저장소</a></li>
-        </ul>
-        <button id="logoutButton">로그아웃</button>
-      </nav>
-      <main class="main-content">
-        <header class="main-header">
-          <h1 class="system-title">실시간 CCTV 영상</h1>
-        </header>
-        <section class="content">
-          <div class="workshop-container">
-            <div class="workshop" onclick="openWorkshopWindow(1, '작업장 A', 'path_to_cctv_stream1')" style="position: relative;">
-              작업장 A
-              <span class="notification-count">n</span>
-            </div>
-            
-            <div class="workshop" onclick="openWorkshopWindow(2, '작업장 B', 'path_to_cctv_stream2')">작업장 B</div>
-            <div class="workshop" onclick="openWorkshopWindow(3, '작업장 C', 'path_to_cctv_stream3')">작업장 C</div>
-            <div class="workshop" onclick="openWorkshopWindow(4, '작업장 D', 'path_to_cctv_stream4')">작업장 D</div>
-            <div class="workshop" onclick="openWorkshopWindow(5, '작업장 E', 'path_to_cctv_stream5')">작업장 E</div>
-            <div class="workshop" onclick="openWorkshopWindow(6, '작업장 F', 'path_to_cctv_stream6')">작업장 F</div>
-            <div class="workshop" onclick="openWorkshopWindow(7, '작업장 G', 'path_to_cctv_stream7')">작업장 G</div>
-            <div class="workshop" onclick="openWorkshopWindow(8, '작업장 H', 'path_to_cctv_stream8')">작업장 H</div>
-        </div>
-          <div class="cctv-stream">
-            <video id="cctvVideo1" class="cctv" autoplay></video>
-          </div>
-        </section>
-      </main>
+        <nav class="sidebar">
+            <ul>
+                <li class="user-info">
+                    <span id="userName" class="user-name">{{ member_name }}님</span>
+                    <button id="notificationButton" class="notification-button">
+                        알림<span id="notificationCount" class="notification-count">3</span>
+                    </button>
+                </li>
+                <li><a href="/index">CCTV</a></li>
+                <li><a href="/admin">관리자페이지</a></li>
+                <li><a href="/analysis">근골격계 위험 감지</a></li>
+                <li><a href="/employee">직원관리</a></li>
+                <li><a href="/storage">저장소</a></li>
+            </ul>
+            <button id="logoutButton">로그아웃</button>
+        </nav>
+        <main class="main-content">
+            <header class="main-header">
+                <h1 class="system-title">실시간 CCTV 영상</h1>
+            </header>
+            <section class="content">
+                <div class="workshop-container">
+                    <div class="workshop" onclick="openWorkshopWindow(1, '작업장 A', 'path_to_cctv_stream1')" style="position: relative;">
+                        작업장 A
+                        <span class="notification-count">n</span>
+                    </div>
+                    <div class="workshop" onclick="openWorkshopWindow(2, '작업장 B', 'path_to_cctv_stream2')">작업장 B</div>
+                    <div class="workshop" onclick="openWorkshopWindow(3, '작업장 C', 'path_to_cctv_stream3')">작업장 C</div>
+                    <div class="workshop" onclick="openWorkshopWindow(4, '작업장 D', 'path_to_cctv_stream4')">작업장 D</div>
+                    <div class="workshop" onclick="openWorkshopWindow(5, '작업장 E', 'path_to_cctv_stream5')">작업장 E</div>
+                    <div class="workshop" onclick="openWorkshopWindow(6, '작업장 F', 'path_to_cctv_stream6')">작업장 F</div>
+                    <div class="workshop" onclick="openWorkshopWindow(7, '작업장 G', 'path_to_cctv_stream7')">작업장 G</div>
+                    <div class="workshop" onclick="openWorkshopWindow(8, '작업장 H', 'path_to_cctv_stream8')">작업장 H</div>
+                </div>
+                <div class="cctv-stream">
+                    <!-- 실시간 스트리밍 영상 표시 -->
+                    <img id="cctvVideo" class="cctv" src="{{ url_for('video_feed') }}" alt="Live CCTV Feed" />
+                </div>
+            </section>
+        </main>
     </div>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-  </body>
+</body>
 </html>
