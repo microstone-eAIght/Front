@@ -12,6 +12,7 @@ from reba import RebaScore
 from owas import OwasScore
 from datetime import datetime, timedelta
 import requests
+from database_handler import save_to_database
 
 class VideoProcessor(FileSystemEventHandler):
     def __init__(self):
@@ -137,22 +138,6 @@ class VideoProcessor(FileSystemEventHandler):
                 print("OWAS 점수:", owas_score)
                 print("몸통, 팔, 다리, 하중:", partial_score)
 
-                ### 벡엔드야 여기를 봐~~
-                # 점수를 전송하기 위한 POST 요청
-                payload = {
-                    'reba_score_a': int(score_a),                    # reba a 점수
-                    'partial_a': [int(x) for x in partial_a],        # reba a 부분 점수 [목, 몸통, 다리]
-                    'reba_score_b': int(score_b),                    # reba b 점수
-                    'partial_b': [int(x) for x in partial_b],        # reba b 부분 점수 [어깨에서 팔꿈치까지, 팔꿈치에서 손목까지, 손목]
-                    'reba_score_c': int(score_c),                    # reba 최종 점수
-                    'caption': caption,                              # risk 단계
-                    'owas_score': int(owas_score),                   # owas 점수
-                    'partial_score': [int(x) for x in partial_score] # owas에서 나온 [몸통, 팔, 다리, 하중]
-                }
-
-                # response = requests.post("http://서버주소/api/scores", json=payload) # 시험 할 때는 여기 주석 풀고 주소 넣어서 해.
-                ### 여기까지 포스트 넣어 봤어.
-
                 results = self.draw_keypoints(result, frame)
 
                 # 프레임이 동영상 시작 시간 이후 몇 초인지 계산
@@ -169,9 +154,37 @@ class VideoProcessor(FileSystemEventHandler):
                     os.makedirs(high_risk_date_dir)  # 날짜별 디렉토리 생성
 
 
-                if "Very High Risk" in caption:
+                if "Medium Risk" in caption:
                         high_risk_image_path = os.path.join(high_risk_date_dir, f'high_risk_frame_{frame_time_str}_{output_frame_count}.jpg')
                         cv2.imwrite(high_risk_image_path, frame)
+
+                        # 이미지 파일을 읽어서 바이너리 형태로 서버로 전송
+                        with open(high_risk_image_path, 'rb') as img_file:
+                            image_payload = {
+                                'frame_title': frame_title,                 # 프레임 제목
+                                'reba_score_a': int(score_a),                    # reba a 점수
+                                'partial_a': [int(x) for x in partial_a],        # reba a 부분 점수 [목, 몸통, 다리]
+                                'reba_score_b': int(score_b),                    # reba b 점수
+                                'partial_b': [int(x) for x in partial_b],        # reba b 부분 점수 [어깨에서 팔꿈치까지, 팔꿈치에서 손목까지, 손목]
+                                'reba_score_c': int(score_c),                    # reba 최종 점수
+                                'caption': caption,                              # risk 단계
+                                'owas_score': int(owas_score),                   # owas 점수
+                                'partial_score': [int(x) for x in partial_score] # owas에서 나온 [몸통, 팔, 다리, 하중]
+                            }
+                            
+                            files = {'image': img_file}
+
+                            # 데이터베이스에 저장
+                            save_to_database(image_payload)  # 새로 만든 함수 호출
+                            
+                            # POST 요청 전송 (이미지 포함)
+                            # response = requests.post("http://서버주소/api/high_risk_images", data=image_payload, files=files)
+
+                            # 응답 확인
+                            # if response.status_code == 200:
+                            #     print("Very High Risk 이미지가 성공적으로 전송되었습니다.")
+                            # else:
+                            #     print(f"이미지 전송에 실패했습니다. 상태 코드: {response.status_code}")
                         
                         with open(self.csv_file_path, mode='a', newline='') as file:
                             writer = csv.writer(file)
