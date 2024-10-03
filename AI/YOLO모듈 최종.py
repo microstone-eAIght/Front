@@ -1,4 +1,4 @@
-import os
+import os,sys
 import time
 import torch
 import cv2
@@ -11,6 +11,9 @@ from efficientnet_pytorch import EfficientNet
 from reba import RebaScore
 from owas import OwasScore
 from datetime import datetime, timedelta
+sys.path.append("C:\\Users\\wngur\\OneDrive\\바탕 화면\\1002\\Front")
+from models.ai_model import adjust_reba_rank, adjust_owas_rank, save_ai_results
+import models.ai_model
 import requests
 
 class VideoProcessor(FileSystemEventHandler):
@@ -150,9 +153,35 @@ class VideoProcessor(FileSystemEventHandler):
                     'partial_score': [int(x) for x in partial_score] # owas에서 나온 [몸통, 팔, 다리, 하중]
                 }
 
-                # response = requests.post("http://서버주소/api/scores", json=payload) # 시험 할 때는 여기 주석 풀고 주소 넣어서 해.
-                ### 여기까지 포스트 넣어 봤어.
+                ai_results = {
+                    'photo_date': datetime.now().date().isoformat(),  # 현재 날짜
+                    'location': 'Factory',                               # 위치
+                    'photo_time': datetime.now().time().isoformat(),   # 현재 시간
+                    'frame_number': output_frame_count,                 # frame_number는 output_frame_count로 설정
+                    'reba_a_total': int(score_a),                       # REBA A 총점
+                    'reba_a_neck': partial_a[0],                        # REBA A 목 점수
+                    'reba_a_trunk': partial_a[1],                       # REBA A 몸통 점수
+                    'reba_a_leg': partial_a[2],                         # REBA A 다리 점수
+                    'reba_b_total': int(score_b),                       # REBA B 총점
+                    'reba_b_upper_arm': partial_b[0],                  # REBA B 위팔 점수
+                    'reba_b_lower_arm': partial_b[1],                  # REBA B 아래팔 점수
+                    'reba_b_load': partial_b[2],                        # REBA B 하중 점수
+                    'reba_c_total': int(score_c),                       # REBA C 총점
+                    'reba_c_risk_level': 1,                            # REBA C 위험도 (고정 값)
+                    'owas_total': int(owas_score),                      # OWAS 총점
+                    'owas_trunk': partial_score[0],                     # OWAS 허리 점수
+                    'owas_arm': partial_score[1],                       # OWAS 팔 점수
+                    'owas_leg': partial_score[2],                       # OWAS 다리 점수
+                    'owas_load': 1,                                     # OWAS 하중 점수 (고정 값)
+                    'owas_risk_rank': adjust_owas_rank(caption),       # 조정된 OWAS 위험 등급
+                    'reba_risk_rank': adjust_reba_rank(caption)        # 조정된 REBA 위험 등급
+                }
 
+                # Flask API에 결과 전송
+                response = requests.post("http://127.0.0.1:5000/api/scores", json=ai_results)
+
+                # 데이터베이스에 결과 저장
+                save_ai_results(ai_results)
                 results = self.draw_keypoints(result, frame)
 
                 # 프레임이 동영상 시작 시간 이후 몇 초인지 계산
