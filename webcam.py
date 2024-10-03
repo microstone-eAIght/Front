@@ -28,7 +28,7 @@ else:
             # out이 None일 경우, 즉 첫 번째 프레임일 경우 파일을 연다.
             if out is None:
                 current_time = time.strftime("%Y-%m-%d_%H-%M-%S")
-                out = cv2.VideoWriter(f'C:\\Users\\canpo\\Desktop\\dd\\output_{current_time}.avi',
+                out = cv2.VideoWriter(f'C:/video/output_{current_time}.avi',
                                       cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'),
                                       10,
                                       (frame_width, frame_height))
@@ -40,7 +40,7 @@ else:
 
                 # 새로운 비디오 파일 열기
                 current_time = time.strftime("%Y-%m-%d_%H-%M-%S")
-                out = cv2.VideoWriter(f'C:\\Users\\canpo\\Desktop\\dd\\output_{current_time}.avi',
+                out = cv2.VideoWriter(f'C:/video/output_{current_time}.avi',
                                       cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'),
                                       10,
                                       (frame_width, frame_height))
