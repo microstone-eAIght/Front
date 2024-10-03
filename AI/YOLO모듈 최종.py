@@ -154,7 +154,7 @@ class VideoProcessor(FileSystemEventHandler):
                     os.makedirs(high_risk_date_dir)  # 날짜별 디렉토리 생성
 
 
-                if "Medium Risk" in caption:
+                if 'Very High Risk' in caption:
                         high_risk_image_path = os.path.join(high_risk_date_dir, f'high_risk_frame_{frame_time_str}_{output_frame_count}.jpg')
                         cv2.imwrite(high_risk_image_path, frame)
 
