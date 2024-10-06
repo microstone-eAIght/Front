@@ -226,8 +226,6 @@ h1 img {
     transform: translateY(-10px) scale(1.1);
     /* 위로 살짝 올라가고, 살짝 확대 */
     z-index: 10;
-    /* 호버된 항목이 앞으로 나옴 */
-    cursor: url('cursor.png'), pointer;
 
 }
 
