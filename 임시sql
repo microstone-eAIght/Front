@@ -56,3 +56,24 @@ CREATE TABLE member (
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 등록일 (기본값: 현재 시간)
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- 마지막 수정일 (자동 업데이트)
 );
+
+CREATE TABLE reba_scores (
+     id INT AUTO_INCREMENT PRIMARY KEY,
+     frame_title VARCHAR(255),       -- 프레임 제목
+     reba_score_a INT,               -- REBA 점수 A
+     neck_score INT,                 -- 목 점수
+     trunk_score INT,                -- 몸통 점수
+     leg_score INT,                  -- 다리 점수
+     reba_score_b INT,               -- REBA 점수 B
+     shoulder_to_elbow INT,          -- 어깨에서 팔꿈치까지 점수
+     elbow_to_wrist INT,             -- 팔꿈치에서 손목까지 점수
+     wrist_score INT,                -- 손목 점수
+     reba_score_c INT,               -- REBA 최종 점수 C
+     caption TEXT,                   -- 리스크 단계 설명
+     owas_score INT,                 -- OWAS 점수
+     trunk_part INT,                 -- OWAS 몸통 점수
+     arms_part INT,                  -- OWAS 팔 점수
+     legs_part INT,                  -- OWAS 다리 점수
+     load_part INT,                  -- OWAS 하중 점수
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 생성 시간
+);
