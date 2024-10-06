@@ -20,13 +20,22 @@ app.config.from_object(Config)  # Config 클래스에서 설정 불러오기
 
 
 # MySQL 데이터베이스에 직접 연결
-#connection = mysql.connector.connect(
+# connection = mysql.connector.connect(
 #   host='10.1.3.246',
-  #  user='user6',
-    # password='1234',
-    #database='mydb',
-    #auth_plugin='mysql_native_password'  # 인증 방식 설정
-#)
+#    user='user6',
+#     password='1234',
+#     database='mydb',
+#     auth_plugin='mysql_native_password'  # 인증 방식 설정
+# )
+
+# #MySQL 데이터베이스에 직접 연결
+# connection = mysql.connector.connect(
+#   host='127.0.0.1',
+#    user='root',
+#     password='1234',
+#     database='mydb',
+#     auth_plugin='mysql_native_password'  # 인증 방식 설정
+# )
 
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://user6:1234@10.1.3.246/mydb'    #원격 db
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1234@127.0.0.1/mydb'    #로컬 db
