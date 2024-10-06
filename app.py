@@ -14,10 +14,26 @@ from config import Config  # config.py 임포트
 from processes.porcess_manager import terminate_processes
 from AI.database_handler import get_image_data
 
+from flask import Flask, send_from_directory, jsonify #블루프린트 해주삼
+import os        #블루프린트 해주삼
+
 app = Flask(__name__)
 app.config.from_object(Config)  # Config 클래스에서 설정 불러오기
 
+@app.route('/high_risk_images/<filename>')               #블루프린트 해주삼
+def high_risk_images(filename):                           #블루프린트 해주삼
+    image_folder = 'C:/video_AI/high_risk_images'
+    return send_from_directory(image_folder, filename)
 
+@app.route('/get_recent_images', methods=['GET'])  #블루프린트 해주삼
+def get_recent_images():                           
+    image_folder = 'C:/video_AI/high_risk_images'
+    # 폴더에서 이미지 파일들 (jpg, png 등) 가져오기
+    images = [f for f in os.listdir(image_folder) if f.endswith(('jpg', 'png'))]
+    # 이미지 파일들을 생성 날짜 순으로 정렬하여 최신 이미지 10개 가져오기
+    images = sorted(images, key=lambda x: os.path.getctime(os.path.join(image_folder, x)), reverse=True)
+    recent_images = images[:10]  # 최신 10개 이미지 가져오기
+    return jsonify({'images': recent_images})
 
 # 블루프린트 등록
 # app.register_blueprint(employee_bp)
