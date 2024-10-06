@@ -1,26 +1,11 @@
-from flask import Blueprint, render_template, request, redirect, session, flash
+from flask import Blueprint, render_template, request, redirect, session, Response
 from models.index_model import get_member_name
 from lock import login_required
-import subprocess
-import os
+from webcam import generate_frames
+from processes.porcess_manager import start_webcam_script, start_yolo_script, start_video_mover_script
 
 index_bp= Blueprint('main',__name__,)
 
-# 스크립트를 실행하는 함수 (webcam.py와 YOLOv8모듈 최종.py 실행)
-def start_webcam_script():
-    # webcam.py 스크립트를 백그라운드에서 실행
-    script_path = 'webcam.py' # webcam.py 경로
-    subprocess.Popen(['python', script_path])
-
-def start_yolo_script():
-    # YOLOv8모듈 최종.py 스크립트를 백그라운드에서 실행
-    script_path = 'AI/YOLO모듈 최종.py' # YOLOv8모듈 최종.py 경로
-    subprocess.Popen(['python', script_path])
-
-def start_video_mover_script():
-    # video_mover.py 스크립트를 백그라운드에서 실행
-    script_path = 'AI/video_mover.py'
-    subprocess.Popen(['python', script_path])
 
 @index_bp.route('/index')
 @login_required
@@ -42,3 +27,7 @@ def index_view():
         else:
             # 로그인되어 있지 않으면 로그인 페이지로 리다이렉트
             return redirect('/')
+        
+@index_bp.route('/video_feed')
+def video_feed():
+    return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
