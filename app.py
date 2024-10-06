@@ -12,7 +12,7 @@ from controllers.analysis_bp import analysis_bp
 from controllers.admin_bp import admin_bp
 from config import Config  # config.py 임포트
 from processes.porcess_manager import terminate_processes
-
+from AI.database_handler import get_image_data
 
 app = Flask(__name__)
 app.config.from_object(Config)  # Config 클래스에서 설정 불러오기

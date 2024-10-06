@@ -183,26 +183,62 @@ function loadOwasChart() {
 }
 
 
-function openFolder(id) {
-    const imageSrc = '';  // 이미지 경로가 없을 때
+
+function selectImage(id) {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*'; // 이미지 파일만 허용
+
+    input.onchange = event => {
+        const file = event.target.files[0]; // 선택된 파일 가져오기
+        if (file) {
+            const imgname = file.name; // 파일 이름 추출
+            console.log(`선택된 이미지 이름: ${imgname}`);
+            document.getElementById('imgnameInput').value = imgname; // HTML 요소에 저장
+            
+            // 이미지 경로 전송
+            const formData = new FormData();
+            formData.append('imgname', imgname); // 이미지 이름을 추가
+            
+            // AJAX 요청으로 서버에 전송
+            fetch('/your-flask-route', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // 서버 응답 처리
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    };
+
+    input.click(); // 파일 선택기 열기
+}
+
+
+
+function openFolder(id, imageSrc) {
     const imageElement = document.getElementById(`image${id}`);
     const placeholder = document.getElementById(`placeholder${id}`);
     const selectedText = document.getElementById(`selected-text${id}`);
     const deleteButton = document.querySelector(`.analysis-list${id} .delete-button`);
 
-    if (!imageSrc) {
-        // 이미지가 선택되지 않으면 "Selected Image" 텍스트 표시
-        placeholder.style.display = 'flex';  // "Add Image" 텍스트 숨기기
-        selectedText.style.display = 'block';  // "Selected Image" 텍스트 보이기
-        imageElement.style.display = 'none';  // 이미지 숨기기
-    } else {
+    // 이미지가 선택되면
+    if (imageSrc) {
         placeholder.style.display = 'none';  // "Add Image" 텍스트 숨기기
         selectedText.style.display = 'none';  // "Selected Image" 텍스트 숨기기
-        imageElement.src = imageSrc;
+        imageElement.src = imageSrc;  // 선택된 이미지 경로 설정
         imageElement.style.display = 'block';  // 이미지 보이기
+        deleteButton.style.display = 'inline-block';  // 삭제 버튼 보이기
+    } else {
+        // 이미지가 선택되지 않으면
+        placeholder.style.display = 'flex';  // "Add Image" 텍스트 보이기
+        selectedText.style.display = 'block';  // "Selected Image" 텍스트 숨기기
+        imageElement.style.display = 'none';  // 이미지 숨기기
     }
-
-    deleteButton.style.display = 'inline-block';  // 삭제 버튼 보이기
 }
 
 // 이미지 삭제
@@ -212,6 +248,7 @@ function removeImage(id) {
     const selectedText = document.getElementById(`selected-text${id}`);
     const deleteButton = document.querySelector(`.analysis-list${id} .delete-button`);
 
+    // 이미지와 관련된 요소 상태 초기화
     imageElement.style.display = 'none';  // 이미지 숨기기
     imageElement.src = '';  // 이미지 경로 초기화
     selectedText.style.display = 'none';  // "Selected Image" 텍스트 숨기기
