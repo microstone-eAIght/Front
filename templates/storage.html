@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>파일 저장소</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/storage.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- 왼쪽 사이드바 -->
+      <nav class="sidebar">
+        <ul>
+          <li class="user-info">
+            <span id="userName" class="user-name">{{ member_name }}님</span>
+            <button id="notificationButton" class="notification-button">
+              알림<span id="notificationCount" class="notification-count"
+                >3</span
+              >
+            </button>
+          </li>
+          <li><a href="/index">CCTV</a></li>
+          <li><a href="/admin">관리자페이지</a></li>
+          <li><a href="#">근골격계 위험 감지</a></li>
+          <li><a href="/employee">직원관리</a></li>
+          <li><a href="/storage">저장소</a></li>
+        </ul>
+        <button id="logoutButton">로그아웃</button>
+      </nav>
+
+      <!-- 메인 컨텐츠 -->
+      <div class="main-content">
+        <div class="file-stroage">
+          <h1>
+            <img
+              src="{{ url_for('static', filename='img/storage-icon.png') }}"
+              alt="헤더 아이콘"
+            />
+            File Storage
+          </h1>
+        </div>
+        <h2>Recent</h2>
+        <div class="recent-files">
+          <!-- 최근 저장된 파일 목록 (파일 아이콘과 날짜) -->
+          <div class="file-item">
+            <img
+              src="{{ url_for('static', filename='img/file-icon.png') }}"
+              alt="파일 아이콘"
+              class="recent-file-icon"
+            />
+            <p>2024-09-10</p>
+          </div>
+
+          <div class="file-item">
+            <img
+              src="{{ url_for('static', filename='img/file-icon.png') }}"
+              alt="파일 아이콘"
+              class="recent-file-icon"
+            />
+            <p>2024-09-09</p>
+          </div>
+          <div class="file-item">
+            <img
+              src="{{ url_for('static', filename='img/file-icon.png') }}"
+              alt="파일 아이콘"
+              class="recent-file-icon"
+            />
+            <p>2024-09-08</p>
+          </div>
+          <div class="file-item">
+            <img
+              src="{{ url_for('static', filename='img/file-icon.png') }}"
+              alt="파일 아이콘"
+              class="recent-file-icon"
+            />
+            <p>2024-09-07</p>
+          </div>
+          <div class="file-item">
+            <img
+              src="{{ url_for('static', filename='img/file-icon.png') }}"
+              alt="파일 아이콘"
+              class="recent-file-icon"
+            />
+            <p>2024-09-07</p>
+          </div>
+          <div class="file-item">
+            <img
+              src="{{ url_for('static', filename='img/file-icon.png') }}"
+              alt="파일 아이콘"
+              class="recent-file-icon"
+            />
+            <p>2024-09-06</p>
+          </div>
+          <div class="file-item">
+            <img
+              src="{{ url_for('static', filename='img/file-icon.png') }}"
+              alt="파일 아이콘"
+              class="recent-file-icon"
+            />
+            <p>2024-09-05</p>
+          </div>
+          <div class="file-item">
+            <img
+              src="{{ url_for('static', filename='img/file-icon.png') }}"
+              alt="파일 아이콘"
+              class="recent-file-icon"
+            />
+            <p>2024-09-04</p>
+          </div>
+        </div>
+
+        <h2>My Files</h2>
+        <table id="fileTable">
+          <thead>
+            <tr>
+              <th>Asset Name</th>
+              <th>Tag</th>
+              <th>Created</th>
+              <th>Owner</th>
+              <th>Last Modified</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="my-name">
+                  <img
+                    src="{{ url_for('static', filename='img/file-icon.png') }}"
+                    alt="파일 아이콘"
+                    class="my-file-icon"
+                  />
+                  Defect images
+                </div>
+              </td>
+              <td>#defect</td>
+              <td>12 Feb 2022</td>
+              <td>
+                <span class="owner-circle owner-PJ">PJ</span> Park Joohyuk
+              </td>
+              <td>1 day ago</td>
+              <td class="actions">
+                <span class="dots">···</span>
+                <div class="dropdown">
+                  <button class="edit-btn">수정</button>
+                  <button class="delete-btn">제거</button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="my-name">
+                  <img
+                    src="{{ url_for('static', filename='img/file-icon.png') }}"
+                    alt="파일 아이콘"
+                    class="my-file-icon"
+                  />
+                  Defect images
+                </div>
+              </td>
+              <td>#defect</td>
+              <td>12 Feb 2022</td>
+              <td><span class="owner-circle owner-YI">YI</span> Yeo Ingyu</td>
+              <td>1 day ago</td>
+              <td class="actions">
+                <span class="dots">···</span>
+                <!-- Actions 열 추가 -->
+                <div class="dropdown">
+                  <button class="edit-btn">수정</button>
+                  <button class="delete-btn">제거</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="my-name">
+                  <img
+                    src="{{ url_for('static', filename='img/file-icon.png') }}"
+                    alt="파일 아이콘"
+                    class="my-file-icon"
+                  />
+                  Defect images
+                </div>
+              </td>
+              <td>#defect</td>
+              <td>12 Feb 2022</td>
+              <td><span class="owner-circle owner-LK">LK</span> Lee Kangsan</td>
+              <td>1 day ago</td>
+              <td class="actions">
+                <span class="dots">···</span>
+                <!-- Actions 열 추가 -->
+                <div class="dropdown">
+                  <button class="edit-btn">수정</button>
+                  <button class="delete-btn">제거</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="my-name">
+                  <img
+                    src="{{ url_for('static', filename='img/file-icon.png') }}"
+                    alt="파일 아이콘"
+                    class="my-file-icon"
+                  />
+                  Defect images
+                </div>
+              </td>
+              <td>#defect</td>
+              <td>12 Feb 2022</td>
+              <td>
+                <span class="owner-circle owner-KHW">KHW</span> Kwon Hyunwoo
+              </td>
+              <td>1 day ago</td>
+              <td class="actions">
+                <span class="dots">···</span>
+                <!-- Actions 열 추가 -->
+                <div class="dropdown">
+                  <button class="edit-btn">수정</button>
+                  <button class="delete-btn">제거</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="my-name">
+                  <img
+                    src="{{ url_for('static', filename='img/file-icon.png') }}"
+                    alt="파일 아이콘"
+                    class="my-file-icon"
+                  />
+                  Defect images
+                </div>
+              </td>
+              <td>#defect</td>
+              <td>12 Feb 2022</td>
+              <td>
+                <span class="owner-circle owner-JK">JK</span> Jang Kwangik
+              </td>
+              <td>1 day ago</td>
+              <td class="actions">
+                <span class="dots">···</span>
+                <!-- Actions 열 추가 -->
+                <div class="dropdown">
+                  <button class="edit-btn">수정</button>
+                  <button class="delete-btn">제거</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="my-name">
+                  <img
+                    src="{{ url_for('static', filename='img/file-icon.png') }}"
+                    alt="파일 아이콘"
+                    class="my-file-icon"
+                  />
+                  Defect images
+                </div>
+              </td>
+              <td>#defect</td>
+              <td>12 Feb 2022</td>
+              <td>
+                <span class="owner-circle owner-JH">JH</span> Jeong Haesung
+              </td>
+              <td>1 day ago</td>
+              <td class="actions">
+                <span class="dots">···</span>
+                <!-- Actions 열 추가 -->
+                <div class="dropdown">
+                  <button class="edit-btn">수정</button>
+                  <button class="delete-btn">제거</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="my-name">
+                  <img
+                    src="{{ url_for('static', filename='img/file-icon.png') }}"
+                    alt="파일 아이콘"
+                    class="my-file-icon"
+                  />
+                  Defect images
+                </div>
+              </td>
+              <td>#defect</td>
+              <td>12 Feb 2022</td>
+              <td>
+                <span class="owner-circle owner-CH">CH</span> Chae Hoonhee
+              </td>
+              <td>1 day ago</td>
+              <td class="actions">
+                <span class="dots">···</span>
+                <!-- Actions 열 추가 -->
+                <div class="dropdown">
+                  <button class="edit-btn">수정</button>
+                  <button class="delete-btn">제거</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="my-name">
+                  <img
+                    src="{{ url_for('static', filename='img/file-icon.png') }}"
+                    alt="파일 아이콘"
+                    class="my-file-icon"
+                  />
+                  Defect images
+                </div>
+              </td>
+              <td>#defect</td>
+              <td>12 Feb 2022</td>
+              <td><span class="owner-circle owner-KH">KH</span> Kim Hanseo</td>
+              <td>1 day ago</td>
+              <td class="actions">
+                <span class="dots">···</span>
+                <!-- Actions 열 추가 -->
+                <div class="dropdown">
+                  <button class="edit-btn">수정</button>
+                  <button class="delete-btn">제거</button>
+                </div>
+              </td>
+            </tr>
+            <!-- 나머지 파일들도 같은 방식으로 추가 -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 오른쪽 사이드바 -->
+      <aside class="file-info-sidebar">
+        <h3>Who has access</h3>
+        <div class="access-icons">
+          <span class="owner-circle owner-PJ">PJ</span>
+          <span class="owner-circle owner-JK">JK</span>
+          <span class="owner-circle owner-LK">LK</span>
+          <span class="owner-circle owner-CH">CH</span>
+        </div>
+        <button class="manage-access">Manage access</button>
+
+        <hr />
+
+        <h3>File details</h3>
+        <p>
+          <strong>Location</strong><br />
+          My Files
+        </p>
+        <p>
+          <strong><br />Type</strong><br />
+          Image
+        </p>
+        <p>
+          <strong><br />Size</strong><br />
+          1.2 MB
+        </p>
+        <p>
+          <strong><br />Owner</strong>
+          <br /><span class="owner-circle owner-LK">LK</span> Lee Kangsan
+        </p>
+        <p>
+          <strong><br />Modified</strong><br />
+          13 Mar 2022
+        </p>
+        <p>
+          <strong><br />Created</strong><br />
+          12 Mar 2022
+        </p>
+      </aside>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>

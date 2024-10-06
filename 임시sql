@@ -1,0 +1,79 @@
+CREATE TABLE member (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    member_id VARCHAR(255) NOT NULL,
+    member_name VARCHAR(255),
+    member_password VARCHAR(255),
+    member_phone VARCHAR(255),
+    member_email VARCHAR(255),
+    member_address VARCHAR(255),
+    member_position VARCHAR(255)
+);
+
+CREATE TABLE employee (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_name VARCHAR(255),
+    employee_address VARCHAR(255),
+    employee_department VARCHAR(255),
+    employee_position VARCHAR(255),
+    employee_phone VARCHAR(255),
+    employee_email VARCHAR(255)
+);
+
+CREATE TABLE photo_info (
+    id INT AUTO_INCREMENT PRIMARY KEY,       -- 사진 ID (기본 키)
+    photo_date DATE NOT NULL,                -- 사진이 찍힌 날짜
+    location VARCHAR(255) NOT NULL,          -- 장소
+    photo_time TIME NOT NULL,                -- 사진이 찍힌 시간
+    frame_number INT NOT NULL,                -- 프레임 번호
+    owas_risk_rank ENUM('Negligible Risk', 'Low Risk', 'Medium Risk', 'High Risk', 'Very High Risk') NOT NULL,  -- OWAS 위험 등급
+    reba_risk_rank ENUM('Negligible Risk', 'Low Risk', 'Medium Risk', 'High Risk', 'Very High Risk') NOT NULL   -- REBA 위험 등급
+);
+CREATE TABLE employee (
+    employee_name VARCHAR(16) NOT NULL,         -- 직원 이름 (NULL이 아닌 값으로 설정)
+    employee_address VARCHAR(128),              -- 직원 주소 (길이 확장)
+    employee_department VARCHAR(32),            -- 직원 부서 (길이 확장)
+    employee_position VARCHAR(16),              -- 직원 직위 (문자형으로 변경)
+    employee_phone VARCHAR(32) UNIQUE,          -- 직원 전화번호 (중복 방지)
+    employee_email VARCHAR(32) UNIQUE,          -- 직원 이메일 (중복 방지)
+    employee_status VARCHAR(16),                -- 직원 상태 (예: '재직 중', '휴직', '퇴사')
+    emergency_contact VARCHAR(32),              -- 긴급 연락처
+    date_of_birth DATE,                         -- 생일
+    hire_date DATE,                             -- 입사일
+    gender CHAR(1) CHECK (gender IN ('남', '여')), -- 성별 (남자: '남', 여자: '여')
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 등록일 (기본값: 현재 시간)
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- 마지막 수정일 (자동 업데이트)
+);
+CREATE TABLE member (
+    member_id VARCHAR(32) PRIMARY KEY,   -- 회원 ID (기본 키)
+    member_name VARCHAR(16) NOT NULL,    -- 회원 이름 (NULL이 아닌 값으로 설정)
+    member_password VARCHAR(64) NOT NULL,-- 회원 비밀번호 (NULL이 아닌 값으로 설정)
+    member_phone VARCHAR(20) UNIQUE,     -- 회원 전화번호 (중복 방지)
+    member_email VARCHAR(64) UNIQUE,     -- 회원 이메일 (중복 방지)
+    member_address VARCHAR(128),         -- 회원 주소
+    member_position VARCHAR(10),         -- 회원 직위
+    date_of_birth DATE,                  -- 생년월일
+    social_security_number VARCHAR(20) UNIQUE, -- 주민번호 (중복 방지)
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 등록일 (기본값: 현재 시간)
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- 마지막 수정일 (자동 업데이트)
+);
+
+CREATE TABLE reba_scores (
+     id INT AUTO_INCREMENT PRIMARY KEY,
+     frame_title VARCHAR(255),       -- 프레임 제목
+     reba_score_a INT,               -- REBA 점수 A
+     neck_score INT,                 -- 목 점수
+     trunk_score INT,                -- 몸통 점수
+     leg_score INT,                  -- 다리 점수
+     reba_score_b INT,               -- REBA 점수 B
+     shoulder_to_elbow INT,          -- 어깨에서 팔꿈치까지 점수
+     elbow_to_wrist INT,             -- 팔꿈치에서 손목까지 점수
+     wrist_score INT,                -- 손목 점수
+     reba_score_c INT,               -- REBA 최종 점수 C
+     caption TEXT,                   -- 리스크 단계 설명
+     owas_score INT,                 -- OWAS 점수
+     trunk_part INT,                 -- OWAS 몸통 점수
+     arms_part INT,                  -- OWAS 팔 점수
+     legs_part INT,                  -- OWAS 다리 점수
+     load_part INT,                  -- OWAS 하중 점수
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 생성 시간
+);
