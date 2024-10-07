@@ -66,3 +66,104 @@ document.addEventListener('DOMContentLoaded', function () {
         tab.classList.add('active-tab');
     }
 });
+
+function selectImage(id) {
+    fetch('/get_recent_images')  // 서버에서 최신 이미지를 가져옴
+        .then(response => response.json())
+        .then(data => {
+            const latestImage = data.latest_image; // 최신 이미지 파일 이름
+            const imageElement = document.getElementById(`image${id}`);
+            const placeholder = document.getElementById(`placeholder${id}`);
+            const deleteButton = document.querySelector(`.analysis-list${id} .delete-button`);
+
+            if (latestImage) {
+                imageElement.src = `http://127.0.0.1:5000/high_risk_images/${latestImage}`;
+                imageElement.style.display = 'block';  // 이미지 표시
+                placeholder.style.display = 'none';  // "Add Image" 텍스트 숨기기
+                deleteButton.style.display = 'inline-block';  // 삭제 버튼 보이기
+            }
+        })
+        .catch(error => {
+            console.error('이미지 불러오기 오류:', error);
+        });
+}
+
+function openFolder(id) {
+    const imageElement = document.getElementById(`image${id}`);
+    const placeholder = document.getElementById(`placeholder${id}`);
+    const deleteButton = document.querySelector(`.analysis-list${id} .delete-button`);
+
+    // null 체크 추가
+    if (imageElement && placeholder && deleteButton) {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*'; // 이미지 파일만 선택 가능
+
+        input.onchange = event => {
+            const file = event.target.files[0]; // 선택된 파일 가져오기
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imageElement.src = e.target.result;  // 선택된 이미지로 변경
+                    imageElement.style.display = 'block';  // 이미지 보이기
+                    placeholder.style.display = 'none';  // "Add Image" 텍스트 숨기기
+                    deleteButton.style.display = 'inline-block';  // 삭제 버튼 보이기
+                };
+                reader.readAsDataURL(file); // 이미지 파일을 base64로 변환하여 미리보기 가능하게 함
+            }
+        };
+
+        input.click(); // 파일 선택창 열기
+    } else {
+        console.error(`해당 ID로 요소를 찾을 수 없습니다: image${id}`);
+    }
+}
+
+// 이미지 삭제 (이미지를 숨기고 빈 상태로 만듦)
+function removeImage(id) {
+    const imageElement = document.getElementById(`image${id}`);
+    const placeholder = document.getElementById(`placeholder${id}`);
+    const deleteButton = document.querySelector(`.analysis-list${id} .delete-button`);
+
+    if (imageElement && placeholder && deleteButton) {
+        imageElement.style.display = 'none';  // 이미지 숨기기
+        imageElement.src = '';  // 이미지 경로 초기화 (아무것도 표시되지 않도록)
+        placeholder.style.display = 'flex';  // "Add Image" 텍스트 보이기
+        deleteButton.style.display = 'none';  // 삭제 버튼 숨기기
+    } else {
+        console.error("해당 ID로 요소를 찾을 수 없습니다.");
+    }
+}
+
+// 폴더에서 이미지 가져오기 및 버튼 기능 연결
+document.getElementById('folder-button').addEventListener('click', function () {
+    // 서버에서 최근 이미지 10개를 가져옴
+    fetch('/get_recent_images')  // Flask API에 요청
+        .then(response => response.json())
+        .then(data => {
+            const imageUrls = data.images.map(img => `http://127.0.0.1:5000/high_risk_images/${img}`);
+            const analysisItems = document.querySelectorAll('.analysis-list .analysis-item img');
+            for (let i = 0; i < imageUrls.length && i < analysisItems.length; i++) {
+                analysisItems[i].src = imageUrls[i];  // 이미지 소스를 새로 설정
+                analysisItems[i].style.display = 'block';  // 이미지 보이기
+                document.getElementById(`placeholder${i+1}`).style.display = 'none';  // "Add Image" 텍스트 숨기기
+            }
+        })
+        .catch(error => console.error('이미지 불러오기 오류:', error));
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const defaultImageSrc = "http://127.0.0.1:5000/high_risk_images/default.jpg";  // 기본 이미지 경로
+
+    // 'x' 버튼 클릭 시 기본 이미지로 변경
+    document.querySelectorAll('.delete-button').forEach(button => {
+        button.addEventListener('click', function () {
+            const analysisItem = this.closest('.analysis-item');
+            const imgElement = analysisItem.querySelector('img');
+            imgElement.src = defaultImageSrc;  // 기본 이미지로 변경
+            imgElement.style.display = 'none';  // 이미지 숨기기
+            const placeholder = analysisItem.querySelector('.image-placeholder');
+            placeholder.style.display = 'flex';  // Add Image 텍스트 보이기
+        });
+    });
+});
