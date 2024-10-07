@@ -13,7 +13,7 @@ from controllers.admin_bp import admin_bp
 from config import Config  # config.py 임포트
 from AI.database_handler import get_image_data
 
-from flask import Flask, send_from_directory, jsonify #블루프린트 해주삼
+from flask import Flask, send_from_directory, jsonify,request #블루프린트 해주삼
 import os        #블루프린트 해주삼
 
 app = Flask(__name__)
@@ -33,6 +33,8 @@ def get_recent_images():
     images = sorted(images, key=lambda x: os.path.getctime(os.path.join(image_folder, x)), reverse=True)
     recent_images = images[:10]  # 최신 10개 이미지 가져오기
     return jsonify({'images': recent_images})
+
+
 
 # 블루프린트 등록
 # app.register_blueprint(employee_bp)

@@ -1,71 +1,97 @@
 function loadRebaA() {
-    fetch('/reba_a')
-        .then(response => response.json())
-        .then(data => {
-            const rebaPlot = document.getElementById('reba-plot');
-            rebaPlot.innerHTML = data.graph_html;
+    const frameTitle = imgname; // imgname이 frame_title에 해당하는지 확인
 
-            // 동적으로 삽입된 <script> 태그 실행
-            const scripts = rebaPlot.getElementsByTagName('script');
-            for (let i = 0; i < scripts.length; i++) {
-                const script = document.createElement('script');
-                script.text = scripts[i].text;
-                document.body.appendChild(script);
-            }
+    if (frameTitle) {
+        fetch(`/reba_a?frame_title=${encodeURIComponent(frameTitle)}`)
+            .then(response => response.json())
+            .then(data => {
+                const rebaPlot = document.getElementById('reba-plot');
+                rebaPlot.innerHTML = data.graph_html;
 
-            // REBA A SCORE 표시
-            const levelInfo = document.getElementById('level-info');
-            levelInfo.innerHTML = `REBA A SCORE: <strong>${data.score_a}</strong>`;
-        })
-        .catch(error => console.error('Error loading REBA A:', error));
+                // 동적으로 삽입된 <script> 태그 실행
+                const scripts = rebaPlot.getElementsByTagName('script');
+                for (let i = 0; i < scripts.length; i++) {
+                    const script = document.createElement('script');
+                    script.text = scripts[i].text;
+                    document.body.appendChild(script);
+                }
+
+                // REBA A SCORE 표시
+                const levelInfo = document.getElementById('level-info');
+                levelInfo.innerHTML = `REBA A SCORE: <strong>${data.score_a}</strong>`;
+            })
+            .catch(error => console.error('Error loading REBA A:', error));
+    } else {
+        console.error('No image selected. Please select an image first.');
+    }
 }
 
 function loadRebaB() {
-    fetch('/reba_b')
-        .then(response => response.json())
-        .then(data => {
-            const rebaPlot = document.getElementById('reba-plot');
-            rebaPlot.innerHTML = data.graph_html;
+    const frameTitle = imgname; // imgname이 frame_title에 해당하는지 확인
 
-            // 동적으로 삽입된 <script> 태그 실행
-            const scripts = rebaPlot.getElementsByTagName('script');
-            for (let i = 0; i < scripts.length; i++) {
-                const script = document.createElement('script');
-                script.text = scripts[i].text;
-                document.body.appendChild(script);
-            }
+    if (frameTitle) {
+        fetch(`/reba_b?frame_title=${encodeURIComponent(frameTitle)}`)
+            .then(response => response.json())
+            .then(data => {
+                const rebaPlot = document.getElementById('reba-plot');
+                rebaPlot.innerHTML = data.graph_html;
 
-            // REBA B SCORE 표시
-            const levelInfo = document.getElementById('level-info');
-            levelInfo.innerHTML = `REBA B SCORE: <strong>${data.score_b}</strong>`;
-        })
-        .catch(error => console.error('Error loading REBA B:', error));
+                // 동적으로 삽입된 <script> 태그 실행
+                const scripts = rebaPlot.getElementsByTagName('script');
+                for (let i = 0; i < scripts.length; i++) {
+                    const script = document.createElement('script');
+                    script.text = scripts[i].text;
+                    document.body.appendChild(script);
+                }
+
+                // REBA B SCORE 표시
+                const levelInfo = document.getElementById('level-info');
+                levelInfo.innerHTML = `REBA B SCORE: <strong>${data.score_b}</strong>`;
+            })
+            .catch(error => console.error('Error loading REBA B:', error));
+    } else {
+        console.error('No image selected. Please select an image first.');
+    }
 }
+
 
 function loadRebaC() {
-    fetch('/reba_c')
-        .then(response => response.json())
-        .then(data => {
-            const rebaPlot = document.getElementById('reba-plot');
-            const figData = data.fig_data;
+    const frameTitle = imgname; // imgname을 사용하여 frame_title 설정
 
-            // REBA C 게이지 차트 표시
-            Plotly.newPlot(rebaPlot, figData.data, figData.layout).then(() => {
-                // 애니메이션 추가
-                animateGauge(rebaPlot, 0, data.score_c); // 0에서 score_c까지 차오르게
-            });
+    if (frameTitle) {
+        fetch(`/reba_c?frame_title=${encodeURIComponent(frameTitle)}`) // frame_title을 포함하여 요청
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const rebaPlot = document.getElementById('reba-plot');
+                const figData = data.fig_data;
 
-            // REBA C SCORE 및 Risk Level 표시
-            const levelInfo = document.getElementById('level-info');
-            levelInfo.innerHTML = `
-                <strong>
-                    REBA C SCORE: <span style="color: ${data.color};">${data.score_c}</span><br>
-                    Risk Level: <span style="color: ${data.color};">${data.risk_level}</span>
-                </strong>
-            `;
-        })
-        .catch(error => console.error('Error loading REBA C:', error));
+                // REBA C 게이지 차트 표시
+                Plotly.newPlot(rebaPlot, figData.data, figData.layout).then(() => {
+                    // 애니메이션 추가
+                    animateGauge(rebaPlot, 0, data.score_c); // 0에서 score_c까지 차오르게
+                });
+
+                // REBA C SCORE 및 Risk Level 표시
+                const levelInfo = document.getElementById('level-info');
+                levelInfo.innerHTML = `
+                    <strong>
+                        REBA C SCORE: <span style="color: ${data.color};">${data.score_c}</span><br>
+                        Risk Level: <span style="color: ${data.color};">${data.risk_level}</span>
+                    </strong>
+                `;
+            })
+            .catch(error => console.error('Error loading REBA C:', error));
+    } else {
+        console.error('No image selected. Please select an image first.'); // 이미지가 선택되지 않았을 때 경고 메시지
+    }
 }
+
+
 
 // 게이지 애니메이션 함수
 function animateGauge(gaugeElement, startValue, endValue) {
@@ -90,19 +116,21 @@ function animateGauge(gaugeElement, startValue, endValue) {
 }
 
 function loadAllScores() {
-    fetch('/all_scores')
+    const frameTitle = imgname; // imgname이 현재 선택된 이미지의 이름이라고 가정
+
+    fetch(`/all_scores?frame_title=${encodeURIComponent(frameTitle)}`) // frame_title을 쿼리 파라미터로 전달
         .then(response => response.json())
         .then(data => {
             // REBA A, B, C 점수 및 결합된 위험도를 표시하는 부분
             const levelInfo = document.getElementById('level-info');
             levelInfo.innerHTML = `
-    <strong>
-        REBA A SCORE: ${data.score_a}<br>
-        REBA B SCORE: ${data.score_b}<br>
-        REBA C SCORE: <span style="color: ${getScoreColor(data.score_c)};">${data.score_c}</span><br>
-        Risk of A and B Combined: <span style="color: ${getRiskColor(data.combined_risk)};">${data.combined_risk}</span>
-    </strong>
-`;
+                <strong>
+                    REBA A SCORE: <span style="color: ${getScoreColor(data.score_a)};">${data.score_a}</span><br>
+                    REBA B SCORE: <span style="color: ${getScoreColor(data.score_b)};">${data.score_b}</span><br>
+                    REBA C SCORE: <span style="color: ${getScoreColor(data.score_c)};">${data.score_c}</span><br>
+                    Risk of A and B Combined: <span style="color: ${getRiskColor(data.combined_risk)};">${data.combined_risk}</span>
+                </strong>
+            `;
 
             // REBA C 게이지 차트 표시
             const rebaPlot = document.getElementById('reba-plot');
@@ -113,6 +141,7 @@ function loadAllScores() {
         })
         .catch(error => console.error('Error loading all scores:', error));
 }
+
 
 // REBA C 점수에 따른 색상 반환 함수
 function getScoreColor(score) {
@@ -147,18 +176,20 @@ function getRiskColor(risk) {
 
 
 function loadOwasChart() {
-    fetch('/owas_chart')
+    const frameTitle = imgname; // imgname이 현재 선택된 이미지의 이름이라고 가정
+
+    fetch(`/owas_chart?frame_title=${encodeURIComponent(frameTitle)}`) // frame_title을 쿼리 파라미터로 전달
         .then(response => response.json())
         .then(data => {
             const owasPlot = document.getElementById('owas-plot');
-            
+
             // OWAS 그래프를 렌더링
             Plotly.newPlot(owasPlot, data.fig_data.data, data.fig_data.layout);
 
             // OWAS 위험도에 따른 텍스트 색상 변경
             const owasLevelInfo = document.getElementById('owas-level-info');
             let riskColor;
-            
+
             switch (data.owas_level) {
                 case "Normal risk":
                     riskColor = "green";
@@ -181,6 +212,7 @@ function loadOwasChart() {
         })
         .catch(error => console.error('Error loading OWAS chart:', error));
 }
+
 
 
 

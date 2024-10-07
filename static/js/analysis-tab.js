@@ -1,3 +1,5 @@
+let imgname; // 전역 변수로 이미지 이름 저장
+
 document.addEventListener('DOMContentLoaded', function () {
     let tabContainer = document.createElement('div');
     tabContainer.classList.add('tab-container');
@@ -108,6 +110,9 @@ function openFolder(id) {
                     imageElement.style.display = 'block';  // 이미지 보이기
                     placeholder.style.display = 'none';  // "Add Image" 텍스트 숨기기
                     deleteButton.style.display = 'inline-block';  // 삭제 버튼 보이기
+
+                    imgname = file.name; // 이미지 이름을 전역 변수에 저장
+                    console.log(`Selected image name: ${imgname}`); // 선택된 이미지 이름 로그
                 };
                 reader.readAsDataURL(file); // 이미지 파일을 base64로 변환하여 미리보기 가능하게 함
             }

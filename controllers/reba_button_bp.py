@@ -2,71 +2,116 @@ import os
 from flask import Flask, render_template, jsonify, send_from_directory
 import plotly.graph_objects as go
 import plotly.io as pio
-from flask import Blueprint
-
+from flask import Blueprint, request
+from controllers.analysis_bp import get_reba_scores
 
 reba_button_bp= Blueprint('reba_button',__name__)
 
 
 @reba_button_bp.route('/reba_a')
 def reba_a():
-    categories = ['목', '몸통', '다리']
-    scores = [3, 4, 2]
+    # frame_title을 요청에서 가져오거나 필요에 따라 설정합니다.
+    frame_title = request.args.get('frame_title')  # 클라이언트 요청에서 가져오기
+    print("레바a에서 가져올 수 잇나?:", frame_title)  # 요청된 프레임 제목 출력
+    # get_reba_scores 함수를 호출하여 해당 frame_title에 대한 점수 데이터 가져오기
+    scores_data = get_reba_scores(frame_title, score_type='A')
+
+    # 카테고리 및 점수 설정
+    categories = ['목', '몸통', '다리']  # 필요한 카테고리
+    scores = [
+        scores_data['neck_score'],  # neck_score 값을 가져옵니다.
+        scores_data['trunk_score'],  # trunk_score 값을 가져옵니다.
+        scores_data['leg_score']      # leg_score 값을 가져옵니다.
+    ]
+
+    # 레이더 차트 생성
     fig = create_radar_chart(categories, scores, 'REBA A')
     graph_html = pio.to_html(fig, full_html=False)
-    return jsonify({'graph_html': graph_html, 'score_a': 9})  # 임의의 값 추가
+
+    return jsonify({'graph_html': graph_html, 'score_a': scores_data['reba_score_a']})  # REBA A 점수 포함
 
 @reba_button_bp.route('/reba_b')
 def reba_b():
-    categories = ['팔', '아래 팔', '손목']
-    scores = [3, 2, 1]
+    # frame_title을 요청에서 가져오거나 필요에 따라 설정합니다.
+    frame_title = request.args.get('frame_title')  # 클라이언트 요청에서 가져오기
+    # get_reba_scores 함수를 호출하여 해당 frame_title에 대한 점수 데이터 가져오기
+    scores_data = get_reba_scores(frame_title, score_type='B')
+
+    # 카테고리 및 점수 설정
+    categories = ['팔', '아래 팔', '손목']  # 필요한 카테고리
+    scores = [
+        scores_data['shoulder_to_elbow'],  # 어깨에서 팔꿈치까지 점수 가져오기
+        scores_data['elbow_to_wrist'],      # 팔꿈치에서 손목까지 점수 가져오기
+        scores_data['wrist_score']          # 손목 점수 가져오기
+    ]
+
+    # 레이더 차트 생성
     fig = create_radar_chart(categories, scores, 'REBA B')
     graph_html = pio.to_html(fig, full_html=False)
-    return jsonify({'graph_html': graph_html, 'score_b': 6})  # 임의의 값 추가
+
+    return jsonify({'graph_html': graph_html, 'score_b': scores_data['reba_score_b']})  # REBA B 점수 포함
+
 
 @reba_button_bp.route('/reba_c')
 def reba_c():
-    # 임의의 값으로 score_c 설정 (나중에 DB에서 받아올 수 있음)
-    score_c = 8  # 이 값을 동적으로 변경 가능
+    # frame_title을 요청에서 가져오거나 필요에 따라 설정합니다.
+    frame_title = request.args.get('frame_title')  # 클라이언트 요청에서 가져오기
 
-    # score_c 값에 따라 리스크 레벨 설정
+    # get_reba_scores 함수를 호출하여 해당 frame_title에 대한 점수 데이터 가져오기
+    scores_data = get_reba_scores(frame_title, score_type='C')
+
+    # score_c 값을 reba_score_c로 설정
+    score_c = scores_data.get('reba_score_c', 0)  # 기본값으로 0 사용
+
+    # 리스크 레벨 및 색상 초기화
+    risk_level = "Unknown Risk"  # 기본값 설정
+    bar_color = "grey"  # 기본값 설정
+
+    # score_c 값에 따라 리스크 레벨 및 색상 설정
     if score_c == 1:
         risk_level = 'Negligible Risk'
-        color = 'green'
+        bar_color = 'green'
     elif 2 <= score_c <= 3:
         risk_level = 'Low Risk'
-        color = 'lightgreen'
+        bar_color = 'lightgreen'
     elif 4 <= score_c <= 7:
         risk_level = 'Medium Risk'
-        color = 'yellow'
+        bar_color = 'yellow'
     elif 8 <= score_c <= 10:
         risk_level = 'High Risk'
-        color = 'orange'
+        bar_color = 'orange'
     elif 11 <= score_c <= 12:
         risk_level = 'Very High Risk'
-        color = 'red'
+        bar_color = 'red'
 
     # 게이지 차트 데이터 생성
-    fig_data = create_gauge_chart(score_c, 'REBA C')
+    fig_data = create_gauge_chart(score_c, 'REBA C', bar_color)
 
     return jsonify({
         'fig_data': fig_data, 
         'score_c': score_c, 
         'risk_level': risk_level, 
-        'color': color  # 색상 정보도 함께 반환
+        'color': bar_color  # 색상 정보도 함께 반환
     })
+
 
 @reba_button_bp.route('/all_scores')
 def all_scores():
-    # 임의의 점수 설정
-    score_a = 9  # REBA A 점수
-    score_b = 6  # REBA B 점수
-    score_c = 8  # REBA C 점수
+    frame_title = request.args.get('frame_title')  # 클라이언트 요청에서 가져오기
 
-    # 결합된 위험도 (DB에서 가져온 값으로 설정)
-    combined_risk = "High Risk"  # 결합된 REBA A와 B의 위험도는 DB에서 제공
+    # 각 스코어 가져오기
+    scores_data_a = get_reba_scores(frame_title, score_type='A')
+    score_a = scores_data_a['reba_score_a']
+    
+    scores_data_b = get_reba_scores(frame_title, score_type='B')
+    score_b = scores_data_b['reba_score_b']
+    
+    scores_data_c = get_reba_scores(frame_title, score_type='C')
+    score_c = scores_data_c['reba_score_c']
 
-    # Risk Level 계산 로직
+    combined_risk = "High Risk"  # 예시값
+
+    # Risk Level 계산
     if score_c == 1:
         risk_level = 'Negligible Risk'
     elif 2 <= score_c <= 3:
@@ -78,18 +123,21 @@ def all_scores():
     elif 11 <= score_c <= 12:
         risk_level = 'Very High Risk'
 
-    # REBA C의 게이지 차트를 생성
-    fig_data = create_gauge_chart(score_c, 'REBA C')
+    # 바 색상 설정 (예시)
+    bar_color = 'green' if score_c <= 3 else 'orange' if score_c <= 7 else 'red'
 
-    # JSON으로 리턴 (REBA A, B, C 점수와 결합된 위험도 포함)
+    # 게이지 차트 데이터 생성
+    fig_data = create_gauge_chart(score_c, 'REBA C', bar_color)  # bar_color를 세 번째 인자로 사용
+
     return jsonify({
         'score_a': score_a,
         'score_b': score_b,
         'score_c': score_c,
-        'combined_risk': combined_risk,  # 결합된 점수 DB에서 가져온 값
+        'combined_risk': combined_risk,
         'risk_level': risk_level,
         'fig_data': fig_data
     })
+
 
 # 레이더 차트 생성 함수
 def create_radar_chart(categories, scores, title):
@@ -120,7 +168,7 @@ def create_radar_chart(categories, scores, title):
     return fig
 
 # 게이지 차트 생성 함수
-def create_gauge_chart(score_c, title):
+def create_gauge_chart(score_c, title, bar_color):
     # score_c 값에 따라 색상 결정 로직
     if score_c == 1:
         bar_color = 'rgba(0, 255, 0, 0.7)'
@@ -197,22 +245,38 @@ def create_bar_chart(data, title):
 
     return fig.to_dict()
 
-# OWAS 차트 라우트
 @reba_button_bp.route('/owas_chart')
 def owas_chart():
-    # OWAS 점수 예시 값 (임의 값 사용)
-    owas_data = {
-        "몸통": 3,  # 1~4 범위
-        "팔": 2,  # 1~2 범위
-        "다리": 5,  # 1~7 범위
-        "하중": 1  # 고정값
-    }
+    # frame_title을 요청에서 가져오거나 필요에 따라 설정합니다.
+    frame_title = request.args.get('frame_title')  # 클라이언트 요청에서 가져오기
+
+    # get_reba_scores 함수를 호출하여 해당 frame_title에 대한 OWAS 점수 데이터 가져오기
+    owas_data = get_reba_scores(frame_title, score_type='OWAS')  # 'OWAS' 타입으로 데이터 가져오기
+
+    # 점수가 None인 경우 기본값 설정
+    if owas_data is None:
+        owas_data = {
+            "몸통": 0,    # trunk_part 
+            "팔": 0,      # arms_part 
+            "다리": 0,    # legs_part 
+            "하중": 0     # load_part 
+        }
+    else:
+        # owas_data가 None이 아닐 경우, 각 카테고리의 점수를 데이터베이스에서 가져온 값으로 설정
+        owas_data = {
+            "몸통": owas_data.get('trunk_part', 0),  # trunk_part 점수
+            "팔": owas_data.get('arms_part', 0),      # arms_part 점수
+            "다리": owas_data.get('legs_part', 0),    # legs_part 점수
+            "하중": owas_data.get('load_part', 0)      # load_part 점수
+        }
 
     # 막대 그래프 생성
     fig_data = create_bar_chart(owas_data, 'OWAS 점수 분석')
 
-    # OWAS 총 점수에 따른 리스크 레벨 설정 (1~4점)
-    total_score = 3  # 임의로 설정
+    # OWAS 총 점수 계산 (각 카테고리의 점수를 합산)
+    total_score = sum(owas_data.values())
+
+    # 리스크 레벨 설정
     if total_score == 1:
         risk_level = "Normal risk"
     elif total_score == 2:
@@ -223,3 +287,4 @@ def owas_chart():
         risk_level = "High risk"
 
     return jsonify({'fig_data': fig_data, 'owas_level': risk_level})
+
