@@ -1,10 +1,17 @@
-from flask import Blueprint, render_template, request, redirect, session, Response
+from flask import Blueprint, render_template, request, redirect, session, Response, flash
 from models.index_model import get_member_name
 from lock import login_required
 from webcam import generate_frames
-from processes.porcess_manager import start_webcam_script, start_yolo_script, start_video_mover_script
+from processes.porcess_manager import start_webcam_script, start_yolo_script, start_video_mover_script, stop_all_scripts
 
 index_bp= Blueprint('main',__name__,)
+
+@index_bp.route('/logout')
+def logout():
+    stop_all_scripts()
+    session.clear()
+    flash('로그아웃 되었습니다.', 'info')
+    return redirect('/')
 
 
 @index_bp.route('/index')
