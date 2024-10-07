@@ -21,7 +21,9 @@
           <li><a href="/analysis">근골격계 위험 감지</a></li>
           <li><a href="/employee">직원관리</a></li>
         </ul>
-        <button id="logoutButton">로그아웃</button>
+        <a href="{{ url_for('login.logout') }}">
+          <button id="logoutButton">로그아웃</button>
+        </a>
       </nav>
       <main class="main-content">
         <header class="main-header">
@@ -48,6 +50,10 @@
         </section>
       </main>
     </div>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}">
+      document.getElementById('logoutButton').addEventListener('click', function() {
+          window.location.href = '/logout';
+      });
+    </script>
   </body>
 </html>

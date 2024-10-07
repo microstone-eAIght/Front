@@ -4,11 +4,6 @@ from models.login_model import check_member_login
 
 login_bp= Blueprint('login',__name__)
 
-@login_bp.route('/logout', methods=['POST'])
-def logout():
-    session.clear()
-    flash('로그아웃 되었습니다.', 'info')
-    return redirect(url_for('login.login_view'))
 
 @login_bp.route('/login', methods=['GET', 'POST'])
 def login_view():
