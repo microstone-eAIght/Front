@@ -134,7 +134,7 @@ function removeImage(id) {
         imageElement.style.display = 'none';  // 이미지 숨기기
         imageElement.src = '';  // 이미지 경로 초기화 (아무것도 표시되지 않도록)
         placeholder.style.display = 'flex';  // "Add Image" 텍스트 보이기
-        deleteButton.style.display = 'none';  // 삭제 버튼 숨기기
+        deleteButton.style.display = 'block';  // 삭제 버튼 숨기기
     } else {
         console.error("해당 ID로 요소를 찾을 수 없습니다.");
     }
