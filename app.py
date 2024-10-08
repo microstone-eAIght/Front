@@ -1,4 +1,4 @@
-import atexit
+import signal
 from flask import Flask
 # from controllers.employee_bp import employee_bp
 from controllers.index_bp import index_bp
@@ -12,6 +12,7 @@ from controllers.analysis_bp import analysis_bp
 from controllers.admin_bp import admin_bp
 from config import Config  # config.py 임포트
 from AI.database_handler import get_image_data
+from processes.process_handler import register_signal_handlers
 
 from flask import Flask, send_from_directory, jsonify,request #블루프린트 해주삼
 import os        #블루프린트 해주삼
@@ -48,6 +49,8 @@ app.register_blueprint(recent_img_bp)
 app.register_blueprint(analysis_bp)
 app.register_blueprint(admin_bp)
 
+# 시그널 핸들러 등록
+register_signal_handlers()
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
