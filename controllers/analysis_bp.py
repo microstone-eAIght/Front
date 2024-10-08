@@ -56,22 +56,6 @@ def index():
 
     return render_template('analysis.html', image_data=image_data, reba_scores=reba_scores)
 
-@analysis_bp.route('/analysis')
-@login_required
-def index_view():
-    if request.method == 'GET':
-        # 세션 내용 출력 (디버깅 용도로 사용)
-        print("Session contents: ", session)
-
-        if 'user_id' in session and session['user_id']:
-            # 로그인 되어 있으면 사용자 이름 가져오기
-            member_name = get_member_name()
-
-            # 사용자 이름이 있으면 해당 이름을 전달하여 페이지 렌더링
-            return render_template('index.html', member_name=member_name)
-        else:
-            # 로그인되어 있지 않으면 로그인 페이지로 리다이렉트
-            return redirect('/')
 
 def get_reba_scores(frame_title, score_type):
     score_data = get_image_data(frame_title)  # 이미지 데이터 가져오기
