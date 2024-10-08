@@ -31,7 +31,9 @@ html {
 }
 
 .sidebar h1 {
-    font-size: 24px;
+    font-size: 16px;
+    color: #ffffff;     /* 글자 색상 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     margin-bottom: 30px;
     display: flex;
     align-items: center;
@@ -135,6 +137,12 @@ h1 img {
     backdrop-filter: blur(30px);
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+.analysis-title h1{
+    font-size: 24px; /* 글자 크기 */
+    color: #ffffff;     /* 글자 색상 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 15px 15;  /* 위 아래 여백 */
 }
 
 .analysis-list {
