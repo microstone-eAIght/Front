@@ -2,12 +2,13 @@ import os,sys
 from flask import Flask, render_template, jsonify, send_from_directory
 import plotly.graph_objects as go
 import plotly.io as pio
-from flask import Blueprint, request
+from flask import Blueprint, request, session, redirect
 import tkinter as tk
 from tkinter import filedialog
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from AI.database_handler import get_image_data,save_to_database
 from lock import login_required
+from models.index_model import get_member_name
 
 analysis_bp= Blueprint('analysis',__name__)
 
@@ -19,6 +20,21 @@ analysis_bp= Blueprint('analysis',__name__)
 def index():
     image_data = None
     reba_scores = None  # REBA 점수를 저장할 변수 추가
+
+    # GET 요청 처리
+    if request.method == 'GET':
+        # 세션 내용 출력 (디버깅 용도로 사용)
+        print("Session contents: ", session)
+
+        if 'user_id' in session and session['user_id']:
+            # 로그인 되어 있으면 사용자 이름 가져오기
+            member_name = get_member_name()
+
+            # 사용자 이름이 있으면 해당 이름을 전달하여 페이지 렌더링
+            return render_template('analysis.html', member_name=member_name)
+        else:
+            # 로그인되어 있지 않으면 로그인 페이지로 리다이렉트
+            return redirect('/')
 
     if request.method == 'POST':
         imgname = request.form.get('imgname')
