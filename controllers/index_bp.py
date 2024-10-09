@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, session, Respon
 from models.index_model import get_member_name
 from lock import login_required
 from webcam import generate_frames
-from processes.process_manager import start_webcam_script, start_yolo_script, start_video_mover_script, stop_all_scripts
+from processes.process_manager import start_scripts, stop_all_scripts
 
 index_bp= Blueprint('main',__name__,)
 
@@ -11,6 +11,7 @@ def logout():
     stop_all_scripts()
     session.clear()
     session['scripts_running'] = False
+    session.modified = True  # 세션 변경 여부를 Flask에 알림
     flash('로그아웃 되었습니다.', 'info')
     print("Session contents: ", session)
 
@@ -29,12 +30,13 @@ def index_view():
 
             if 'scripts_running' not in session:
                     session['scripts_running'] = False  # 기본값은 False로 설정
+                    session.modified = True
 
             if not session.get('scripts_running'):
-                    start_webcam_script()  # 웹캠 스크립트 실행
-                    start_yolo_script()  # YOLO 스크립트 실행
-                    start_video_mover_script()  # video_mover 스크립트 실행
+                    start_scripts()
                     session['scripts_running'] = True  # 스크립트 실행 여부 플래그 설정
+                    session.modified = True
+
 
             # 사용자 이름이 있으면 해당 이름을 전달하여 페이지 렌더링
             return render_template('index.html', member_name=member_name)
