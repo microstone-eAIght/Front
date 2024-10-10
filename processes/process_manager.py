@@ -1,6 +1,7 @@
 import subprocess
 import psutil
 from flask import session
+import time
 
 # 실행 중인 프로세스를 저장하는 딕셔너리
 processes = {}
@@ -13,12 +14,22 @@ def is_script_running(script_name):
     return False
 
 
+# def start_scripts():
+#     global scripts_running
+#     if not scripts_running:
+#         start_webcam_script()
+#         start_yolo_script()
+#         start_video_mover_script()
+#         scripts_running = True  # 스크립트 실행 상태를 전역 변수로 관리
+
 def start_scripts():
     global scripts_running
     if not scripts_running:
-        start_webcam_script()
-        start_yolo_script()
-        start_video_mover_script()
+        start_webcam_script()  # webcam.py 먼저 실행
+        time.sleep(3)  # 3초 대기
+        start_video_mover_script()  # video_mover.py 실행
+        time.sleep(2)  # 2초 대기
+        start_yolo_script()  # YOLO모듈 최종.py 실행
         scripts_running = True  # 스크립트 실행 상태를 전역 변수로 관리
 
 def start_webcam_script():
