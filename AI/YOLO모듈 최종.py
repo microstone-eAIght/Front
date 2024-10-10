@@ -149,13 +149,13 @@ class VideoProcessor(FileSystemEventHandler):
                 frame_number_str = f"{frame_count:04d}"  # 4자리로 프레임 번호 표시
 
                 # Very High Risk인 경우 프레임 저장 경로를 hi_risk_images/날짜로 변경
-                high_risk_date_dir = os.path.join(self.high_risk_dir, date_str)
-                if not os.path.exists(high_risk_date_dir):
-                    os.makedirs(high_risk_date_dir)  # 날짜별 디렉토리 생성
+                # high_risk_date_dir = os.path.join(self.high_risk_dir, date_str)
+                # if not os.path.exists(high_risk_date_dir):
+                #     os.makedirs(high_risk_date_dir)  # 날짜별 디렉토리 생성
 
 
-                if 'Very High Risk' in caption:
-                        high_risk_image_path = os.path.join(high_risk_date_dir, f'high_risk_frame_{frame_time_str}_{output_frame_count}.jpg')
+                if 'High Risk' in caption:
+                        high_risk_image_path = os.path.join(self.high_risk_dir, frame_title)
                         cv2.imwrite(high_risk_image_path, frame)
 
                         # 이미지 파일을 읽어서 바이너리 형태로 서버로 전송
