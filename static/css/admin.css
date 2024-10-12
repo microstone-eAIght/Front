@@ -14,73 +14,24 @@ body {
     height: 100vh;
 }
 
-.sidebar h1 {
-    font-size: 16px;
-    color: #ffffff;     /* 글자 색상 */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-}
-
-.workshop-container{
-    padding-top: 40px;
-    padding-bottom:1px;
-    margin-bottom:40px;
-    border-radius: 8px;
-    width: 100%;
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-}
-
-.workshop {
-    background-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
-    padding: 20px;
-    border-radius: 4px;
-    text-align: center;
-    font-weight: bold;
-    flex: 0 0 200px;
-    margin: 0 3px;
-    color:white;
-    transition: background-color 0.3s ease, transform 0.3s ease; 
-}
-.workshop:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-5px);
-}
-
 .sidebar {
     width: 250px;
-    height: 950px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(30px);
     color: white;
     padding: 20px;
     box-sizing: border-box;
-
-    /* 추가된 입체감 */
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.5);
-    /* 좌측 그림자 효과 */
     border-right: 1px solid rgba(255, 255, 255, 0.2);
-    /* 좌측 경계선 */
 }
 
 .sidebar h1 {
     font-size: 16px;
-    color: #ffffff;     /* 글자 색상 */
+    color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     margin-bottom: 30px;
     display: flex;
     align-items: center;
-}
-
-h1 img {
-    margin-right: 10px;
-    width: 40px;
-    height: auto;
 }
 
 .sidebar ul {
@@ -106,27 +57,11 @@ h1 img {
     transition: color 0.3s, padding-left 0.3s;
 }
 
-.sidebar ul li img {
-    margin-right: 10px;
-    width: 25px;
-    height: auto;
-    transition: opacity 0.3s;
-}
-
 .sidebar ul li:hover {
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 10px;
 }
 
-.sidebar ul li:hover img {
-    opacity: 0.7;
-}
-
-.sidebar ul li a:hover {
-    color: #ddd;
-    padding-left: 20px;
-}
-
 #logoutButton {
     margin: 20px;
     padding: 10px;
@@ -137,14 +72,8 @@ h1 img {
     cursor: pointer;
 }
 
-#logoutButton {
-    margin: 20px;
-    padding: 10px;
-    background-color: #0056b3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+#logoutButton:hover {
+    background-color: #004494;
 }
 
 .main-content {
@@ -161,10 +90,9 @@ h1 img {
     backdrop-filter: blur(30px);
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    padding: 20px 20px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+    padding: 20px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .system-title {
@@ -176,27 +104,120 @@ h1 img {
     backdrop-filter: blur(30px);
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    flex-wrap: wrap;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
-.user-profile {
-    margin-bottom: 30px;
+.action-bar {
+    margin-bottom: 10px;
+}
+
+#employeeTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    min-height: 600px;
+    padding-bottom: 20px;
+    color: white;
+}
+
+#employeeTable th, #employeeTable td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#employeeTable th {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+#employeeTable td {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#employeeTable th:nth-child(1) { width: 10%; }
+#employeeTable th:nth-child(2) { width: 15%; }
+#employeeTable th:nth-child(3) { width: 15%; }
+#employeeTable th:nth-child(4) { width: 15%; }
+#employeeTable th:nth-child(5) { width: 15%; }
+#employeeTable th:nth-child(6) { width: 15%; }
+#employeeTable th:nth-child(7) { width: 15%; }
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+.btn.small-btn {
+    padding: 5px 10px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.15);
-    /* 반투명 배경 */
-    border-radius: 10px;
-    /* 모서리 둥글게 */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    /* 사용자 프로필 섹션 그림자 */
-    text-align: center;
-    /* 텍스트 가운데 정렬 */
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+input[type="text"], input[type="email"], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.user-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
 }
 
 .notification-button {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #0056b3;
     color: white;
     border: none;
     border-radius: 5px;
@@ -206,13 +227,8 @@ h1 img {
     position: relative;
 }
 
-.notification-button:hover {
-    background-color: rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s, border-radius 0.3s;
-}
-
 .notification-count {
-    background-color: rgba(212, 20, 20, 0.5);
+    background-color: red;
     color: white;
     border-radius: 50%;
     padding: 5px 10px;
@@ -221,22 +237,4 @@ h1 img {
     right: -10px;
     font-size: 12px;
     font-weight: bold;
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100px;
-    }
-
-    .sidebar h1 {
-        font-size: 14px;
-    }
-
-    .main-header, .content {
-        padding: 10px;
-    }
-
-    .sidebar ul li a {
-        font-size: 14px;
-    }
 }
