@@ -1,3 +1,43 @@
+const logoutButton = document.getElementById('logoutButton');
+
+// 사용자 이름과 알림 수를 업데이트하는 함수
+function updateUserInfo() {
+  const userNameElement = document.getElementById('userName');
+  const notificationCountElement =
+    document.getElementById('notificationCount');
+
+  userNameElement.textContent = user.name;
+  notificationCountElement.textContent = user.notifications;
+}
+
+// 페이지가 로드되면 사용자 정보를 업데이트
+updateUserInfo();
+
+  // 로그아웃 버튼 클릭 이벤트
+  logoutButton.addEventListener('click', () => {
+    // 사용자에게 로그아웃 알림
+    alert('로그아웃 되었습니다.');
+
+    // 로그아웃 요청
+    fetch('/logout', {
+      method: 'POST',
+    })
+      .then((response) => {
+        if (response.ok) {
+          // 로그아웃 성공 시 /login으로 리다이렉트
+          window.location.href = '/';
+        } else {
+          alert('로그아웃 중 오류가 발생했습니다.'); // 오류 메시지 표시
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error); // 콘솔에 오류 로그
+      });
+  });
+
+  // 초기화
+  displayIssues();
+
 function searchEmployee() {
     // 직원 검색 폼을 보여주도록 변경
     showsearchEmployeeForm();

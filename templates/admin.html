@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자페이지</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}"/>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <nav class="sidebar">
+        <div class="sidebar">
+            <h1>
+                <img src="{{ url_for('static', filename='img/safety.png') }}" alt="Safety Icon">
+                관리자페이지
+            </h1>
+            <div class="user-profile">
+                <span id="userName" class="user-name">{{ member_name }}님</span>
+                <button id="notificationButton" class="notification-button">
+                  알림<span id="notificationCount" class="notification-count">3</span>
+                </button>
+                <p>My Account</p>
+            </div>
             <ul>
-                <li class="user-info">
-                    <span id="userName" class="user-name">{{ member_name }}님</span>
-                    <button id="notificationButton" class="notification-button">
-                        알림<span id="notificationCount" class="notification-count">3</span>
-                    </button>
-                </li>
-                <li><a href="/index">CCTV</a></li>
-                <li><a href="/admin">관리자페이지</a></li>
-                <li><a href="/analysis">근골격계 위험 감지</a></li>
-                <li><a href="/employee">직원관리</a></li>
-                <li><a href="/storage">저장소</a></li>
-              </ul>
-            <button id="logoutButton">로그아웃</button>
-        </nav>
+                <li><img src="{{ url_for('static', filename='img/home.png') }}" alt="Home Icon"><a href="/index">CCTV</a></li>
+                <li><img src="{{ url_for('static', filename='img/employees.png') }}" alt="Employees Icon"><a href="/admin">관리자페이지</a></li>
+                <li><img src="{{ url_for('static', filename='img/analysis.png') }}" alt="Analysis Icon"><a href="/analysis">Pose Analysis</a></li>
+                <li><img src="{{ url_for('static', filename='img/logout.png') }}" alt="Logout Icon"><a href="{{ url_for('main.logout') }}">Log Out</a></li>
+            </ul>
+          </div>
         <main class="main-content">
             <header class="main-header">
                 <h1 class="system-title">관리자 페이지</h1>
@@ -63,6 +66,10 @@
             </form>            
         </div>
     </div>
-    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin.js') }}">
+        document.getElementById('logoutButton').addEventListener('click', function() {
+          window.location.href = '/logout';
+      });
+    </script>
 </body>
 </html>
