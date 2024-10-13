@@ -26,27 +26,35 @@ def admin_view():
     # members와 member_name 변수를 함께 전달
     return render_template('admin.html', members=members, member_name=member_name)
 
-# 회원 정보 POST (등록)
+# 직원 정보 POST (등록)
 @admin_bp.route('/admin', methods=['POST'])
 @login_required
-#직원추가
-def add_member():
-    member_id = request.form['member_id']
-    member_name = request.form['member_name']
-    member_password = request.form['member_password']
-    member_phone = request.form['member_phone']
-    member_email = request.form['member_email']
-    member_address = request.form['member_address']
-    member_position = request.form['member_position']
+# 직원 추가
+def add_employee():
+    employee_name = request.form['employee_name']
+    employee_address = request.form['employee_address']
+    employee_department = request.form['employee_department']
+    employee_position = request.form['employee_position']
+    employee_phone = request.form['employee_phone']
+    employee_email = request.form['employee_email']
+    employee_status = request.form['employee_status']
+    emergency_contact = request.form['emergency_contact']
+    date_of_birth = request.form['date_of_birth']
+    hire_date = request.form['hire_date']
+    gender = request.form['gender']
 
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # 회원 정보 삽입
+    # 직원 정보 삽입
     cursor.execute(''' 
-        INSERT INTO member (member_id, member_name, member_password, member_phone, member_email, member_address, member_position)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
-    ''', (member_id, member_name, member_password, member_phone, member_email, member_address, member_position))
+        INSERT INTO employee (employee_name, employee_address, employee_department, employee_position, 
+                              employee_phone, employee_email, employee_status, emergency_contact, 
+                              date_of_birth, hire_date, gender)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    ''', (employee_name, employee_address, employee_department, employee_position,
+          employee_phone, employee_email, employee_status, emergency_contact,
+          date_of_birth, hire_date, gender))
 
     conn.commit()
     cursor.close()
