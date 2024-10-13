@@ -75,6 +75,45 @@ function updateUserInfo() {
   notificationCountElement.textContent = user.notifications;
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+  const tbody = document.querySelector('#employeeTable tbody');
+  const searchButton = document.getElementById('searchButton');
+  
+  // 초기 직원 리스트 표시
+  displayEmployees(employees, tbody);
+
+  // 검색 버튼 클릭 이벤트
+  searchButton.addEventListener('click', function() {
+      const nameInput = document.getElementById('name').value.trim();
+      const filteredEmployees = employees.filter(employee => 
+          employee.name.includes(nameInput)
+      );
+      displayEmployees(filteredEmployees, tbody);
+  });
+
+  document.querySelector('.close').addEventListener('click', function() {
+      document.getElementById('employeeModal').style.display = 'none';
+  });
+});
+
+// 직원 리스트 표시 함수
+function displayEmployees(employees, tbody) {
+  tbody.innerHTML = ''; // 테이블을 초기화
+  employees.forEach(employee => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+          <td>${employee.id}</td>
+          <td>${employee.name}</td>
+          <td>${employee.region}</td>
+          <td>${employee.department}</td>
+          <td>${employee.position}</td>
+          <td>${employee.phone}</td>
+          <td>${employee.email}</td>
+      `;
+      tbody.appendChild(row);
+  });
+}
+
 // 페이지가 로드되면 사용자 정보를 업데이트
 updateUserInfo();
 
