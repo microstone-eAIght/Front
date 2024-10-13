@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자페이지</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}"/>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
         <div class="sidebar">
             <h1>
                 <img src="{{ url_for('static', filename='img/safety.png') }}" alt="Safety Icon">
-                CCTV
+                관리자페이지
             </h1>
             <div class="user-profile">
                 <span id="userName" class="user-name">{{ member_name }}님</span>
@@ -68,8 +68,8 @@
     </div>
     <script src="{{ url_for('static', filename='js/admin.js') }}">
         document.getElementById('logoutButton').addEventListener('click', function() {
-            window.location.href = '/logout';
-        });
-      </script>
-  </body>
+          window.location.href = '/logout';
+      });
+    </script>
+</body>
 </html>
