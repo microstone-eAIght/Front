@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>회원가입 페이지</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery 추가 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}" />
+  <script src="/static/js/signup.js" defer></script>
+  <style>
+    body,
+    html {
+      font-family: 'Source Sans Pro', sans-serif;
+      background-color: #f1ecec;
+      padding: 0;
+      margin: 0;
+    }
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .container {
+      margin: 0 auto;
+      top: 35px;
+      left: 50%;
+      position: absolute;
+      text-align: center;
+      transform: translateX(-50%);
+      background-color: #fff;
+      border-radius: 9px;
+      border-top: 10px solid #CBDDF5;
+      border-bottom: 10px solid #CBDDF5;
+      width: 500px;
+      height: 800px;
+    }
+
+    .box h1 {
+      color: #ffffff;
+      font-size: 25px;
+      margin-top: 70px;
+    }
+
+    .box h1 span {
+      color: #000000;
+      font-weight: lighter;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="tel"] {
+      display: block;
+      margin: 5px auto;
+      margin-bottom: 5px; /* 메시지와의 간격 */
+      background: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 14px 10px;
+      width: 320px;
+      outline: none;
+      color: #000000;
+      transition: all .2s ease-out;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border: 1px solid #79A6FE;
+    }
+
+    .error-text {
+      color: red;
+      font-size: 12px;
+      text-align: center;
+      width: 100%;
+      margin: 0; /* 메시지 간격 제거 */
+      padding: 0; /* 패딩 간격 제거 */
+      display: none; /* 초기 상태에서는 숨김 */
+    }
+
+    .success-text {
+      color: green;
+      display: none; /* 초기에는 숨김 */
+    }
+
+    .btn1,
+    .btn2,
+    .btn3 {
+      padding: 10px 20px;
+      background-color: #4B89DC;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px; /* 간격 조정 */
+    }
+
+    .btn1:hover,
+    .btn2:hover,
+    .btn3:hover {
+      background-color: #0056b3;
+    }
+
+    .id-container {
+      display: flex;
+      align-items: center;
+      margin: 10px auto;
+      width: 340px;
+    }
+
+    .id-container input[type="text"] {
+      width: 220px;
+      height: 45px;
+      box-sizing: border-box;
+      margin: 0;
+    }
+
+    .position select {
+      display: block;
+      margin: 20px auto;
+      background: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 14px 10px;
+      width: 320px;
+      color: #000000;
+      outline: none;
+      transition: all .2s ease-out;
+    }
+
+    .position select:focus {
+      border: 1px solid #79A6FE;
+    }
+
+    .footer {
+      position: relative;
+      left: 0;
+      bottom: 0;
+      top: 605px;
+      width: 100%;
+      color: #78797d;
+      font-size: 14px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body id="particles-js">
+  <div class="animated bounceInDown">
+    <div class="container">
+      <!-- 플래시 메시지를 표시할 영역 -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <ul class="flash-messages">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
+      <form name="form1" class="box" method="POST" action="/signup" novalidate>
+        <h1><span>회원가입</span></h1>
+        <div class="id-container">
+          <input type="text" id="id" name="userid" placeholder="아이디 입력(6~20자)" autocomplete="on" />
+          <button type="button" class="btn3" onclick="checkUsername()">중복 확인</button>
+        </div>
+        <div id="usernameCheckResult" class="error-text"></div> <!-- 오류 메시지 -->
+
+        <input type="password" name="password" placeholder="비밀번호를 입력해 주세요" id="pwd1" autocomplete="off" />
+        <div id="pwCheckResult" class="error-text"></div> <!-- 오류 메시지 -->
+
+        <input type="password" name="password_ch" placeholder="비밀번호 재입력" id="pwd2" autocomplete="off" />
+        <div id="passwordCheckResult" class="error-text"></div> <!-- 오류 메시지 -->
+
+        <input type="text" name="username" placeholder="이름을 입력해 주세요" autocomplete="on" />
+        <div id="nameCheckResult" class="error-text"></div> <!-- 오류 메시지 -->
+
+        <input type="text" name="tel" placeholder="전화번호를 입력해 주세요" autocomplete="on" />
+        <div id="telCheckResult" class="error-text"></div> <!-- 오류 메시지 -->
+
+        <input type="text" name="email" placeholder="이메일을 입력해 주세요" autocomplete="on" id="email" />
+        <div id="emailCheckResult" class="error-text"></div> <!-- 오류 메시지 -->
+
+        <input type="text" name="address" placeholder="주소를 입력해 주세요(시, 구)" autocomplete="on" />
+        <div id="addressCheckResult" class="error-text"></div> <!-- 오류 메시지 -->
+
+        <div class="position">
+          <select id="position" name="position">
+            <option value="" disabled selected>직책</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
+        <input type="submit" value="회원가입" class="btn1" />
+        <input type="button" value="취소" class="btn2" onclick="location.href='http://127.0.0.1:5000/'" />
+      </form>
+      <div id="successMessage" class="success-text">가입이 완료되었습니다. 로그인 페이지로 이동합니다.</div>
+    </div>
+  </div>

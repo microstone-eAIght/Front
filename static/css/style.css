@@ -1,0 +1,432 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    width: 100vw; /* 너비를 뷰포트 너비에 맞춤 */
+    height: 100vh; /* 높이를 뷰포트 높이에 맞춤 */
+    background: url("/static/img/background-7.jpg") no-repeat center center fixed;
+    background-size: cover;
+    backdrop-filter: blur(30px);
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar h1 {
+    font-size: 16px;
+    color: #ffffff;     /* 글자 색상 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.workshop-container{
+    padding-top: 40px;
+    padding-bottom:1px;
+    margin-bottom:40px;
+    border-radius: 8px;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.workshop {
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    padding: 20px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    flex: 0 0 200px;
+    margin: 0 3px;
+    color:white;
+    transition: background-color 0.3s ease, transform 0.3s ease; 
+}
+.workshop:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-5px);
+}
+
+.sidebar {
+    width: 250px;
+    height: 950px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+
+    /* 추가된 입체감 */
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.5);
+    /* 좌측 그림자 효과 */
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    /* 좌측 경계선 */
+}
+.sidebar h1 {
+    font-size: 16px;
+    color: #ffffff;     /* 글자 색상 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+h1 img {
+    margin-right: 10px;
+    width: 40px;
+    height: auto;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.sidebar ul li {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, border-radius 0.3s;
+    border-radius: 10px;
+}
+
+.sidebar ul li a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 18px;
+    display: inline-block;
+    padding: 10px;
+    transition: color 0.3s, padding-left 0.3s;
+}
+
+.sidebar ul li img {
+    margin-right: 10px;
+    width: 25px;
+    height: auto;
+    transition: opacity 0.3s;
+}
+
+.sidebar ul li:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.sidebar ul li:hover img {
+    opacity: 0.7;
+}
+
+.sidebar ul li a:hover {
+    color: #ddd;
+    padding-left: 20px;
+}
+
+#logoutButton {
+    margin: 20px;
+    padding: 10px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#logoutButton:hover {
+    background-color: #0056b3;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    color: white;
+    backdrop-filter: blur(30px);
+    box-sizing: border-box;
+}
+
+.main-header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    padding : 20px 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.system-title {
+    margin: 0;
+}
+
+.content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cctv-stream {
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black; /* 검은색 배경으로 갭을 덮음 */
+    overflow: hidden;
+}
+
+.cctv-stream video {
+    width: 100%;
+    height: auto; /* 높이는 자동으로 조정 */
+    max-height: 100%; /* 최대 높이는 컨테이너의 높이로 제한 */
+    background-color: black;
+    object-fit: contain; /* 비디오가 잘리지 않도록 유지 */
+}
+
+.user-profile {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    /* 반투명 배경 */
+    border-radius: 10px;
+    /* 모서리 둥글게 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    /* 사용자 프로필 섹션 그림자 */
+    text-align: center;
+    /* 텍스트 가운데 정렬 */
+}
+
+.notification-button {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    position: relative; /* 알림 카운트 위치를 조정하기 위해 필요 */
+}
+.notification-button:hover {
+    background-color:  rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, border-radius 0.3s;
+}
+.notification-count {
+    background-color: rgba(212, 20, 20, 0.5);
+    color: white;
+    border-radius: 50%;
+    padding: 5px 10px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* 전체 레이아웃 스타일 */
+.new-window-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.new-window-header,
+.new-window-footer {
+    width: 100%;
+    padding: 10px;
+    background-color: #212121;
+    color:white;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #ccc;
+}
+
+.new-window-footer {
+    color:white;
+    border-top: 1px solid #ccc;
+}
+
+.new-window-header h1,
+.new-window-footer p {
+    margin: 0;
+    font-size: 1rem;
+}
+/* 맨 아래 가로 바 스타일 */
+.new-window-footer {
+    width: 100%;
+    padding: 10px;
+    background-color: #212121;
+    color:white;
+    text-align: center;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+    flex-shrink: 0; /* 부모 요소의 크기에 맞춰지지 않도록 고정 */
+}
+
+.new-window-main-content {
+    display: flex;
+    flex-grow: 1; /* 남은 공간을 자동으로 채움 */
+    width: 100%;
+    height:70%;
+    background-color: #fff;
+}
+
+.new-window-sidebar,
+.evaluation-sidebar,
+.empty-sidebar {
+    width: 15%;
+    padding: 10px;
+    background-color: #212121;
+    color:white;
+    overflow-y: auto;
+    font-size: 0.5rem;
+    border-left: 1px solid #ccc;
+}
+
+.evaluation-sidebar {
+    width: 20%; /* 평가 요소 바의 가로 길이를 늘림 */
+}
+
+.cctv-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    background-color: #212121;
+    color:white;
+    
+}
+
+.new-window-cctv-stream {
+    width: 100%;
+    height: calc(100% - 40px);
+    background-color: #212121;
+    padding: 1px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+}
+
+.new-window-cctv-stream video {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
+.new-window-sidebar h2{
+    font-size:1rem;
+    
+}
+.evaluation-sidebar h3 {
+    margin-top: 0;
+    font-size:1rem;
+    
+}
+
+.new-window-sidebar button{
+    background-color: #3488e2;
+    color:white;
+    font-size:0.7rem;
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.evaluation-sidebar p {
+    background-color: black;
+    font-size:0.7rem;
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.evaluation-category {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+
+/* 반응형 스타일 */
+@media (max-width: 1200px) {
+    .new-window-header h1, .new-window-footer p {
+        font-size: 0.9rem;
+    }
+
+    .new-window-sidebar, .evaluation-sidebar, .empty-sidebar {
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .new-window-header h1, .new-window-footer p {
+        font-size: 0.8rem;
+    }
+
+    .new-window-sidebar, .evaluation-sidebar, .empty-sidebar {
+        font-size: 0.5rem;
+        width:20%;
+    }
+}
+
+@media (max-width: 480px) {
+    .new-window-header h1, .new-window-footer p {
+        font-size: 0.7rem;
+    }
+
+    .new-window-sidebar, .evaluation-sidebar, .empty-sidebar {
+        font-size: 0.4rem;
+    }
+}
+
+.cctv-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    width: 90%;
+    height: 90vh;
+    box-sizing: border-box; /* 여백과 테두리 포함하여 크기 계산 */
+}
+
+.cctv {
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* 배경색을 검정색으로 설정 */
+    border-radius: 4px; /* 모서리 둥글게 */
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 살짝의 그림자 효과 */
+}
+
+.cctv:hover {
+    border: 2px solid red; /* 마우스를 올렸을 때 테두리 강조 */
+}
+
+.full-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+}

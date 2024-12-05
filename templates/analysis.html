@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>analysis</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/analysis.css') }}"
+    />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h1>
+                <img src="{{ url_for('static', filename='img/safety.png') }}" alt="Safety Icon">
+                근골격계 위험 감지
+            </h1>
+            
+            <div class="user-profile">
+                <span id="userName" class="user-name">{{ member_name }}님</span>
+                <p>My Account</p>
+            </div>
+            <ul>
+                <li><img src="{{ url_for('static', filename='img/home.png') }}" alt="Home Icon"><a href="/index">CCTV</a></li>
+                <li><img src="{{ url_for('static', filename='img/employees.png') }}" alt="Employees Icon"><a href="/admin">관리자페이지</a></li>
+                <li><img src="{{ url_for('static', filename='img/analysis.png') }}" alt="Analysis Icon"><a href="/analysis">Pose Analysis</a></li>
+                <li><img src="{{ url_for('static', filename='img/logout.png') }}" alt="Logout Icon"><a href="{{ url_for('main.logout') }}">Log Out</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <!-- title과 list를 가로로 배치 -->
+            <div class="title-list">
+                <div class="analysis-title">
+                    <h1>
+                        <img src="{{ url_for('static', filename='img/analysis.png') }}" alt="Analysis Icon">Analysis
+                    </h1>
+                    <p>이미지를 분석하여 REBA 및 OWAS 점수를 제공하며, 인체공학적 위험을 평가할 수 있습니다.</p>
+                </div>
+                <div class="analysis-list">
+                    <div class="analysis-list1 analysis-item" data-index="1">
+                        <div class="image-placeholder" id="placeholder1">Add Image</div>
+                        <img src="" alt="Selected Image" class="analysis-image" id="image1" style="display: none;">
+                        <button class="delete-button" onclick="removeImage(1)">x</button>
+                        <button class="add-button" onclick="openFolder(1)">+</button>
+                        <input type="hidden" id="imgnameInput1" value=""> <!-- 이미지 이름을 저장하는 숨겨진 input 추가 -->
+                    </div>
+                    <div class="analysis-list2 analysis-item" data-index="2">
+                        <div class="image-placeholder" id="placeholder2">Add Image</div>
+                        <img src="" alt="Selected Image" class="analysis-image" id="image2" style="display: none;">
+                        <button class="delete-button" onclick="removeImage(2)">x</button>
+                        <button class="add-button" onclick="openFolder(2)">+</button>
+                        <input type="hidden" id="imgnameInput2" value=""> <!-- 이미지 이름을 저장하는 숨겨진 input 추가 -->
+                    </div>
+                    <div class="analysis-list3 analysis-item" data-index="3">
+                        <div class="image-placeholder" id="placeholder3">Add Image</div>
+                        <img src="" alt="Selected Image" class="analysis-image" id="image3" style="display: none;">
+                        <button class="delete-button" onclick="removeImage(3)">x</button>
+                        <button class="add-button" onclick="openFolder(3)">+</button>
+                        <input type="hidden" id="imgnameInput3" value=""> <!-- 이미지 이름을 저장하는 숨겨진 input 추가 -->
+                    </div>
+                    <div class="analysis-list4 analysis-item" data-index="4">
+                        <div class="image-placeholder" id="placeholder4">Add Image</div>
+                        <img src="" alt="Selected Image" class="analysis-image" id="image4" style="display: none;">
+                        <button class="delete-button" onclick="removeImage(4)">x</button>
+                        <button class="add-button" onclick="openFolder(4)">+</button>
+                        <input type="hidden" id="imgnameInput4" value=""> <!-- 이미지 이름을 저장하는 숨겨진 input 추가 -->
+                    </div>
+                    <div class="analysis-list5 analysis-item" data-index="5">
+                        <div class="image-placeholder" id="placeholder5">Add Image</div>
+                        <img src="" alt="Selected Image" class="analysis-image" id="image5" style="display: none;">
+                        <button class="delete-button" onclick="removeImage(5)">x</button>
+                        <button class="add-button" onclick="openFolder(5)">+</button>
+                        <input type="hidden" id="imgnameInput5" value=""> <!-- 이미지 이름을 저장하는 숨겨진 input 추가 -->
+                    </div>
+                    <div class="analysis-list6 analysis-item" data-index="6">
+                        <div class="image-placeholder" id="placeholder6">Add Image</div>
+                        <img src="" alt="Selected Image" class="analysis-image" id="image6" style="display: none;">
+                        <button class="delete-button" onclick="removeImage(6)">x</button>
+                        <button class="add-button" onclick="openFolder(6)">+</button>
+                        <input type="hidden" id="imgnameInput6" value=""> <!-- 이미지 이름을 저장하는 숨겨진 input 추가 -->
+                    </div>
+                    <div class="analysis-list7 analysis-item" data-index="7">
+                        <div class="image-placeholder" id="placeholder7">Add Image</div>
+                        <img src="" alt="Selected Image" class="analysis-image" id="image7" style="display: none;">
+                        <button class="delete-button" onclick="removeImage(7)">x</button>
+                        <button class="add-button" onclick="openFolder(7)">+</button>
+                        <input type="hidden" id="imgnameInput7" value=""> <!-- 이미지 이름을 저장하는 숨겨진 input 추가 -->
+                    </div>
+                    <div class="analysis-list8 analysis-item" data-index="8">
+                        <div class="image-placeholder" id="placeholder8">Add Image</div>
+                        <img src="" alt="Selected Image" class="analysis-image" id="image8" style="display: none;">
+                        <button class="delete-button" onclick="removeImage(8)">x</button>
+                        <button class="add-button" onclick="openFolder(8)">+</button>
+                        <input type="hidden" id="imgnameInput8" value=""> <!-- 이미지 이름을 저장하는 숨겨진 input 추가 -->
+                    </div>
+                    <div class="analysis-list9 analysis-item" data-index="9">
+                        <div class="image-placeholder" id="placeholder9">Add Image</div>
+                        <img src="" alt="Selected Image" class="analysis-image" id="image9" style="display: none;">
+                        <button class="delete-button" onclick="removeImage(9)">x</button>
+                        <button class="add-button" onclick="openFolder(9)">+</button>
+                        <input type="hidden" id="imgnameInput9" value=""> <!-- 이미지 이름을 저장하는 숨겨진 input 추가 -->
+                    </div>
+                    <div class="analysis-list10 analysis-item" data-index="10">
+                        <div class="image-placeholder" id="placeholder10">Add Image</div>
+                        <img src="" alt="Selected Image" class="analysis-image" id="image10" style="display: none;">
+                        <button class="delete-button" onclick="removeImage(10)">x</button>
+                        <button class="add-button" onclick="openFolder(10)">+</button>
+                        <input type="hidden" id="imgnameInput10" value=""> <!-- 이미지 이름을 저장하는 숨겨진 input 추가 -->
+                    </div>
+                    
+                    <button id="folder-button">
+                        <img src="{{ url_for('static', filename='img/folder.png') }}" alt="Folder Icon" class="folder-icon">
+                    </button>
+                </div>
+            </div>
+
+            <!-- title과 list 아래에 배치될 새로운 레이아웃 -->
+            <div class="analysis-main">
+                <div class="analysis-video">
+                    <div class="video-divider"></div>
+                    <div class ="analysis-images"></div>
+                </div>
+                <div class="analysis-REBA">
+                    <h1 class="reba-title">
+                        <img src="{{ url_for('static', filename='img/graph.png') }}" alt="REBA Icon" class="reba-icon"> REBA Score
+                    </h1>
+                    <div class="reba-divider"></div>
+                    <div class="button-container">
+                        <button class="reba-button" onclick="loadRebaA()">REBA A</button>
+                        <button class="reba-button" onclick="loadRebaB()">REBA B</button>
+                        <button class="reba-button" onclick="loadRebaC()">REBA C</button>
+                        <button class="reba-button" onclick="loadAllScores()">ALL</button>
+                    </div>
+                
+                        <div class="reba-divider"></div>
+                        <div id="reba-plot"></div><!-- 그래프를 여기에 로드 -->
+                        <div id="level-info" class="level-info"></div>
+                </div>
+                <div class="analysis-OWAS">
+                    <h1 class="owas-title">
+                        <img src="{{ url_for('static', filename='img/graph2.png') }}" alt="owas Icon" class="owas-icon"> OWAS Score
+                    </h1>
+                    <div class="owas-divider"></div>
+                    <div class="button-container">
+                        <button class="reba-button" onclick="loadOwasChart()">OWAS Level</button>
+                    </div>
+                        <div class="owas-divider"></div>
+                        <div id="owas-plot"></div> <!-- 막대 그래프가 표시될 위치 -->
+                        <div id="owas-level-info" class="owas-level-info"></div> <!-- OWAS 레벨 정보 -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const defaultImageSrc = "{{ url_for('static', filename='img/default.png') }}";
+    </script>
+    <script src="{{ url_for('static', filename='js/analysis-tab.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/analysis-graph.js') }}"></script>
+</body>
+</html>
