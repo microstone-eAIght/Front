@@ -1,3 +1,4 @@
+/* 임시 sql
 CREATE TABLE member (
     id INT AUTO_INCREMENT PRIMARY KEY,
     member_id VARCHAR(255) NOT NULL,
@@ -18,7 +19,7 @@ CREATE TABLE employee (
     employee_phone VARCHAR(255),
     employee_email VARCHAR(255)
 );
-
+*/
 CREATE TABLE photo_info (
     id INT AUTO_INCREMENT PRIMARY KEY,       -- 사진 ID (기본 키)
     photo_date DATE NOT NULL,                -- 사진이 찍힌 날짜
